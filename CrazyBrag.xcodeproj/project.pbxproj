@@ -36,6 +36,16 @@
 		009313CF2A4C369B007194D9 /* AI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313C02A4C369B007194D9 /* AI.swift */; };
 		009313D52A4ECB59007194D9 /* BoxSprites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313D42A4ECB59007194D9 /* BoxSprites.swift */; };
 		009313DA2A4EE536007194D9 /* Timing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313D92A4EE536007194D9 /* Timing.swift */; };
+		009313E52A4F142D007194D9 /* ExampleHands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313DB2A4F142D007194D9 /* ExampleHands.swift */; };
+		009313E62A4F142D007194D9 /* PlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313DC2A4F142D007194D9 /* PlayerTests.swift */; };
+		009313E72A4F142D007194D9 /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313DD2A4F142D007194D9 /* ModelTests.swift */; };
+		009313E82A4F142D007194D9 /* HandGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313DE2A4F142D007194D9 /* HandGeneratorTests.swift */; };
+		009313E92A4F142D007194D9 /* PlayerHandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313DF2A4F142D007194D9 /* PlayerHandTests.swift */; };
+		009313EA2A4F142D007194D9 /* PossibleHandResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313E02A4F142D007194D9 /* PossibleHandResolverTests.swift */; };
+		009313EB2A4F142D007194D9 /* VariationOneDownTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313E12A4F142D007194D9 /* VariationOneDownTests.swift */; };
+		009313EC2A4F142D007194D9 /* SchoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313E22A4F142D007194D9 /* SchoolTests.swift */; };
+		009313ED2A4F142D007194D9 /* DeckTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313E32A4F142D007194D9 /* DeckTests.swift */; };
+		009313EE2A4F142D007194D9 /* HandResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313E42A4F142D007194D9 /* HandResolverTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +98,16 @@
 		009313C02A4C369B007194D9 /* AI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AI.swift; sourceTree = "<group>"; };
 		009313D42A4ECB59007194D9 /* BoxSprites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxSprites.swift; sourceTree = "<group>"; };
 		009313D92A4EE536007194D9 /* Timing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timing.swift; sourceTree = "<group>"; };
+		009313DB2A4F142D007194D9 /* ExampleHands.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExampleHands.swift; sourceTree = "<group>"; };
+		009313DC2A4F142D007194D9 /* PlayerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerTests.swift; sourceTree = "<group>"; };
+		009313DD2A4F142D007194D9 /* ModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
+		009313DE2A4F142D007194D9 /* HandGeneratorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandGeneratorTests.swift; sourceTree = "<group>"; };
+		009313DF2A4F142D007194D9 /* PlayerHandTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerHandTests.swift; sourceTree = "<group>"; };
+		009313E02A4F142D007194D9 /* PossibleHandResolverTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PossibleHandResolverTests.swift; sourceTree = "<group>"; };
+		009313E12A4F142D007194D9 /* VariationOneDownTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VariationOneDownTests.swift; sourceTree = "<group>"; };
+		009313E22A4F142D007194D9 /* SchoolTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchoolTests.swift; sourceTree = "<group>"; };
+		009313E32A4F142D007194D9 /* DeckTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeckTests.swift; sourceTree = "<group>"; };
+		009313E42A4F142D007194D9 /* HandResolverTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandResolverTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +173,16 @@
 		009313912A4C334D007194D9 /* CrazyBragTests */ = {
 			isa = PBXGroup;
 			children = (
+				009313E32A4F142D007194D9 /* DeckTests.swift */,
+				009313DB2A4F142D007194D9 /* ExampleHands.swift */,
+				009313DE2A4F142D007194D9 /* HandGeneratorTests.swift */,
+				009313E42A4F142D007194D9 /* HandResolverTests.swift */,
+				009313DD2A4F142D007194D9 /* ModelTests.swift */,
+				009313DF2A4F142D007194D9 /* PlayerHandTests.swift */,
+				009313DC2A4F142D007194D9 /* PlayerTests.swift */,
+				009313E02A4F142D007194D9 /* PossibleHandResolverTests.swift */,
+				009313E22A4F142D007194D9 /* SchoolTests.swift */,
+				009313E12A4F142D007194D9 /* VariationOneDownTests.swift */,
 				009313922A4C334D007194D9 /* CrazyBragTests.swift */,
 			);
 			path = CrazyBragTests;
@@ -370,7 +400,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				009313ED2A4F142D007194D9 /* DeckTests.swift in Sources */,
+				009313EE2A4F142D007194D9 /* HandResolverTests.swift in Sources */,
+				009313EB2A4F142D007194D9 /* VariationOneDownTests.swift in Sources */,
 				009313932A4C334D007194D9 /* CrazyBragTests.swift in Sources */,
+				009313EC2A4F142D007194D9 /* SchoolTests.swift in Sources */,
+				009313EA2A4F142D007194D9 /* PossibleHandResolverTests.swift in Sources */,
+				009313E92A4F142D007194D9 /* PlayerHandTests.swift in Sources */,
+				009313E62A4F142D007194D9 /* PlayerTests.swift in Sources */,
+				009313E82A4F142D007194D9 /* HandGeneratorTests.swift in Sources */,
+				009313E52A4F142D007194D9 /* ExampleHands.swift in Sources */,
+				009313E72A4F142D007194D9 /* ModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
