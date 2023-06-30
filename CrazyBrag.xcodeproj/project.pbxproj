@@ -34,7 +34,7 @@
 		009313CD2A4C369B007194D9 /* HandGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313BE2A4C369B007194D9 /* HandGenerator.swift */; };
 		009313CE2A4C369B007194D9 /* PlayerHand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313BF2A4C369B007194D9 /* PlayerHand.swift */; };
 		009313CF2A4C369B007194D9 /* AI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313C02A4C369B007194D9 /* AI.swift */; };
-		009313D52A4ECB59007194D9 /* BoxGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313D42A4ECB59007194D9 /* BoxGroup.swift */; };
+		009313D52A4ECB59007194D9 /* BoxSprites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313D42A4ECB59007194D9 /* BoxSprites.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,7 +85,7 @@
 		009313BE2A4C369B007194D9 /* HandGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandGenerator.swift; sourceTree = "<group>"; };
 		009313BF2A4C369B007194D9 /* PlayerHand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerHand.swift; sourceTree = "<group>"; };
 		009313C02A4C369B007194D9 /* AI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AI.swift; sourceTree = "<group>"; };
-		009313D42A4ECB59007194D9 /* BoxGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxGroup.swift; sourceTree = "<group>"; };
+		009313D42A4ECB59007194D9 /* BoxSprites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxSprites.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,7 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				009313AD2A4C3489007194D9 /* CardSprite.swift */,
-				009313D42A4ECB59007194D9 /* BoxGroup.swift */,
+				009313D42A4ECB59007194D9 /* BoxSprites.swift */,
 			);
 			path = sprites;
 			sourceTree = "<group>";
@@ -354,7 +354,7 @@
 				009313792A4C334B007194D9 /* AppDelegate.swift in Sources */,
 				009313AC2A4C3463007194D9 /* StartScene.swift in Sources */,
 				009313AE2A4C3489007194D9 /* CardSprite.swift in Sources */,
-				009313D52A4ECB59007194D9 /* BoxGroup.swift in Sources */,
+				009313D52A4ECB59007194D9 /* BoxSprites.swift in Sources */,
 				009313C42A4C369B007194D9 /* Player.swift in Sources */,
 				009313CB2A4C369B007194D9 /* Deck.swift in Sources */,
 				009313C92A4C369B007194D9 /* HandResolver.swift in Sources */,

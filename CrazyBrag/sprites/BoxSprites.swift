@@ -8,7 +8,7 @@
 import Foundation
 import SpriteKit
 
-class BoxGroup{
+class BoxSprites{
     let layout : BoxLayout
     var cards : [CardSpriteNode] = []
     

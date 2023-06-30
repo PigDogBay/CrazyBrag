@@ -10,7 +10,7 @@ import SpriteKit
 class GameScene: SKScene {
 
     lazy var tableLayout = TableLayout(size: frame.size)
-    lazy var boxGroup = BoxGroup(layout: self.tableLayout.boxLayout)
+    lazy var boxGroup = BoxSprites(layout: self.tableLayout.boxLayout)
 
     override func didMove(to view: SKView) {
         
