@@ -34,6 +34,7 @@
 		009313CD2A4C369B007194D9 /* HandGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313BE2A4C369B007194D9 /* HandGenerator.swift */; };
 		009313CE2A4C369B007194D9 /* PlayerHand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313BF2A4C369B007194D9 /* PlayerHand.swift */; };
 		009313CF2A4C369B007194D9 /* AI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313C02A4C369B007194D9 /* AI.swift */; };
+		009313D52A4ECB59007194D9 /* BoxGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313D42A4ECB59007194D9 /* BoxGroup.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +85,7 @@
 		009313BE2A4C369B007194D9 /* HandGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandGenerator.swift; sourceTree = "<group>"; };
 		009313BF2A4C369B007194D9 /* PlayerHand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerHand.swift; sourceTree = "<group>"; };
 		009313C02A4C369B007194D9 /* AI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AI.swift; sourceTree = "<group>"; };
+		009313D42A4ECB59007194D9 /* BoxGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxGroup.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,12 +137,10 @@
 			isa = PBXGroup;
 			children = (
 				009313B12A4C35DE007194D9 /* model */,
+				009313D32A4ECAA2007194D9 /* sscenes */,
+				009313D22A4ECA6F007194D9 /* sprites */,
 				009313782A4C334B007194D9 /* AppDelegate.swift */,
-				009313AD2A4C3489007194D9 /* CardSprite.swift */,
-				0093137E2A4C334B007194D9 /* GameScene.swift */,
 				009313802A4C334B007194D9 /* GameViewController.swift */,
-				009313AB2A4C3463007194D9 /* StartScene.swift */,
-				009313AF2A4C3493007194D9 /* TableLayout.swift */,
 				009313822A4C334B007194D9 /* Main.storyboard */,
 				009313852A4C334D007194D9 /* Assets.xcassets */,
 				009313872A4C334D007194D9 /* LaunchScreen.storyboard */,
@@ -185,6 +185,25 @@
 				009313B32A4C369B007194D9 /* School.swift */,
 			);
 			path = model;
+			sourceTree = "<group>";
+		};
+		009313D22A4ECA6F007194D9 /* sprites */ = {
+			isa = PBXGroup;
+			children = (
+				009313AD2A4C3489007194D9 /* CardSprite.swift */,
+				009313D42A4ECB59007194D9 /* BoxGroup.swift */,
+			);
+			path = sprites;
+			sourceTree = "<group>";
+		};
+		009313D32A4ECAA2007194D9 /* sscenes */ = {
+			isa = PBXGroup;
+			children = (
+				009313AB2A4C3463007194D9 /* StartScene.swift */,
+				0093137E2A4C334B007194D9 /* GameScene.swift */,
+				009313AF2A4C3493007194D9 /* TableLayout.swift */,
+			);
+			path = sscenes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -335,6 +354,7 @@
 				009313792A4C334B007194D9 /* AppDelegate.swift in Sources */,
 				009313AC2A4C3463007194D9 /* StartScene.swift in Sources */,
 				009313AE2A4C3489007194D9 /* CardSprite.swift in Sources */,
+				009313D52A4ECB59007194D9 /* BoxGroup.swift in Sources */,
 				009313C42A4C369B007194D9 /* Player.swift in Sources */,
 				009313CB2A4C369B007194D9 /* Deck.swift in Sources */,
 				009313C92A4C369B007194D9 /* HandResolver.swift in Sources */,

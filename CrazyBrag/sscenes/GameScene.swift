@@ -10,13 +10,14 @@ import SpriteKit
 class GameScene: SKScene {
 
     lazy var tableLayout = TableLayout(size: frame.size)
+    lazy var boxGroup = BoxGroup(layout: self.tableLayout.boxLayout)
 
     override func didMove(to view: SKView) {
         
         addBackground(imageNamed: "treestump")
-        addCard(midPoint: tableLayout.boxLayout.position1, z: 9, name: "JD")
-        addCard(midPoint: tableLayout.boxLayout.position2, z: 10, name: "JC")
-        addCard(midPoint: tableLayout.boxLayout.position3, z: 11, name: "AS")
+        boxGroup.addCard(scene: self, card: PlayingCard(suit: .diamonds, rank: .jack))
+        boxGroup.addCard(scene: self, card: PlayingCard(suit: .clubs, rank: .jack))
+        boxGroup.addCard(scene: self, card: PlayingCard(suit: .spades, rank: .ace))
         addName(name: "Box", pos: tableLayout.boxLayout.namePos)
 
         addCard(midPoint: tableLayout.playerLayout.position1, z: 9, name: "KH")
