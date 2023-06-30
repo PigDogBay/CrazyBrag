@@ -53,5 +53,24 @@ class DeckTests: XCTestCase {
         }
         XCTAssertEqual(deck.count, 52)
     }
+    
+    func testCut1() throws {
+        let deck = Deck()
+        deck.createDeck()
+        deck.cut(numberOfCards: 21)
+        XCTAssertEqual(deck.count, 21)
+    }
+    func testCut2() throws {
+        let deck = Deck()
+        deck.createDeck()
+        deck.cut(numberOfCards: 0)
+        XCTAssertEqual(deck.count, 0)
+    }
+    func testCut3() throws {
+        let deck = Deck()
+        deck.createDeck()
+        deck.cut(numberOfCards: 1000)
+        XCTAssertEqual(deck.count, 52)
+    }
 
 }

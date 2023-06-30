@@ -51,4 +51,14 @@ class Deck {
             deck.append(card)
         }
     }
+    
+    ///Reduce the deck size to the numberOfCards
+    func cut(numberOfCards : Int) {
+        let cardsToRemove = count - numberOfCards
+        if cardsToRemove>0 {
+            for _ in 1...cardsToRemove {
+                deck.removeLast()
+            }
+        }
+    }
 }
