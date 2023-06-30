@@ -9,7 +9,7 @@ import Foundation
 import SpriteKit
 
 class StartScene: SKScene {
-    let cardQH = CardSpriteNode(imageNamed: "QH", cardSize: CGSize(width: 100, height: 152))
+    let cardQH = CardSpriteNode(card: PlayingCard(suit: .hearts, rank: .queen), cardSize: CGSize(width: 100, height: 152))
 
     override func didMove(to view: SKView) {
         

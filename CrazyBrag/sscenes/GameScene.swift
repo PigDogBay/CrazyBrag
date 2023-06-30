@@ -12,9 +12,47 @@ class GameScene: SKScene {
     lazy var tableLayout = TableLayout(size: frame.size)
     lazy var boxGroup = BoxSprites(layout: self.tableLayout.boxLayout)
 
+    let model = Model()
+    
+    private func setUpGame(){
+        model.setUpGame()
+    }
+    
+    func loadDeck(_ deck : Deck) -> [CardSpriteNode] {
+        return deck.deck.map {
+            CardSpriteNode(card: $0, cardSize: tableLayout.cardSize)
+        }
+    }
+    func setUpDeck(_ cardNodes : [CardSpriteNode]){
+        //let pos = tableLayout.deckPosition
+        let yPos = frame.midY
+        let xStep : Double = frame.width/52.0
+        var x : Double = tableLayout.cardSize.width/2.0
+        var z : CGFloat = 10.0
+        for card in cardNodes {
+            let pos = CGPoint(x: x, y: yPos)
+            x = x+xStep
+            card.position = pos
+            card.zPosition = z
+            z = z + 1
+            addChild(card)
+        }
+    }
+    
+
     override func didMove(to view: SKView) {
-        
+        let timing = Timing()
         addBackground(imageNamed: "treestump")
+        timing.log()
+        setUpGame()
+        let cardNodes = loadDeck(model.deck)
+        timing.log()
+        setUpDeck(cardNodes)
+        timing.log()
+
+        
+        
+        /*
         boxGroup.addCard(scene: self, card: PlayingCard(suit: .diamonds, rank: .jack))
         boxGroup.addCard(scene: self, card: PlayingCard(suit: .clubs, rank: .jack))
         boxGroup.addCard(scene: self, card: PlayingCard(suit: .spades, rank: .ace))
@@ -55,7 +93,7 @@ class GameScene: SKScene {
         addCard(midPoint: tableLayout.cpuNorthEastLayout.position3, z: 11, name: "CardBack")
         addLives(pos: tableLayout.cpuNorthEastLayout.livesPos)
         addName(name: "Bomber", pos: tableLayout.cpuNorthEastLayout.namePos)
-
+         */
     }
     
     private func addName(name : String, pos : CGPoint){
@@ -88,13 +126,13 @@ class GameScene: SKScene {
         addChild(background)
     }
     
-    private func addCard(midPoint : CGPoint, z: Int, name : String){
-        let card = CardSpriteNode(imageNamed: name, cardSize: tableLayout.cardSize)
-        card.name = name
-        card.position = midPoint
-        card.zPosition = CGFloat(integerLiteral: z)
-        addChild(card)
-    }
+//    private func addCard(midPoint : CGPoint, z: Int, name : String){
+//        let card = CardSpriteNode(imageNamed: name, cardSize: tableLayout.cardSize)
+//        card.name = name
+//        card.position = midPoint
+//        card.zPosition = CGFloat(integerLiteral: z)
+//        addChild(card)
+//    }
     
     
     

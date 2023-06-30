@@ -8,7 +8,7 @@
 import Foundation
 
 class Deck {
-    private var deck = [PlayingCard]()
+    var deck = [PlayingCard]()
     
     func createDeck(){
         deck.removeAll()

@@ -29,19 +29,17 @@ extension PlayingCard {
 }
 
 class CardSpriteNode : SKSpriteNode {
-    
+    static let backImageName = "CardBack"
     let playingCard : PlayingCard
+    let frontTexture : SKTexture
     
-    init(imageNamed image: String, cardSize : CGSize){
-        self.playingCard = PlayingCard(suit: .spades, rank: .ace)
-        let texture = SKTexture(imageNamed: image)
-        super.init(texture: texture, color: .white, size: cardSize)
-        self.name = "card \(image)"
-    }
-
+    static let backTexture = SKTexture(imageNamed: backImageName)
+    
     init(card : PlayingCard, cardSize : CGSize){
         self.playingCard = card
-        let texture = SKTexture(imageNamed: card.imageName)
+        self.frontTexture = SKTexture(imageNamed: playingCard.imageName)
+
+        let texture = CardSpriteNode.backTexture
         super.init(texture: texture, color: .white, size: cardSize)
         self.name = "card \(card.imageName)"
     }
@@ -50,8 +48,10 @@ class CardSpriteNode : SKSpriteNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func turnCard(){
-        let texture = SKTexture(imageNamed: "CardBack")
-        self.texture = texture
+    func turnCardDown(){
+        self.texture = CardSpriteNode.backTexture
+    }
+    func turnCardUp(){
+        self.texture = frontTexture
     }
 }
