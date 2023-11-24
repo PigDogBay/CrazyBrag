@@ -51,10 +51,11 @@ class Model {
             gameListener?.dealerSelected(dealer: school.dealer!)
             gameState = .deal
         case .deal:
-            deal()
+            let dealt = deal()
             gameState = .turnStart
+            //Next Player will be moved on in turnStart
             nextPlayer = school.dealer
-            gameListener?.dealingDone()
+            gameListener?.dealingDone(dealtCards: dealt)
         case .turnStart:
             turnStart()
         case .turnEnd:
@@ -91,21 +92,21 @@ class Model {
         }
     }
     
-    func dealProper(){
-        if let dealer = school.dealer{
-            let first = school.nextPlayer(current: dealer)
-        }
-    }
-    
-    func deal(){
+    private func deal() -> [DealtCard]{
+        var dealActions = [DealtCard]()
         //Deal 3 cards each and 3 in the middle
         for i in 1...3 {
-            school.players.forEach{
-                $0.hand.receive(card: deck.deal())
+            school.sortPlayersInDealOrder().forEach{
+                let card = deck.deal()
+                dealActions.append(DealtCard(seat: $0.seat, card: card, cardCount: i))
+                $0.hand.receive(card: card)
             }
-            middle.receive(card: deck.deal(dealUp: rules.isMiddleCardFaceUp(dealIndex: i)))
+            let card = deck.deal(dealUp: rules.isMiddleCardFaceUp(dealIndex: i))
+            middle.receive(card: card)
+            dealActions.append(DealtCard(card: card, cardCount: i))
         }
         school.playerHuman.hand.show()
+        return dealActions
     }
     
     func turnStart(){

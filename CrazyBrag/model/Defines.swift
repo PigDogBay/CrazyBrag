@@ -70,3 +70,24 @@ struct ScoredTurn {
     }
 }
 
+struct DealtCard {
+    var isMiddle : Bool { seat<0}
+    let seat : Int
+    let card : PlayingCard
+    ///1-first card, 2 = second card or 3 last card dealt to player/middle
+    let cardCount : Int
+    
+    ///When dealing to a player, call this initialiser
+    init(seat: Int, card: PlayingCard, cardCount: Int) {
+        self.seat = seat
+        self.card = card
+        self.cardCount = cardCount
+    }
+    
+    ///When dealing to the middle, call this initialiser
+    init(card: PlayingCard, cardCount: Int) {
+        self.seat = -1
+        self.card = card
+        self.cardCount = cardCount
+    }
+}
