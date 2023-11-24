@@ -11,6 +11,7 @@ class GameScene: SKScene {
 
     lazy var tableLayout = TableLayout(size: frame.size)
     lazy var boxGroup = BoxSprites(layout: self.tableLayout.boxLayout)
+    var cardNodes = [CardSpriteNode]()
 
     let model = Model()
     
@@ -24,14 +25,9 @@ class GameScene: SKScene {
         }
     }
     func setUpDeck(_ cardNodes : [CardSpriteNode]){
-        //let pos = tableLayout.deckPosition
-        let yPos = frame.midY
-        let xStep : Double = frame.width/52.0
-        var x : Double = tableLayout.cardSize.width/2.0
+        let pos = tableLayout.deckPosition
         var z : CGFloat = 10.0
         for card in cardNodes {
-            let pos = CGPoint(x: x, y: yPos)
-            x = x+xStep
             card.position = pos
             card.zPosition = z
             z = z + 1
@@ -39,19 +35,29 @@ class GameScene: SKScene {
         }
     }
     
+    func deal(to: CGPoint){
+        let card = model.deck.deal()
+        if let cardNode = cardNodes.first(where: {$0.playingCard == card}) {
+            let moveAction = SKAction.move(to: to, duration: 0.1)
+            cardNode.run(moveAction)
+        }
+    }
+    
 
     override func didMove(to view: SKView) {
-        let timing = Timing()
         addBackground(imageNamed: "treestump")
-        timing.log()
         setUpGame()
-        let cardNodes = loadDeck(model.deck)
-        timing.log()
+        self.cardNodes = loadDeck(model.deck)
         setUpDeck(cardNodes)
-        timing.log()
 
-        
-        
+        deal(to: tableLayout.cpuWestLayout.position1)
+        deal(to: tableLayout.cpuNorthWestLayout.position1)
+        deal(to: tableLayout.cpuNorthLayout.position1)
+        deal(to: tableLayout.cpuNorthEastLayout.position1)
+        deal(to: tableLayout.cpuEastLayout.position1)
+        deal(to: tableLayout.playerLayout.position1)
+        deal(to: tableLayout.boxLayout.position1)
+
         /*
         boxGroup.addCard(scene: self, card: PlayingCard(suit: .diamonds, rank: .jack))
         boxGroup.addCard(scene: self, card: PlayingCard(suit: .clubs, rank: .jack))

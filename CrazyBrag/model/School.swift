@@ -89,6 +89,18 @@ class School {
             .min(by: {$0.seat < $1.seat})
     }
     
+    func sortPlayersInDealOrder() -> [Player] {
+        let dealerSeat = dealer?.seat ?? 0
+        let after = players
+            .filter{$0.seat>dealerSeat}
+            .sorted(by: {$0.seat < $1.seat})
+        let before = players
+            .filter{$0.seat<=dealerSeat}
+            .sorted(by: {$0.seat < $1.seat})
+
+        return after + before
+    }
+    
     func nextDealer(){
         if let current = dealer {
             if let next = nextPlayer(current: current){

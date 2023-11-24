@@ -23,7 +23,7 @@ struct TableLayout {
     lazy var cpuNorthEastLayout = CPULayout(frame: cpuNorthEast, cardSize: cardSize)
     
     var deckPosition : CGPoint {
-        return CGPoint(x: 100, y: size.height/2.0)
+        return CGPoint(x: 100, y: cardSize.height)
     }
     
     var box : CGRect {

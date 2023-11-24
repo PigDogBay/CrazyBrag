@@ -71,4 +71,47 @@ final class SchoolTests: XCTestCase {
         school.players.forEach{$0.lives = 0}
         XCTAssertTrue(school.areAllPlayersOut())
     }
+    
+    func testSortPlayersInDealOrder1() throws {
+        let school = School()
+        school.setUpPlayers()
+        school.dealer = school.players[0]
+        let dealOrderPlayers = school.sortPlayersInDealOrder()
+        XCTAssertEqual(dealOrderPlayers.count, 6)
+        XCTAssertEqual(dealOrderPlayers[0].seat, 1)
+        XCTAssertEqual(dealOrderPlayers[2].seat, 3)
+        XCTAssertEqual(dealOrderPlayers[5].seat, 0)
+    }
+    func testSortPlayersInDealOrder2() throws {
+        let school = School()
+        school.setUpPlayers()
+        school.dealer = school.players[2]
+        let dealOrderPlayers = school.sortPlayersInDealOrder()
+        XCTAssertEqual(dealOrderPlayers.count, 6)
+        XCTAssertEqual(dealOrderPlayers[0].seat, 3)
+        XCTAssertEqual(dealOrderPlayers[2].seat, 5)
+        XCTAssertEqual(dealOrderPlayers[5].seat, 2)
+    }
+    
+    func testSortPlayersInDealOrder3() throws {
+        let school = School()
+        school.setUpPlayers()
+        school.dealer = school.players[5]
+        let dealOrderPlayers = school.sortPlayersInDealOrder()
+        XCTAssertEqual(dealOrderPlayers.count, 6)
+        XCTAssertEqual(dealOrderPlayers[0].seat, 0)
+        XCTAssertEqual(dealOrderPlayers[2].seat, 2)
+        XCTAssertEqual(dealOrderPlayers[5].seat, 5)
+    }
+    func testSortPlayersInDealOrder4() throws {
+        let school = School()
+        school.setUpPlayers()
+        school.players.removeAll(where: {$0.seat > 1})
+        school.dealer = school.players[0]
+        let dealOrderPlayers = school.sortPlayersInDealOrder()
+        XCTAssertEqual(dealOrderPlayers.count, 2)
+        XCTAssertEqual(dealOrderPlayers[0].seat, 1)
+        XCTAssertEqual(dealOrderPlayers[1].seat, 0)
+    }
+
 }

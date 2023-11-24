@@ -91,6 +91,12 @@ class Model {
         }
     }
     
+    func dealProper(){
+        if let dealer = school.dealer{
+            let first = school.nextPlayer(current: dealer)
+        }
+    }
+    
     func deal(){
         //Deal 3 cards each and 3 in the middle
         for i in 1...3 {
