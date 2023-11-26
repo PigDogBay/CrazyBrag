@@ -51,6 +51,11 @@ class GameScene: SKScene, GameListener {
             if let cardNode = cardNodes.first(where: {$0.playingCard == dealt.card}) {
                 let pos = tableLayout.getPosition(dealt: dealt)
                 cardNode.position = pos
+                if dealt.card.isDown {
+                    cardNode.faceDown()
+                } else {
+                    cardNode.faceUp()
+                }
             }
         }
     }

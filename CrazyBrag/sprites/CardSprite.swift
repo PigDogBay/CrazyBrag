@@ -48,10 +48,10 @@ class CardSpriteNode : SKSpriteNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func turnCardDown(){
+    func faceDown(){
         self.texture = CardSpriteNode.backTexture
     }
-    func turnCardUp(){
+    func faceUp(){
         self.texture = frontTexture
     }
 }
