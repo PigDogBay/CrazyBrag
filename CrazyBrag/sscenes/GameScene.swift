@@ -45,6 +45,15 @@ class GameScene: SKScene, GameListener {
             cardNode.run(moveAction)
         }
     }
+
+    func positionCard(cards : [DealtCard]){
+        for dealt in cards {
+            if let cardNode = cardNodes.first(where: {$0.playingCard == dealt.card}) {
+                let pos = tableLayout.getPosition(dealt: dealt)
+                cardNode.position = pos
+            }
+        }
+    }
     
     
     override func didMove(to view: SKView) {
@@ -203,6 +212,7 @@ class GameScene: SKScene, GameListener {
     
     func dealingDone(dealtCards: [DealtCard]) {
         logger.dealingDone(dealtCards: dealtCards)
+        positionCard(cards: dealtCards)
     }
     
     func turnStarted(player: Player, middle: PlayerHand) {

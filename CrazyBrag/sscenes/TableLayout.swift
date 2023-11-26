@@ -10,17 +10,23 @@ import Foundation
 let CARD_ASSET_WIDTH : Double = 691.0
 let CARD_ASSET_HEIGHT : Double = 1056.0
 
+protocol CardPosition{
+    var position1 : CGPoint { get }
+    var position2 : CGPoint { get }
+    var position3 : CGPoint { get }
+}
+
 struct TableLayout {
     
     let size : CGSize
     
-    lazy var boxLayout = BoxLayout(frame: box, cardSize: cardSize)
-    lazy var playerLayout = BoxLayout(frame: player, cardSize: cardSize)
-    lazy var cpuWestLayout = CPULayout(frame: cpuWest, cardSize: cardSize)
-    lazy var cpuEastLayout = CPULayout(frame: cpuEast, cardSize: cardSize)
-    lazy var cpuNorthLayout = CPULayout(frame: cpuNorth, cardSize: cardSize)
-    lazy var cpuNorthWestLayout = CPULayout(frame: cpuNorthWest, cardSize: cardSize)
-    lazy var cpuNorthEastLayout = CPULayout(frame: cpuNorthEast, cardSize: cardSize)
+    var boxLayout : BoxLayout { BoxLayout(frame: box, cardSize: cardSize)}
+    var playerLayout : BoxLayout {BoxLayout(frame: player, cardSize: cardSize)}
+    var cpuWestLayout : CPULayout {CPULayout(frame: cpuWest, cardSize: cardSize)}
+    var cpuEastLayout : CPULayout {CPULayout(frame: cpuEast, cardSize: cardSize)}
+    var cpuNorthLayout : CPULayout {CPULayout(frame: cpuNorth, cardSize: cardSize)}
+    var cpuNorthWestLayout : CPULayout {CPULayout(frame: cpuNorthWest, cardSize: cardSize)}
+    var cpuNorthEastLayout : CPULayout {CPULayout(frame: cpuNorthEast, cardSize: cardSize)}
     
     var deckPosition : CGPoint {
         return CGPoint(x: 100, y: cardSize.height)
@@ -87,9 +93,44 @@ struct TableLayout {
         let h : Double = w * (CARD_ASSET_HEIGHT/CARD_ASSET_WIDTH)
         return CGSize(width: w, height: h)
     }
+    
+    func getPosition(dealt : DealtCard) -> CGPoint {
+        switch (dealt.seat){
+        case -1:
+            return getPosition(cardPosition: self.boxLayout, index: dealt.cardCount)
+        case 0:
+            return getPosition(cardPosition: self.playerLayout, index: dealt.cardCount)
+        case 1:
+            return getPosition(cardPosition: self.cpuWestLayout, index: dealt.cardCount)
+        case 2:
+            return getPosition(cardPosition: self.cpuNorthWestLayout, index: dealt.cardCount)
+        case 3:
+            return getPosition(cardPosition: self.cpuNorthLayout, index: dealt.cardCount)
+        case 4:
+            return getPosition(cardPosition: self.cpuNorthEastLayout, index: dealt.cardCount)
+        case 5:
+            return getPosition(cardPosition: self.cpuEastLayout, index: dealt.cardCount)
+        default:
+            fatalError("Bad seat position \(dealt.seat)")
+        }
+    }
+    
+    private func getPosition(cardPosition : CardPosition, index : Int) -> CGPoint {
+        switch (index){
+        case 1:
+            return cardPosition.position1
+        case 2:
+            return cardPosition.position2
+        case 3:
+            return cardPosition.position3
+        default:
+            fatalError("Bad index \(index)")
+
+        }
+    }
 }
 
-struct BoxLayout {
+struct BoxLayout : CardPosition {
     let frame : CGRect
     let cardSize : CGSize
     
@@ -119,7 +160,7 @@ struct BoxLayout {
 
 }
 
-struct CPULayout {
+struct CPULayout : CardPosition{
     let frame : CGRect
     let cardSize : CGSize
     
