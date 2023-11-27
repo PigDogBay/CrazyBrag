@@ -49,22 +49,29 @@ struct HandGenerator {
         return turns
     }
     
-    private func createdScoredTurnForDownCard(_ middle : PlayerHand, indexToSwap : Int) -> ScoredTurn {
+    ///When the player has to take the face down middle card, which is the best card to throw in?
+    private func createdScoredTurnUsingDownCard(_ middle : PlayerHand, indexToSwap : Int) -> ScoredTurn {
+        //Player hand's throw in the card at indexToSwap, face down
         let swapped = playerHand.hand[indexToSwap]
-        let downCard = middle.hand.first{$0.isDown}!
+        //Get remaining two cards in the hand
         let hand = playerHand.hand.filter{$0 != swapped}
+        //What's the best possible score with this hand
         let resolver = PossibleHandResolver(hand: hand)
         let score = resolver.createScore()
-        let turn = Turn.swap(hand: swapped, middle: downCard)
-        
-        let middleUpCards = middle.hand.filter{$0 != downCard}
-        let middleScore = PossibleHandResolver(hand: middleUpCards).createScore()
+
+        //Generate the result for comparison
+        let turn = Turn.swap(hand: swapped, middle: middle.hand[0])
+        let middleScore = PossibleHandResolver(hand: [middle.hand[1],middle.hand[2]]).createScore()
         return ScoredTurn(turn: turn, score: score, middleScore: middleScore)
     }
     
+    ///Whats the score if player takes all the cards, this calculates the score of the hand in the player will
+    ///place in the middle
+    ///downIndex: - index of card in the player's hand to place face down
     private func createAllInOneDown(_ middleScore : BragHandScore, downIndex : Int) -> ScoredTurn {
         let turn = Turn.all(downIndex: downIndex)
         let downCard = playerHand.hand[downIndex]
+        //Calculate the possible middle score when the player throws in all of their hand
         let faceUpCards = playerHand.hand.filter{$0 != downCard}
         let resolver = PossibleHandResolver(hand: faceUpCards)
         let score = resolver.createScore()
@@ -74,7 +81,7 @@ struct HandGenerator {
     func generatePotentialHands(middle : PlayerHand) -> [ScoredTurn] {
         var turns = [ScoredTurn]()
         for i in 0...2 {
-            let scoredTurn = createdScoredTurnForDownCard(middle, indexToSwap: i)
+            let scoredTurn = createdScoredTurnUsingDownCard(middle, indexToSwap: i)
             turns.append(scoredTurn)
             //All In, generate a potential score for the middle (maybe the AI will want to bait?)
             //The potential hand score will be the current middle score
