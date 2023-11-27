@@ -43,9 +43,9 @@ final class HandGeneratorTests: XCTestCase {
         let playerHand = PlayerHand(hand: [PlayingCard(suit: .clubs, rank: .queen),
                                            PlayingCard(suit: .spades, rank: .king),
                                            PlayingCard(suit: .spades, rank: .queen)])
-        let middle = PlayerHand(hand: [PlayingCard(suit: .clubs, rank: .ace, isDown: false),
+        let middle = PlayerHand(hand: [PlayingCard(suit: .hearts, rank: .queen, isDown: true),
                                        PlayingCard(suit: .spades, rank: .jack, isDown: false),
-                                       PlayingCard(suit: .hearts, rank: .queen, isDown: true)])
+                                       PlayingCard(suit: .clubs, rank: .ace, isDown: false)])
         let generator = HandGenerator(playerHand: playerHand)
         let scoredTurns = generator.generatePossibleTurnsFaceUpOnly(middle: middle)
         XCTAssertEqual(scoredTurns.count, 6)

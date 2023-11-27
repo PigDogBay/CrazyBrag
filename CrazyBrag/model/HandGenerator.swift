@@ -39,7 +39,8 @@ struct HandGenerator {
         var turns = [ScoredTurn]()
         playerHand.hand.forEach{ playerCard in
             middle.hand
-                .filter{!$0.isDown}
+                //First card is face down, so ignore it
+                .dropFirst()
                 .forEach{ middleCard in
                     //No peeping at middle score!
                     turns.append(createdScoredTurn(middle, playerCard, middleCard))

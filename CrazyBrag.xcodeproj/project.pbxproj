@@ -24,7 +24,6 @@
 		009313C32A4C369B007194D9 /* PossibleHandResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313B42A4C369B007194D9 /* PossibleHandResolver.swift */; };
 		009313C42A4C369B007194D9 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313B52A4C369B007194D9 /* Player.swift */; };
 		009313C52A4C369B007194D9 /* GameListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313B62A4C369B007194D9 /* GameListener.swift */; };
-		009313C62A4C369B007194D9 /* GameVariation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313B72A4C369B007194D9 /* GameVariation.swift */; };
 		009313C72A4C369B007194D9 /* PlayingCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313B82A4C369B007194D9 /* PlayingCard.swift */; };
 		009313C82A4C369B007194D9 /* Defines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313B92A4C369B007194D9 /* Defines.swift */; };
 		009313C92A4C369B007194D9 /* HandResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313BA2A4C369B007194D9 /* HandResolver.swift */; };
@@ -42,7 +41,6 @@
 		009313E82A4F142D007194D9 /* HandGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313DE2A4F142D007194D9 /* HandGeneratorTests.swift */; };
 		009313E92A4F142D007194D9 /* PlayerHandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313DF2A4F142D007194D9 /* PlayerHandTests.swift */; };
 		009313EA2A4F142D007194D9 /* PossibleHandResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313E02A4F142D007194D9 /* PossibleHandResolverTests.swift */; };
-		009313EB2A4F142D007194D9 /* VariationOneDownTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313E12A4F142D007194D9 /* VariationOneDownTests.swift */; };
 		009313EC2A4F142D007194D9 /* SchoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313E22A4F142D007194D9 /* SchoolTests.swift */; };
 		009313ED2A4F142D007194D9 /* DeckTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313E32A4F142D007194D9 /* DeckTests.swift */; };
 		009313EE2A4F142D007194D9 /* HandResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313E42A4F142D007194D9 /* HandResolverTests.swift */; };
@@ -86,7 +84,6 @@
 		009313B42A4C369B007194D9 /* PossibleHandResolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PossibleHandResolver.swift; sourceTree = "<group>"; };
 		009313B52A4C369B007194D9 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		009313B62A4C369B007194D9 /* GameListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameListener.swift; sourceTree = "<group>"; };
-		009313B72A4C369B007194D9 /* GameVariation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameVariation.swift; sourceTree = "<group>"; };
 		009313B82A4C369B007194D9 /* PlayingCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayingCard.swift; sourceTree = "<group>"; };
 		009313B92A4C369B007194D9 /* Defines.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Defines.swift; sourceTree = "<group>"; };
 		009313BA2A4C369B007194D9 /* HandResolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandResolver.swift; sourceTree = "<group>"; };
@@ -104,7 +101,6 @@
 		009313DE2A4F142D007194D9 /* HandGeneratorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandGeneratorTests.swift; sourceTree = "<group>"; };
 		009313DF2A4F142D007194D9 /* PlayerHandTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerHandTests.swift; sourceTree = "<group>"; };
 		009313E02A4F142D007194D9 /* PossibleHandResolverTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PossibleHandResolverTests.swift; sourceTree = "<group>"; };
-		009313E12A4F142D007194D9 /* VariationOneDownTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VariationOneDownTests.swift; sourceTree = "<group>"; };
 		009313E22A4F142D007194D9 /* SchoolTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchoolTests.swift; sourceTree = "<group>"; };
 		009313E32A4F142D007194D9 /* DeckTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeckTests.swift; sourceTree = "<group>"; };
 		009313E42A4F142D007194D9 /* HandResolverTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandResolverTests.swift; sourceTree = "<group>"; };
@@ -182,7 +178,6 @@
 				009313DC2A4F142D007194D9 /* PlayerTests.swift */,
 				009313E02A4F142D007194D9 /* PossibleHandResolverTests.swift */,
 				009313E22A4F142D007194D9 /* SchoolTests.swift */,
-				009313E12A4F142D007194D9 /* VariationOneDownTests.swift */,
 				009313922A4C334D007194D9 /* CrazyBragTests.swift */,
 			);
 			path = CrazyBragTests;
@@ -205,7 +200,6 @@
 				009313B92A4C369B007194D9 /* Defines.swift */,
 				009313B62A4C369B007194D9 /* GameListener.swift */,
 				009313B22A4C369B007194D9 /* GameUpdateLogger.swift */,
-				009313B72A4C369B007194D9 /* GameVariation.swift */,
 				009313BE2A4C369B007194D9 /* HandGenerator.swift */,
 				009313BA2A4C369B007194D9 /* HandResolver.swift */,
 				009313BB2A4C369B007194D9 /* Model.swift */,
@@ -378,7 +372,6 @@
 				009313C12A4C369B007194D9 /* GameUpdateLogger.swift in Sources */,
 				009313812A4C334B007194D9 /* GameViewController.swift in Sources */,
 				009313DA2A4EE536007194D9 /* Timing.swift in Sources */,
-				009313C62A4C369B007194D9 /* GameVariation.swift in Sources */,
 				009313CD2A4C369B007194D9 /* HandGenerator.swift in Sources */,
 				009313CA2A4C369B007194D9 /* Model.swift in Sources */,
 				009313CC2A4C369B007194D9 /* OneDownAI.swift in Sources */,
@@ -402,7 +395,6 @@
 			files = (
 				009313ED2A4F142D007194D9 /* DeckTests.swift in Sources */,
 				009313EE2A4F142D007194D9 /* HandResolverTests.swift in Sources */,
-				009313EB2A4F142D007194D9 /* VariationOneDownTests.swift in Sources */,
 				009313932A4C334D007194D9 /* CrazyBragTests.swift in Sources */,
 				009313EC2A4F142D007194D9 /* SchoolTests.swift in Sources */,
 				009313EA2A4F142D007194D9 /* PossibleHandResolverTests.swift in Sources */,

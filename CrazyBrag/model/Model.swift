@@ -20,8 +20,6 @@ class Model {
     var gameState : GameState = .setUp
     var gameListener : GameListener? = nil
     var nextPlayer : Player? = nil
-    var rules : GameVariation = VariationAllUp()
-//    var rules : GameVariation = VariationOneDown()
 
     func computerMakeGame(){
         for _ in 1...1000 {
@@ -101,7 +99,7 @@ class Model {
                 dealActions.append(DealtCard(seat: $0.seat, card: card, cardCount: i))
                 $0.hand.receive(card: card)
             }
-            let card = deck.deal(dealUp: rules.isMiddleCardFaceUp(dealIndex: i))
+            let card = deck.deal()
             middle.receive(card: card)
             dealActions.append(DealtCard(card: card, cardCount: i))
         }
@@ -117,7 +115,6 @@ class Model {
         
     func turnEnd(){
         let turn = nextPlayer?.play(middle: middle)
-        rules.arrangeMiddle(middle: middle, turn: turn!)
         gameListener?.turnEnded(player: nextPlayer!, middle: middle, turn: turn!)
         //Dealer is last player
         gameState = nextPlayer == school.dealer ? .scoreRound : .turnStart
