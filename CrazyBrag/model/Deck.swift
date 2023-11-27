@@ -35,9 +35,7 @@ class Deck {
     }
     
     func deal(dealUp : Bool = false) -> PlayingCard {
-        var card = deck.removeFirst()
-        card.isDown = !dealUp
-        return card
+        return deck.removeFirst()
     }
     
     func receive(cards : [PlayingCard]) throws {
@@ -46,8 +44,6 @@ class Deck {
                 throw CardErrors.CardAlreadyInThePack(card: $0)
             }
             var card = $0
-            //Unbox cards
-            card.isDown = true
             deck.append(card)
         }
     }

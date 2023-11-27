@@ -21,7 +21,6 @@ class DeckTests: XCTestCase {
         deck.createDeck()
         let card = deck.deal()
         XCTAssertEqual(deck.count, 51)
-        XCTAssertTrue(card.isDown)
     }
     
     func testDeal2() throws {
@@ -29,7 +28,6 @@ class DeckTests: XCTestCase {
         deck.createDeck()
         deck.shuffle()
         let card = deck.deal(dealUp: true)
-        XCTAssertTrue(!card.isDown)
     }
 
     func testReceive1() throws {

@@ -51,10 +51,11 @@ class GameScene: SKScene, GameListener {
             if let cardNode = cardNodes.first(where: {$0.playingCard == dealt.card}) {
                 let pos = tableLayout.getPosition(dealt: dealt)
                 cardNode.position = pos
-                if dealt.card.isDown {
-                    cardNode.faceDown()
-                } else {
+                if dealt.isMiddle && dealt.cardCount != 1 {
+                    //First card in the middle is face down
                     cardNode.faceUp()
+                } else {
+                    cardNode.faceDown()
                 }
             }
         }

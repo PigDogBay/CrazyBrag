@@ -23,14 +23,9 @@ class PlayerHand {
         self.init(hand: [PlayingCard]())
     }
     
-    private func turnCards(isDown : Bool){
-        for (index, _) in hand.enumerated(){
-            hand[index].isDown = isDown
-        }
-    }
     ///Turn all cards up
-    func show(){turnCards(isDown: false)}
-    func hide(){turnCards(isDown: true)}
+    func show(){}
+    func hide(){}
 
     func receive(card : PlayingCard){
         hand.append(card)
