@@ -15,7 +15,7 @@ final class SchoolTests: XCTestCase {
         school.setUpPlayers()
         school.playerHowie.hand.hand = A23Trotter
         school.playerBomber.hand.hand = AKQRun
-        school.playerLeon.hand.hand = AKJFlush
+        school.playerHolly.hand.hand = AKJFlush
         school.playerChris.hand.hand = QQKPair
         school.playerGeordie.hand.hand = AAQPair
         school.playerHuman.hand.hand = A23Run
@@ -32,7 +32,7 @@ final class SchoolTests: XCTestCase {
         school.setUpPlayers()
         school.playerHowie.hand.hand = AKQRun
         school.playerBomber.hand.hand = A23Trotter
-        school.playerLeon.hand.hand = AKJFlush
+        school.playerHolly.hand.hand = AKJFlush
         school.playerChris.hand.hand = AKJFlush
         school.playerGeordie.hand.hand = JQKRun
         school.playerHuman.hand.hand = A23Run
@@ -40,7 +40,7 @@ final class SchoolTests: XCTestCase {
         let losers = school.determineLosingHands()
         XCTAssertEqual(losers?.count, 2)
         XCTAssertTrue(losers?.contains(where: {$0.name == school.playerChris.name}) ?? false)
-        XCTAssertTrue(losers?.contains(where: {$0.name == school.playerLeon.name}) ?? false)
+        XCTAssertTrue(losers?.contains(where: {$0.name == school.playerHolly.name}) ?? false)
         XCTAssertFalse(school.isPrialOut())
         XCTAssertEqual(school.highestScoringPlayer()?.name, school.playerBomber.name)
     }
@@ -51,7 +51,7 @@ final class SchoolTests: XCTestCase {
         school.setUpPlayers()
         school.playerHowie.hand.hand = A23Trotter
         school.playerBomber.hand.hand = AKQRun
-        school.playerLeon.hand.hand = AKJFlush
+        school.playerHolly.hand.hand = AKJFlush
         school.playerChris.hand.hand = PrialOfAces
         school.playerGeordie.hand.hand = AAQPair
         school.playerHuman.hand.hand = A23Run
@@ -59,7 +59,7 @@ final class SchoolTests: XCTestCase {
         let losers = school.determineLosingHands()
         XCTAssertEqual(losers?.count, 5)
         XCTAssertTrue(losers?.contains(where: {$0.name == school.playerHowie.name}) ?? false)
-        XCTAssertTrue(losers?.contains(where: {$0.name == school.playerLeon.name}) ?? false)
+        XCTAssertTrue(losers?.contains(where: {$0.name == school.playerHolly.name}) ?? false)
         XCTAssertTrue(losers?.contains(where: {$0.name == school.playerBomber.name}) ?? false)
         XCTAssertTrue(school.isPrialOut())
         XCTAssertEqual(school.highestScoringPlayer()?.name, school.playerChris.name)
