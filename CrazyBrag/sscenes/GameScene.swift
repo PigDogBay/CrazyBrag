@@ -7,70 +7,38 @@
 
 import SpriteKit
 
-class GameScene: SKScene, GameListener {
-    lazy var tableLayout = TableLayout(size: frame.size)
-    lazy var boxGroup = BoxSprites(layout: self.tableLayout.boxLayout)
+class GameScene: SKScene, GameView {
+    lazy var boxGroup = BoxSprites(layout: self.presenter.tableLayout.boxLayout)
     var cardNodes = [CardSpriteNode]()
     
     private var lastGameUpdateTime = TimeInterval()
     private let gameUpdateFrequency = TimeInterval(floatLiteral: 1.0)
 
-    let model = Model()
-    
-    private func setUpGame(){
-        model.setUpGame()
-        model.gameListener = self
-    }
+    lazy var presenter  = GamePresenter(size: self.size, view: self)
     
     func createCardNodes() {
-        cardNodes = model.deck.deck.map {
-            CardSpriteNode(card: $0, cardSize: tableLayout.cardSize)
+        cardNodes = presenter.model.deck.deck.map {
+            CardSpriteNode(card: $0, cardSize: presenter.tableLayout.cardSize)
         }
         for card in cardNodes {
             addChild(card)
         }
     }
-    
-    func allCardsToDeck(){
-        let pos = tableLayout.deckPosition
-        var z : CGFloat = 10.0
-        for card in cardNodes {
-            card.faceDown()
-            card.position = pos
-            card.zPosition = z
-            z = z + 1
-        }
-    }
-    
-    func deal(to: CGPoint){
-        let card = model.deck.deal()
-        if let cardNode = cardNodes.first(where: {$0.playingCard == card}) {
-            let moveAction = SKAction.move(to: to, duration: 0.1)
-            cardNode.run(moveAction)
-        }
-    }
 
-    func positionCard(cards : [DealtCard]){
-        for dealt in cards {
-            if let cardNode = cardNodes.first(where: {$0.playingCard == dealt.card}) {
-                let pos = tableLayout.getPosition(dealt: dealt)
-                cardNode.position = pos
-                if dealt.isMiddle && dealt.cardCount != 1 {
-                    //First card in the middle is face down
-                    cardNode.faceUp()
-                } else {
-                    cardNode.faceDown()
-                }
-            }
-        }
-    }
+//    func deal(to: CGPoint){
+//        let card = model.deck.deal()
+//        if let cardNode = cardNodes.first(where: {$0.playingCard == card}) {
+//            let moveAction = SKAction.move(to: to, duration: 0.1)
+//            cardNode.run(moveAction)
+//        }
+//    }
+
     
     
     override func didMove(to view: SKView) {
         addBackground(imageNamed: "treestump")
-        setUpGame()
         createCardNodes()
-        allCardsToDeck()
+        presenter.allCardsToDeck()
         
 //        deal(to: tableLayout.cpuWestLayout.position1)
 //        deal(to: tableLayout.cpuNorthWestLayout.position1)
@@ -79,7 +47,9 @@ class GameScene: SKScene, GameListener {
 //        deal(to: tableLayout.cpuEastLayout.position1)
 //        deal(to: tableLayout.playerLayout.position1)
 //        deal(to: tableLayout.boxLayout.position1)
-        
+        addName(name: "Box", pos: presenter.tableLayout.boxLayout.namePos)
+        addName(name: "You", pos: presenter.tableLayout.playerLayout.namePos)
+
         /*
          boxGroup.addCard(scene: self, card: PlayingCard(suit: .diamonds, rank: .jack))
          boxGroup.addCard(scene: self, card: PlayingCard(suit: .clubs, rank: .jack))
@@ -123,6 +93,35 @@ class GameScene: SKScene, GameListener {
          addName(name: "Bomber", pos: tableLayout.cpuNorthEastLayout.namePos)
          */
     }
+    
+    override func update(_ currentTime: TimeInterval) {
+        if (currentTime - lastGameUpdateTime) > gameUpdateFrequency {
+            presenter.update()
+            lastGameUpdateTime = currentTime
+        }
+    }
+    ///
+    ///GameView:-
+    ///
+
+    func setZPosition(on card: PlayingCard, z: CGFloat) {
+        if let cardNode = cardNodes.first(where: {$0.playingCard == card}) {
+            cardNode.zPosition = z
+        }
+    }
+    
+    func setPosition(on card: PlayingCard, pos: CGPoint) {
+        if let cardNode = cardNodes.first(where: {$0.playingCard == card}) {
+            cardNode.position = pos
+        }
+    }
+    
+    func turn(card: PlayingCard, isFaceUp: Bool) {
+        if let cardNode = cardNodes.first(where: {$0.playingCard == card}) {
+            if isFaceUp {cardNode.faceUp()} else {cardNode.faceDown()}
+        }
+    }
+
     
     private func addName(name : String, pos : CGPoint){
         let label = SKLabelNode(fontNamed: "HelveticaNeue")
@@ -180,7 +179,7 @@ class GameScene: SKScene, GameListener {
             }
         }
     }
-    
+
     private func selectCard(name : String){
         let card = self.childNode(withName: name)
         let action = SKAction.move(by: CGVector(dx: 0, dy: 50), duration: 0.2)
@@ -197,65 +196,11 @@ class GameScene: SKScene, GameListener {
     private func swapCards(){
         let playerCard = self.childNode(withName: "KH")
         let boxCard = self.childNode(withName: "AS")
-        let playerAction = SKAction.move(to: tableLayout.boxLayout.position3, duration: 0.2)
-        let boxAction = SKAction.move(to: tableLayout.playerLayout.position1, duration: 0.2)
+        let playerAction = SKAction.move(to: presenter.tableLayout.boxLayout.position3, duration: 0.2)
+        let boxAction = SKAction.move(to: presenter.tableLayout.playerLayout.position1, duration: 0.2)
         playerCard?.run(playerAction)
         boxCard?.run(boxAction)
         
     }
-    
-    override func update(_ currentTime: TimeInterval) {
-        if (currentTime - lastGameUpdateTime) > gameUpdateFrequency {
-            model.updateState()
-            lastGameUpdateTime = currentTime
-        }
-    }
 
-    //
-    //GameListener functions
-    //
-    
-    let logger = GameUpdateLogger()
-    func dealerSelected(dealer: Player) {
-        logger.dealerSelected(dealer: dealer)
-    }
-    
-    func dealingDone(dealtCards: [DealtCard]) {
-        logger.dealingDone(dealtCards: dealtCards)
-        positionCard(cards: dealtCards)
-    }
-    
-    func turnStarted(player: Player, middle: PlayerHand) {
-        logger.turnStarted(player: player, middle: middle)
-        //Auto play for human
-        if player.seat == 0 {
-            model.school.humanAI.turn = Turn.all(downIndex: 0)
-        }
-    }
-    
-    func turnEnded(player: Player, middle: PlayerHand, turn: Turn) {
-        logger.turnEnded(player: player, middle: middle, turn: turn)
-    }
-    
-    func showHands(players: [Player]) {
-        logger.showHands(players: players)
-    }
-    
-    func roundEnded(losingPlayers: [Player]) {
-        logger.roundEnded(losingPlayers: losingPlayers)
-        allCardsToDeck()
-    }
-    
-    func pullThePeg(outPlayers: [Player]) {
-        logger.pullThePeg(outPlayers: outPlayers)
-    }
-    
-    func everyoneOutSoReplayRound() {
-        logger.everyoneOutSoReplayRound()
-    }
-    
-    func gameOver(winner: Player) {
-        logger.gameOver(winner: winner)
-    }
-    
 }
