@@ -22,19 +22,23 @@ class GameScene: SKScene, GameListener {
         model.gameListener = self
     }
     
-    func loadDeck(_ deck : Deck) -> [CardSpriteNode] {
-        return deck.deck.map {
+    func createCardNodes() {
+        cardNodes = model.deck.deck.map {
             CardSpriteNode(card: $0, cardSize: tableLayout.cardSize)
         }
+        for card in cardNodes {
+            addChild(card)
+        }
     }
-    func setUpDeck(_ cardNodes : [CardSpriteNode]){
+    
+    func allCardsToDeck(){
         let pos = tableLayout.deckPosition
         var z : CGFloat = 10.0
         for card in cardNodes {
+            card.faceDown()
             card.position = pos
             card.zPosition = z
             z = z + 1
-            addChild(card)
         }
     }
     
@@ -65,8 +69,8 @@ class GameScene: SKScene, GameListener {
     override func didMove(to view: SKView) {
         addBackground(imageNamed: "treestump")
         setUpGame()
-        self.cardNodes = loadDeck(model.deck)
-        setUpDeck(cardNodes)
+        createCardNodes()
+        allCardsToDeck()
         
 //        deal(to: tableLayout.cpuWestLayout.position1)
 //        deal(to: tableLayout.cpuNorthWestLayout.position1)
@@ -239,6 +243,7 @@ class GameScene: SKScene, GameListener {
     
     func roundEnded(losingPlayers: [Player]) {
         logger.roundEnded(losingPlayers: losingPlayers)
+        allCardsToDeck()
     }
     
     func pullThePeg(outPlayers: [Player]) {
