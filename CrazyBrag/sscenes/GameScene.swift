@@ -131,7 +131,7 @@ class GameScene: SKScene, GameView {
         addChild(label)
     }
     
-    private func addLives(pos : CGPoint){
+    func addLives(pos : CGPoint){
         let label = SKLabelNode(fontNamed: "HelveticaNeue")
         label.text = "🔴🔴🔴"
         label.fontSize = 18

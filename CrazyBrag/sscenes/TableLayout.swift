@@ -100,6 +100,10 @@ struct TableLayout {
         return getCardPosition(for: seat).namePos
     }
     
+    func getLivesPosition(seat : Int) -> CGPoint {
+        return getCardPosition(for: seat).livesPos
+    }
+    
     func getPosition(dealt : DealtCard) -> CGPoint {
         return getPosition(cardPosition: getCardPosition(for: dealt.seat), index: dealt.cardCount)
 

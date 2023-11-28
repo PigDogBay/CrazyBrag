@@ -13,8 +13,9 @@ protocol GameView {
     func setPosition(on card: PlayingCard, pos : CGPoint)
     func addName(name : String, pos : CGPoint)
     func turn(card: PlayingCard, isFaceUp : Bool)
+    func addLives(pos : CGPoint)
 }
-
+    
 class GamePresenter: GameListener {
     let tableLayout : TableLayout
     let model = Model()
@@ -30,8 +31,8 @@ class GamePresenter: GameListener {
         view.addName(name: "Box", pos: tableLayout.boxLayout.namePos)
         for player in model.school.players {
             view.addName(name: player.name, pos: tableLayout.getNamePosition(seat: player.seat))
+            view.addLives(pos: tableLayout.getLivesPosition(seat: player.seat))
         }
-
     }
     
     func update(){
