@@ -13,29 +13,25 @@ class School {
     let humanAI = HumanAI()
     
     lazy var playerBomber : Player = {
-        let ai = BestAI()
-//        let ai = ChancerAI()
+        let ai = ChancerAI()
         let player = Player(name: "Bomber", ai: ai)
         ai.player = player
         return player
     }()
     lazy var playerChris : Player = {
-        let ai = PrialChuckerAI(school: self)
-//        let ai = OneDownAI()
+        let ai = ChancerAI()
         let player = Player(name: "Chris", ai: ai)
         ai.player = player
         return player
     }()
     lazy var playerLeon : Player = {
-        let ai = BestAI()
-//        let ai = OneDownAI()
+        let ai = OneDownAI()
         let player = Player(name: "Leon", ai: ai)
         ai.player = player
         return player
     }()
     lazy var playerHowie : Player = {
-        let ai = BestAI()
-//        let ai = OneDownAI()
+        let ai = ChancerAI()
         let player = Player(name: "Howie", ai: ai)
         ai.player = player
         return player
@@ -48,8 +44,7 @@ class School {
         return player
     }()
     lazy var playerGeordie : Player = {
-        let ai = BestAI()
-//        let ai = OneDownAI()
+        let ai = OneDownAI()
         let player = Player(name: "Geordie", ai: ai)
         ai.player = player
         return player
