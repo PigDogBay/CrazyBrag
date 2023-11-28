@@ -14,6 +14,8 @@ protocol CardPosition{
     var position1 : CGPoint { get }
     var position2 : CGPoint { get }
     var position3 : CGPoint { get }
+    var namePos : CGPoint { get }
+    var livesPos : CGPoint { get }
 }
 
 struct TableLayout {
@@ -93,26 +95,36 @@ struct TableLayout {
         let h : Double = w * (CARD_ASSET_HEIGHT/CARD_ASSET_WIDTH)
         return CGSize(width: w, height: h)
     }
+
+    func getNamePosition(seat : Int) -> CGPoint {
+        return getCardPosition(for: seat).namePos
+    }
     
     func getPosition(dealt : DealtCard) -> CGPoint {
-        switch (dealt.seat){
+        return getPosition(cardPosition: getCardPosition(for: dealt.seat), index: dealt.cardCount)
+
+    }
+
+    private func getCardPosition(for seat : Int) -> CardPosition {
+        switch (seat){
         case -1:
-            return getPosition(cardPosition: self.boxLayout, index: dealt.cardCount)
+            return boxLayout
         case 0:
-            return getPosition(cardPosition: self.playerLayout, index: dealt.cardCount)
+            return playerLayout
         case 1:
-            return getPosition(cardPosition: self.cpuWestLayout, index: dealt.cardCount)
+            return cpuWestLayout
         case 2:
-            return getPosition(cardPosition: self.cpuNorthWestLayout, index: dealt.cardCount)
+            return cpuNorthWestLayout
         case 3:
-            return getPosition(cardPosition: self.cpuNorthLayout, index: dealt.cardCount)
+            return cpuNorthLayout
         case 4:
-            return getPosition(cardPosition: self.cpuNorthEastLayout, index: dealt.cardCount)
+            return cpuNorthEastLayout
         case 5:
-            return getPosition(cardPosition: self.cpuEastLayout, index: dealt.cardCount)
+            return cpuEastLayout
         default:
-            fatalError("Bad seat position \(dealt.seat)")
+            fatalError("Bad seat position \(seat)")
         }
+
     }
     
     private func getPosition(cardPosition : CardPosition, index : Int) -> CGPoint {

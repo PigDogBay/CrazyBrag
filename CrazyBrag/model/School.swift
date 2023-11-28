@@ -39,7 +39,7 @@ class School {
     //Human Player
     lazy var playerHuman : Player = {
         let ai = self.humanAI
-        let player = Player(name: "Matt", ai: ai)
+        let player = Player(name: "You", ai: ai)
         ai.player = player
         return player
     }()

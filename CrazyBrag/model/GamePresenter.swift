@@ -11,6 +11,7 @@ import Foundation
 protocol GameView {
     func setZPosition(on card: PlayingCard, z : CGFloat)
     func setPosition(on card: PlayingCard, pos : CGPoint)
+    func addName(name : String, pos : CGPoint)
     func turn(card: PlayingCard, isFaceUp : Bool)
 }
 
@@ -25,12 +26,18 @@ class GamePresenter: GameListener {
         tableLayout = TableLayout(size: size)
         model.setUpGame()
         model.gameListener = self
+
+        view.addName(name: "Box", pos: tableLayout.boxLayout.namePos)
+        for player in model.school.players {
+            view.addName(name: player.name, pos: tableLayout.getNamePosition(seat: player.seat))
+        }
+
     }
     
     func update(){
         model.updateState()
     }
-    
+  
     private func positionCard(cards : [DealtCard]){
         for dealt in cards {
             let pos = tableLayout.getPosition(dealt: dealt)

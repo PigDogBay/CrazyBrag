@@ -47,8 +47,6 @@ class GameScene: SKScene, GameView {
 //        deal(to: tableLayout.cpuEastLayout.position1)
 //        deal(to: tableLayout.playerLayout.position1)
 //        deal(to: tableLayout.boxLayout.position1)
-        addName(name: "Box", pos: presenter.tableLayout.boxLayout.namePos)
-        addName(name: "You", pos: presenter.tableLayout.playerLayout.namePos)
 
         /*
          boxGroup.addCard(scene: self, card: PlayingCard(suit: .diamonds, rank: .jack))
@@ -66,7 +64,6 @@ class GameScene: SKScene, GameView {
          addCard(midPoint: tableLayout.cpuWestLayout.position2, z: 10, name: "CardBack")
          addCard(midPoint: tableLayout.cpuWestLayout.position3, z: 11, name: "CardBack")
          addLives(pos: tableLayout.cpuWestLayout.livesPos)
-         addName(name: "Matt", pos: tableLayout.cpuWestLayout.namePos)
          
          addCard(midPoint: tableLayout.cpuEastLayout.position1, z: 9, name: "CardBack")
          addCard(midPoint: tableLayout.cpuEastLayout.position2, z: 10, name: "CardBack")
@@ -121,9 +118,8 @@ class GameScene: SKScene, GameView {
             if isFaceUp {cardNode.faceUp()} else {cardNode.faceDown()}
         }
     }
-
     
-    private func addName(name : String, pos : CGPoint){
+     func addName(name : String, pos : CGPoint){
         let label = SKLabelNode(fontNamed: "HelveticaNeue")
         label.text = name
         label.fontColor = SKColor.white
