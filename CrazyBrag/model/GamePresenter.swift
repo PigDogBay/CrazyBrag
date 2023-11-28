@@ -13,7 +13,8 @@ protocol GameView {
     func setPosition(on card: PlayingCard, pos : CGPoint)
     func addName(name : String, pos : CGPoint)
     func turn(card: PlayingCard, isFaceUp : Bool)
-    func addLives(pos : CGPoint)
+    func addLives(name : String,pos : CGPoint)
+    func updateScore(player : Player)
 }
     
 class GamePresenter: GameListener {
@@ -31,7 +32,7 @@ class GamePresenter: GameListener {
         view.addName(name: "Box", pos: tableLayout.boxLayout.namePos)
         for player in model.school.players {
             view.addName(name: player.name, pos: tableLayout.getNamePosition(seat: player.seat))
-            view.addLives(pos: tableLayout.getLivesPosition(seat: player.seat))
+            view.addLives(name: player.name, pos: tableLayout.getLivesPosition(seat: player.seat))
         }
     }
     
@@ -120,6 +121,9 @@ class GamePresenter: GameListener {
     
     func roundEnded(losingPlayers: [Player]) {
         logger.roundEnded(losingPlayers: losingPlayers)
+        for player in losingPlayers {
+            view.updateScore(player: player)
+        }
     }
     
     func pullThePeg(outPlayers: [Player]) {

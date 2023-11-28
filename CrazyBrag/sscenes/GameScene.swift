@@ -9,6 +9,7 @@ import SpriteKit
 
 class GameScene: SKScene, GameView {
     var cardNodes = [CardSpriteNode]()
+    var scoreNodes = [SKLabelNode]()
     private var lastGameUpdateTime = TimeInterval()
     private let gameUpdateFrequency = TimeInterval(floatLiteral: 1.0)
 
@@ -58,20 +59,36 @@ class GameScene: SKScene, GameView {
         }
     }
     
-     func addName(name : String, pos : CGPoint){
-        let label = SKLabelNode(fontNamed: "HelveticaNeue")
-        label.text = name
-        label.fontColor = SKColor.white
-        label.fontSize = 24
-        label.verticalAlignmentMode = .bottom
-        label.horizontalAlignmentMode = .left
-        label.position = pos
-        label.zPosition = 200
-        addChild(label)
+    func updateScore(player : Player){
+        if let node = scoreNodes.first(where: {$0.name == player.name}) {
+            switch player.lives {
+            case 1:
+                node.text = "🔴"
+            case 2:
+                node.text = "🔴🔴"
+            case 3:
+                node.text = "🔴🔴🔴"
+            default:
+                node.text = ""
+            }
+        }
     }
     
-    func addLives(pos : CGPoint){
+     func addName(name : String, pos : CGPoint){
+         let label = SKLabelNode(fontNamed: "HelveticaNeue")
+         label.text = name
+         label.fontColor = SKColor.white
+         label.fontSize = 24
+         label.verticalAlignmentMode = .bottom
+         label.horizontalAlignmentMode = .left
+         label.position = pos
+         label.zPosition = 200
+         addChild(label)
+    }
+    
+    func addLives(name : String, pos : CGPoint){
         let label = SKLabelNode(fontNamed: "HelveticaNeue")
+        label.name = name
         label.text = "🔴🔴🔴"
         label.fontSize = 18
         label.verticalAlignmentMode = .bottom
@@ -79,6 +96,7 @@ class GameScene: SKScene, GameView {
         label.position = pos
         label.zPosition = 200
         addChild(label)
+        scoreNodes.append(label)
     }
     
     private func addBackground(imageNamed image : String){
