@@ -49,9 +49,9 @@ class GameScene: SKScene, GameView {
         }
     }
     
-    func setPosition(on card: PlayingCard, pos: CGPoint, delay : TimeInterval) {
+    func setPosition(on card: PlayingCard, pos: CGPoint, duration : TimeInterval, delay : TimeInterval) {
         if let cardNode = cardNodes.first(where: {$0.playingCard == card}) {
-            let action = SKAction.move(to: pos, duration: 0.1)
+            let action = SKAction.move(to: pos, duration: duration)
             cardNode.run(SKAction.sequence([SKAction.wait(forDuration: delay), action]))
         }
     }

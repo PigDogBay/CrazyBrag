@@ -9,7 +9,7 @@ import Foundation
 
 protocol GameView {
     func setZPosition(on card: PlayingCard, z : CGFloat)
-    func setPosition(on card: PlayingCard, pos: CGPoint, delay : TimeInterval)
+    func setPosition(on card: PlayingCard, pos: CGPoint, duration : TimeInterval, delay : TimeInterval)
     func addName(name : String, pos : CGPoint)
     func turn(card: PlayingCard, isFaceUp : Bool)
     func addLives(name : String,pos : CGPoint)
@@ -42,14 +42,14 @@ class GamePresenter: GameListener {
         model.updateState()
     }
   
-    private func positionCard(cards : [DealtCard]){
+    private func positionCard(cards : [DealtCard], duration : TimeInterval){
         var delay = 0.0
         for dealt in cards {
             let pos = tableLayout.getPosition(dealt: dealt)
             let isFaceUp = dealt.isMiddle && dealt.cardCount != 1
             view.turn(card: dealt.card, isFaceUp: isFaceUp)
             view.setZPosition(on: dealt.card, z: CGFloat(dealt.cardCount))
-            view.setPosition(on: dealt.card, pos: pos, delay: delay)
+            view.setPosition(on: dealt.card, pos: pos, duration: duration, delay: delay)
             delay = delay + 0.1
         }
     }
@@ -76,7 +76,7 @@ class GamePresenter: GameListener {
             view.setZPosition(on: card, z: z)
             view.turn(card: card, isFaceUp: false)
             z = z + 1
-            view.setPosition(on: card, pos: pos, delay: 0)
+            view.setPosition(on: card, pos: pos, duration: 0.1, delay: 0)
         }
     }
 
@@ -95,7 +95,7 @@ class GamePresenter: GameListener {
     func dealingDone(dealtCards: [DealtCard]) {
         gameUpdateFrequency = 2.5
         logger.dealingDone(dealtCards: dealtCards)
-        positionCard(cards: dealtCards)
+        positionCard(cards: dealtCards, duration: 0.1)
         showCards(in: model.school.playerHuman.hand)
     }
     
@@ -117,7 +117,7 @@ class GamePresenter: GameListener {
         let m1 = DealtCard(card: middle.hand[0], cardCount: 1)
         let m2 = DealtCard(card: middle.hand[1], cardCount: 2)
         let m3 = DealtCard(card: middle.hand[2], cardCount: 3)
-        positionCard(cards: [p1,p2,p3,m1,m2,m3])
+        positionCard(cards: [p1,p2,p3,m1,m2,m3], duration: 0.5)
         if player.seat == 0{
             showCards(in: model.school.playerHuman.hand)
         }
