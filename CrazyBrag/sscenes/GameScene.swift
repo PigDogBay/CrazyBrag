@@ -80,9 +80,14 @@ class GameScene: SKScene, GameView {
     func updateDealer(player: Player) {
         dealerTokenNode.position = presenter.tableLayout.getDealerPosition(seat: player.seat)
     }
+    
+    func removePlayer(player : Player) {
+        self.childNode(withName: "name \(player.name)")?.removeFromParent()
+    }
 
      func addName(name : String, pos : CGPoint){
          let label = SKLabelNode(fontNamed: "HelveticaNeue")
+         label.name = "name \(name)"
          label.text = name
          label.fontColor = SKColor.white
          label.fontSize = 24

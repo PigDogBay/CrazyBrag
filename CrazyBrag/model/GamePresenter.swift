@@ -16,6 +16,7 @@ protocol GameView {
     func addLives(name : String,pos : CGPoint)
     func updateScore(player : Player)
     func updateDealer(player : Player)
+    func removePlayer(player : Player)
 }
     
 class GamePresenter: GameListener {
@@ -130,6 +131,9 @@ class GamePresenter: GameListener {
     
     func pullThePeg(outPlayers: [Player]) {
         logger.pullThePeg(outPlayers: outPlayers)
+        for player in outPlayers {
+            view.removePlayer(player: player)
+        }
     }
     
     func everyoneOutSoReplayRound() {
