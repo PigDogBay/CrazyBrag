@@ -16,6 +16,11 @@ protocol GameView {
     func updateScore(player : Player)
     func updateDealer(player : Player)
     func removePlayer(player : Player)
+    func highlight(player : Player, status : PlayerStatus)
+}
+
+enum PlayerStatus {
+    case ready, turn, played
 }
     
 class GamePresenter: GameListener {
@@ -90,6 +95,9 @@ class GamePresenter: GameListener {
         logger.dealerSelected(dealer: dealer)
         view.updateDealer(player: dealer)
         allCardsToDeck()
+        for player in model.school.players {
+            view.highlight(player: player, status: .ready)
+        }
     }
     
     func dealingDone(dealtCards: [DealtCard]) {
@@ -106,6 +114,7 @@ class GamePresenter: GameListener {
         if player.seat == 0 {
             model.school.humanAI.turn = Turn.all(downIndex: 0)
         }
+        view.highlight(player: player, status: .turn)
     }
     
     func turnEnded(player: Player, middle: PlayerHand, turn: Turn) {
@@ -121,7 +130,7 @@ class GamePresenter: GameListener {
         if player.seat == 0{
             showCards(in: model.school.playerHuman.hand)
         }
-
+        view.highlight(player: player, status: .played)
     }
     
     func showHands(players: [Player]) {

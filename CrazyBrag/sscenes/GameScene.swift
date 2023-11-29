@@ -8,6 +8,7 @@
 import SpriteKit
 
 class GameScene: SKScene, GameView {
+    
     var cardNodes = [CardSpriteNode]()
     var scoreNodes = [SKLabelNode]()
     let dealerTokenNode =  SKLabelNode(fontNamed: "HelveticaNeue")
@@ -87,6 +88,28 @@ class GameScene: SKScene, GameView {
     func removePlayer(player : Player) {
         self.childNode(withName: "name \(player.name)")?.removeFromParent()
         self.childNode(withName: "table mat \(player.seat)")?.removeFromParent()
+    }
+    
+    func highlight(player: Player, status : PlayerStatus) {
+        guard let node = self.childNode(withName: "table mat \(player.seat)") as? SKShapeNode
+        else { return }
+        switch status {
+        case .ready:
+            node.strokeColor = .clear
+            node.fillColor = .gray
+            node.alpha = 0.25
+            node.glowWidth = 0.0
+        case .turn:
+            node.strokeColor = .green
+            node.fillColor = .green
+            node.glowWidth = 5.0
+            node.alpha = 0.55
+        case .played:
+            node.strokeColor = .clear
+            node.fillColor = .red
+            node.alpha = 0.25
+            node.glowWidth = 0.0
+        }
     }
 
      func addName(name : String, pos : CGPoint){
