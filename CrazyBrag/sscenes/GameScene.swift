@@ -86,6 +86,7 @@ class GameScene: SKScene, GameView {
     
     func removePlayer(player : Player) {
         self.childNode(withName: "name \(player.name)")?.removeFromParent()
+        self.childNode(withName: "table mat \(player.seat)")?.removeFromParent()
     }
 
      func addName(name : String, pos : CGPoint){
