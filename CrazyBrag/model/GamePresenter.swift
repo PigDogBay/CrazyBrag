@@ -48,6 +48,7 @@ class GamePresenter: GameListener {
             view.setPosition(on: dealt.card, pos: pos)
             let isFaceUp = dealt.isMiddle && dealt.cardCount != 1
             view.turn(card: dealt.card, isFaceUp: isFaceUp)
+            view.setZPosition(on: dealt.card, z: CGFloat(dealt.cardCount))
         }
     }
     
