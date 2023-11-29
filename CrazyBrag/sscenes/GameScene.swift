@@ -30,6 +30,9 @@ class GameScene: SKScene, GameView {
         addDealer()
         createCardNodes()
         presenter.allCardsToDeck()
+        for i in -1...5 {
+            addTableMat(seat: i)
+        }
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -110,6 +113,17 @@ class GameScene: SKScene, GameView {
         addChild(label)
         scoreNodes.append(label)
     }
+    
+    func addTableMat(seat : Int){
+        let frame = presenter.tableLayout.getFrame(seat: seat).insetBy(dx: -8.0, dy: -8.0)
+        let node = SKShapeNode(rect: frame, cornerRadius: 20.0)
+        node.name = "table mat \(seat)"
+        node.fillColor = .gray
+        node.strokeColor = .clear
+        node.alpha = 0.5
+        addChild(node)
+    }
+    
 
     private func addBackground(imageNamed image : String){
         let background = SKSpriteNode(imageNamed: image)

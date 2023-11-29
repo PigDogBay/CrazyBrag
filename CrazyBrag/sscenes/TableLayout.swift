@@ -11,6 +11,7 @@ let CARD_ASSET_WIDTH : Double = 691.0
 let CARD_ASSET_HEIGHT : Double = 1056.0
 
 protocol CardPosition{
+    var frame : CGRect {get}
     var position1 : CGPoint { get }
     var position2 : CGPoint { get }
     var position3 : CGPoint { get }
@@ -111,7 +112,10 @@ struct TableLayout {
 
     func getPosition(dealt : DealtCard) -> CGPoint {
         return getPosition(cardPosition: getCardPosition(for: dealt.seat), index: dealt.cardCount)
-
+    }
+    
+    func getFrame(seat : Int) -> CGRect {
+        return getCardPosition(for: seat).frame
     }
 
     private func getCardPosition(for seat : Int) -> CardPosition {
