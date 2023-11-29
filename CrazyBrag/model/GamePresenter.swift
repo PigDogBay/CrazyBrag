@@ -15,6 +15,7 @@ protocol GameView {
     func turn(card: PlayingCard, isFaceUp : Bool)
     func addLives(name : String,pos : CGPoint)
     func updateScore(player : Player)
+    func updateDealer(player : Player)
 }
     
 class GamePresenter: GameListener {
@@ -82,6 +83,7 @@ class GamePresenter: GameListener {
     
     func dealerSelected(dealer: Player) {
         logger.dealerSelected(dealer: dealer)
+        view.updateDealer(player: dealer)
         allCardsToDeck()
     }
     

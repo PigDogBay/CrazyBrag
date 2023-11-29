@@ -16,6 +16,7 @@ protocol CardPosition{
     var position3 : CGPoint { get }
     var namePos : CGPoint { get }
     var livesPos : CGPoint { get }
+    var dealerTokenPos : CGPoint { get }
 }
 
 struct TableLayout {
@@ -103,7 +104,11 @@ struct TableLayout {
     func getLivesPosition(seat : Int) -> CGPoint {
         return getCardPosition(for: seat).livesPos
     }
-    
+
+    func getDealerPosition(seat : Int) -> CGPoint {
+        return getCardPosition(for: seat).dealerTokenPos
+    }
+
     func getPosition(dealt : DealtCard) -> CGPoint {
         return getPosition(cardPosition: getCardPosition(for: dealt.seat), index: dealt.cardCount)
 
@@ -173,7 +178,9 @@ struct BoxLayout : CardPosition {
         return CGPoint(x: frame.maxX, y: frame.maxY + 8.0)
     }
 
-
+    var dealerTokenPos : CGPoint {
+        return CGPoint(x: frame.origin.x - 10.0, y: frame.midY)
+    }
 }
 
 struct CPULayout : CardPosition{
@@ -198,6 +205,10 @@ struct CPULayout : CardPosition{
     
     var livesPos : CGPoint {
         return CGPoint(x: frame.maxX, y: frame.maxY + 8.0)
+    }
+    
+    var dealerTokenPos : CGPoint {
+        return CGPoint(x: frame.origin.x - 10.0, y: frame.midY)
     }
 
 }

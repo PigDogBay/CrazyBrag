@@ -10,6 +10,8 @@ import SpriteKit
 class GameScene: SKScene, GameView {
     var cardNodes = [CardSpriteNode]()
     var scoreNodes = [SKLabelNode]()
+    let dealerTokenNode =  SKLabelNode(fontNamed: "HelveticaNeue")
+    
     private var lastGameUpdateTime = TimeInterval()
     private let gameUpdateFrequency = TimeInterval(floatLiteral: 1.0)
 
@@ -26,6 +28,7 @@ class GameScene: SKScene, GameView {
     
     override func didMove(to view: SKView) {
         addBackground(imageNamed: "treestump")
+        addDealer()
         createCardNodes()
         presenter.allCardsToDeck()
     }
@@ -73,7 +76,11 @@ class GameScene: SKScene, GameView {
             }
         }
     }
-    
+
+    func updateDealer(player: Player) {
+        dealerTokenNode.position = presenter.tableLayout.getDealerPosition(seat: player.seat)
+    }
+
      func addName(name : String, pos : CGPoint){
          let label = SKLabelNode(fontNamed: "HelveticaNeue")
          label.text = name
@@ -98,12 +105,24 @@ class GameScene: SKScene, GameView {
         addChild(label)
         scoreNodes.append(label)
     }
-    
+
     private func addBackground(imageNamed image : String){
         let background = SKSpriteNode(imageNamed: image)
         background.position = CGPoint(x: frame.midX, y: frame.midY)
         background.zPosition = -1
         addChild(background)
+    }
+    
+    private func addDealer(){
+        dealerTokenNode.name = "dealer"
+        dealerTokenNode.text = "⭐️"
+        dealerTokenNode.fontSize = 36
+        dealerTokenNode.verticalAlignmentMode = .bottom
+        dealerTokenNode.horizontalAlignmentMode = .right
+        dealerTokenNode.position = presenter.tableLayout.getDealerPosition(seat: 0)
+        dealerTokenNode.zPosition = 200
+        addChild(dealerTokenNode)
+
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
