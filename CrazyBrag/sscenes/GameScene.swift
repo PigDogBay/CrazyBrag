@@ -13,7 +13,7 @@ class GameScene: SKScene, GameView {
     let dealerTokenNode =  SKLabelNode(fontNamed: "HelveticaNeue")
     
     private var lastGameUpdateTime = TimeInterval()
-    private let gameUpdateFrequency = TimeInterval(floatLiteral: 1.0)
+    private let gameUpdateFrequency = TimeInterval(floatLiteral: 2.5)
 
     lazy var presenter  = GamePresenter(size: self.size, view: self)
     
@@ -50,12 +50,13 @@ class GameScene: SKScene, GameView {
         }
     }
     
-    func setPosition(on card: PlayingCard, pos: CGPoint) {
+    func setPosition(on card: PlayingCard, pos: CGPoint, delay : TimeInterval) {
         if let cardNode = cardNodes.first(where: {$0.playingCard == card}) {
-            cardNode.position = pos
+            let action = SKAction.move(to: pos, duration: 0.1)
+            cardNode.run(SKAction.sequence([SKAction.wait(forDuration: delay), action]))
         }
     }
-    
+
     func turn(card: PlayingCard, isFaceUp: Bool) {
         if let cardNode = cardNodes.first(where: {$0.playingCard == card}) {
             if isFaceUp {cardNode.faceUp()} else {cardNode.faceDown()}

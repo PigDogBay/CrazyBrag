@@ -7,10 +7,9 @@
 
 import Foundation
 
-
 protocol GameView {
     func setZPosition(on card: PlayingCard, z : CGFloat)
-    func setPosition(on card: PlayingCard, pos : CGPoint)
+    func setPosition(on card: PlayingCard, pos: CGPoint, delay : TimeInterval)
     func addName(name : String, pos : CGPoint)
     func turn(card: PlayingCard, isFaceUp : Bool)
     func addLives(name : String,pos : CGPoint)
@@ -43,12 +42,14 @@ class GamePresenter: GameListener {
     }
   
     private func positionCard(cards : [DealtCard]){
+        var delay = 0.0
         for dealt in cards {
             let pos = tableLayout.getPosition(dealt: dealt)
-            view.setPosition(on: dealt.card, pos: pos)
             let isFaceUp = dealt.isMiddle && dealt.cardCount != 1
             view.turn(card: dealt.card, isFaceUp: isFaceUp)
             view.setZPosition(on: dealt.card, z: CGFloat(dealt.cardCount))
+            view.setPosition(on: dealt.card, pos: pos, delay: delay)
+            delay = delay + 0.1
         }
     }
     
@@ -71,10 +72,10 @@ class GamePresenter: GameListener {
         let pos = tableLayout.deckPosition
         var z : CGFloat = 10.0
         for card in model.deck.deck{
-            view.setPosition(on: card, pos: pos)
             view.setZPosition(on: card, z: z)
             view.turn(card: card, isFaceUp: false)
             z = z + 1
+            view.setPosition(on: card, pos: pos, delay: 0)
         }
     }
 
