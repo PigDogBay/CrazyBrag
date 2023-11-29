@@ -23,6 +23,7 @@ class GamePresenter: GameListener {
     let model = Model()
     let logger = GameUpdateLogger()
     let view : GameView
+    var gameUpdateFrequency : Double = 0.5
 
     init(size : CGSize, view : GameView){
         self.view = view
@@ -85,18 +86,21 @@ class GamePresenter: GameListener {
     ///
     
     func dealerSelected(dealer: Player) {
+        gameUpdateFrequency = 0.5
         logger.dealerSelected(dealer: dealer)
         view.updateDealer(player: dealer)
         allCardsToDeck()
     }
     
     func dealingDone(dealtCards: [DealtCard]) {
+        gameUpdateFrequency = 2.5
         logger.dealingDone(dealtCards: dealtCards)
         positionCard(cards: dealtCards)
         showCards(in: model.school.playerHuman.hand)
     }
     
     func turnStarted(player: Player, middle: PlayerHand) {
+        gameUpdateFrequency = 1
         logger.turnStarted(player: player, middle: middle)
         //Auto play for human
         if player.seat == 0 {
@@ -105,6 +109,7 @@ class GamePresenter: GameListener {
     }
     
     func turnEnded(player: Player, middle: PlayerHand, turn: Turn) {
+        gameUpdateFrequency = 2.5
         logger.turnEnded(player: player, middle: middle, turn: turn)
         let p1 = DealtCard(seat: player.seat, card: player.hand.hand[0], cardCount: 1)
         let p2 = DealtCard(seat: player.seat, card: player.hand.hand[1], cardCount: 2)
@@ -120,6 +125,7 @@ class GamePresenter: GameListener {
     }
     
     func showHands(players: [Player]) {
+        gameUpdateFrequency = 2.5
         logger.showHands(players: players)
         showAllHands()
     }

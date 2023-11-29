@@ -13,7 +13,6 @@ class GameScene: SKScene, GameView {
     let dealerTokenNode =  SKLabelNode(fontNamed: "HelveticaNeue")
     
     private var lastGameUpdateTime = TimeInterval()
-    private let gameUpdateFrequency = TimeInterval(floatLiteral: 2.5)
 
     lazy var presenter  = GamePresenter(size: self.size, view: self)
     
@@ -34,7 +33,7 @@ class GameScene: SKScene, GameView {
     }
     
     override func update(_ currentTime: TimeInterval) {
-        if (currentTime - lastGameUpdateTime) > gameUpdateFrequency {
+        if (currentTime - lastGameUpdateTime) > presenter.gameUpdateFrequency {
             presenter.update()
             lastGameUpdateTime = currentTime
         }
