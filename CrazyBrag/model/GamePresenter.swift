@@ -30,6 +30,8 @@ class GamePresenter: GameListener {
     let view : GameView
     private var lastGameUpdateTime = TimeInterval()
     private var gameUpdateFrequency : Double = 0.5
+    ///Set to false if require player input
+    private var canUpdateGame = true
 
     init(size : CGSize, view : GameView){
         self.view = view
@@ -46,7 +48,9 @@ class GamePresenter: GameListener {
     
     func update(_ currentTime: TimeInterval){
         if (currentTime - lastGameUpdateTime) > gameUpdateFrequency {
-            model.updateState()
+            if canUpdateGame {
+                model.updateState()
+            }
             lastGameUpdateTime = currentTime
         }
     }
@@ -88,7 +92,6 @@ class GamePresenter: GameListener {
             view.setPosition(on: card, pos: pos, duration: 0.1, delay: 0)
         }
     }
-
     
     ///
     ///GameListener functions
@@ -112,13 +115,14 @@ class GamePresenter: GameListener {
     }
     
     func turnStarted(player: Player, middle: PlayerHand) {
-        gameUpdateFrequency = 1
         logger.turnStarted(player: player, middle: middle)
+        gameUpdateFrequency = 1
+        view.highlight(player: player, status: .turn)
         //Auto play for human
         if player.seat == 0 {
-            model.school.humanAI.turn = Turn.all(downIndex: 0)
+            //Stop updating until player has taken their turn
+            canUpdateGame = false
         }
-        view.highlight(player: player, status: .turn)
     }
     
     func turnEnded(player: Player, middle: PlayerHand, turn: Turn) {
