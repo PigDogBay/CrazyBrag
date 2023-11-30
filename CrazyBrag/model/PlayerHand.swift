@@ -44,7 +44,7 @@ class PlayerHand {
     func replace(cardInHand : PlayingCard,  with : PlayingCard) {
         if let index = hand.firstIndex(of: cardInHand) {
             hand.remove(at: index)
-            hand.append(with)
+            hand.insert(with, at: index)
         }
     }
     
