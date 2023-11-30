@@ -28,7 +28,8 @@ class GamePresenter: GameListener {
     let model = Model()
     let logger = GameUpdateLogger()
     let view : GameView
-    var gameUpdateFrequency : Double = 0.5
+    private var lastGameUpdateTime = TimeInterval()
+    private var gameUpdateFrequency : Double = 0.5
 
     init(size : CGSize, view : GameView){
         self.view = view
@@ -43,8 +44,11 @@ class GamePresenter: GameListener {
         }
     }
     
-    func update(){
-        model.updateState()
+    func update(_ currentTime: TimeInterval){
+        if (currentTime - lastGameUpdateTime) > gameUpdateFrequency {
+            model.updateState()
+            lastGameUpdateTime = currentTime
+        }
     }
   
     private func positionCard(cards : [DealtCard], duration : TimeInterval){

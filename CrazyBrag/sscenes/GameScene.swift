@@ -37,10 +37,7 @@ class GameScene: SKScene, GameView {
     }
     
     override func update(_ currentTime: TimeInterval) {
-        if (currentTime - lastGameUpdateTime) > presenter.gameUpdateFrequency {
-            presenter.update()
-            lastGameUpdateTime = currentTime
-        }
+        presenter.update(currentTime)
     }
 
     ///
