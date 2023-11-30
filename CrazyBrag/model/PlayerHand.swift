@@ -53,10 +53,13 @@ class PlayerHand {
         case .swap(hand: let handCard, middle: let middleCard):
             replace(cardInHand: handCard, with: middleCard)
             middle.replace(cardInHand: middleCard, with: handCard)
-        case .all:
+        case .all(downIndex: let index):
             let tmp = self.hand
             self.hand = middle.hand
             middle.hand = tmp
+            //First card is down
+            let down = middle.hand.remove(at: index)
+            middle.hand.insert(down, at: 0)
         }
     }
 }
