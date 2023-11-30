@@ -166,18 +166,11 @@ class GameScene: SKScene, GameView {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for touch in touches {
+        if let touch = touches.first {
             let location = touch.location(in: self)
             let touchNode = atPoint(location)
-            switch touchNode.name {
-            case "KH":
-                selectCard(name: "KH")
-            case "AS":
-                selectBoxCard(name: "AS")
-            case "3H":
-                swapCards()
-            default:
-                break
+            if let name = touchNode.name {
+                presenter.handledTouch(atNodeNamed: name)
             }
         }
     }

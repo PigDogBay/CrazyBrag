@@ -26,6 +26,10 @@ extension PlayingCard {
             return "S"
         }
     }
+    
+    var nodeName : String {
+        return"card \(self.imageName)"
+    }
 }
 
 class CardSpriteNode : SKSpriteNode {
@@ -38,10 +42,9 @@ class CardSpriteNode : SKSpriteNode {
     init(card : PlayingCard, cardSize : CGSize){
         self.playingCard = card
         self.frontTexture = SKTexture(imageNamed: playingCard.imageName)
-
         let texture = CardSpriteNode.backTexture
         super.init(texture: texture, color: .white, size: cardSize)
-        self.name = "card \(card.imageName)"
+        self.name = card.nodeName
     }
 
     required init?(coder aDecoder: NSCoder) {

@@ -93,6 +93,10 @@ class GamePresenter: GameListener {
         }
     }
     
+    func handledTouch(atNodeNamed name : String){
+        print("Node touched: \(name)")
+    }
+    
     ///
     ///GameListener functions
     ///

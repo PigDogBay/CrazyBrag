@@ -89,7 +89,6 @@ enum Rank : Int, CaseIterable {
             return 13
         }
     }
-
 }
 
 struct PlayingCard : Equatable{
