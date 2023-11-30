@@ -32,6 +32,7 @@ class GamePresenter: GameListener {
     private var gameUpdateFrequency : Double = 0.5
     ///Set to false if require player input
     private var canUpdateGame = true
+    private var selectedCards = [DealtCard]()
 
     init(size : CGSize, view : GameView){
         self.view = view
@@ -71,7 +72,7 @@ class GamePresenter: GameListener {
         for card in hand.hand {
             view.turn(card: card, isFaceUp: true)
             if (hand.hand.count != 3){
-                print("WHY???")
+                fatalError("Hand does NOT contain 3 cards \(hand.hand.count)")
             }
         }
     }
@@ -93,8 +94,55 @@ class GamePresenter: GameListener {
         }
     }
     
-    func handledTouch(atNodeNamed name : String){
-        print("Node touched: \(name)")
+    ///
+    ///Touch handling:-
+    ///
+    
+    func handleTouch(for card : PlayingCard){
+        print("Node touched: \(card.display())")
+        if selectedCards.contains(where: {$0.card == card}){
+            deselectCard(card)
+        } else {
+            selectCard(card)
+            checkIfFinishedTurn()
+        }
+    }
+    
+    private func checkIfFinishedTurn(){
+        
+    }
+    
+    private func selectCard(_ card : PlayingCard){
+        if let playerCard = toDealtCard(card: card, playerHand: model.school.playerHuman.hand, seat: 0){
+            //player card selected
+            selectedCards.append(playerCard)
+            moveCard(dealt: playerCard, yOffset: 50)
+        } else if let middleCard = toDealtCard(card: card, playerHand: model.middle, seat: -1){
+            //middle card selected
+            selectedCards.append(middleCard)
+            moveCard(dealt: middleCard, yOffset: -50)
+        }
+    }
+    private func deselectCard(_ card : PlayingCard){
+        if let dealt = selectedCards.first(where: {$0.card == card}) {
+            selectedCards.removeAll(where: {$0.card == card})
+            moveCard(dealt: dealt, yOffset: 0)
+        }
+    }
+    
+    private func toDealtCard(card : PlayingCard, playerHand : PlayerHand, seat : Int) -> DealtCard?{
+        if let index = playerHand.hand.firstIndex(of: card) {
+            let dealtCard = DealtCard(seat: seat, card: card, cardCount: index+1)
+            return dealtCard
+        }
+        return nil
+    }
+    
+    private func moveCard(dealt : DealtCard, yOffset: Double){
+        let pos = tableLayout.getPosition(dealt: dealt)
+        let translation = CGAffineTransform(translationX: 0.0, y: yOffset)
+        let moveTo = pos.applying(translation)
+        view.setPosition(on: dealt.card, pos: moveTo, duration: 0.2, delay: 0)
     }
     
     ///

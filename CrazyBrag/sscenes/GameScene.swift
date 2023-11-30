@@ -168,9 +168,8 @@ class GameScene: SKScene, GameView {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let location = touch.location(in: self)
-            let touchNode = atPoint(location)
-            if let name = touchNode.name {
-                presenter.handledTouch(atNodeNamed: name)
+            if let cardNode = atPoint(location) as? CardSpriteNode {
+                presenter.handleTouch(for: cardNode.playingCard)
             }
         }
     }
