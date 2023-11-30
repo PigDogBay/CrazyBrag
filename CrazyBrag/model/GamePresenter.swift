@@ -122,21 +122,39 @@ class GamePresenter: GameListener {
     }
     
     private func checkIfFinishedTurn(){
+        var turn = checkIfSwapped()
+        if turn == nil {
+            turn = checkIfAllIn()
+        }
+        if turn != nil {
+            model.school.humanAI.turn = turn
+            canUpdateGame = true
+            selectedCards.removeAll()
+        }
+    }
+    
+    private func checkIfAllIn() -> Turn?{
         if selectedCards.filter({!$0.isMiddle}).count == 3 {
             //Player has selected all of their cards to throw in
             //The first card selected is down
             if let down = selectedCards.first(where: {!$0.isMiddle}){
                 if let index = model.school.playerHuman.hand.hand.firstIndex(of: down.card){
-                    let turn = Turn.all(downIndex: index)
-                    model.school.humanAI.turn = turn
-                    canUpdateGame = true
-                    selectedCards.removeAll()
+                    return Turn.all(downIndex: index)
                 }
             }
-            
         }
+        return nil
     }
     
+    private func checkIfSwapped() -> Turn?{
+        guard selectedCards.count == 2,
+            let playerCard = selectedCards.first(where: {!$0.isMiddle}),
+            let middleCard = selectedCards.first(where: {$0.isMiddle}) else {
+            return nil
+        }
+        return Turn.swap(hand: playerCard.card, middle: middleCard.card)
+    }
+
     private func selectCard(_ card : DealtCard){
         let offset = card.seat == 0 ? 50.0 : -50.0
         selectedCards.append(card)
