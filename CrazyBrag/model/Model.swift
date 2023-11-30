@@ -154,4 +154,23 @@ class Model {
             gameListener?.gameOver(winner: winner)
         }
     }
+    
+    /// If the card is can be interacted with by the user, converts the PlayingCard into DealtCard
+    func toTouchableCard(card : PlayingCard) -> DealtCard?{
+        if let playerCard = toDealtCard(card: card, playerHand: school.playerHuman.hand, seat: 0){
+            return playerCard
+        }
+        if let middleCard = toDealtCard(card: card, playerHand: middle, seat: -1){
+            return middleCard
+        }
+        return nil
+    }
+    private func toDealtCard(card : PlayingCard, playerHand : PlayerHand, seat : Int) -> DealtCard?{
+        if let index = playerHand.hand.firstIndex(of: card) {
+            let dealtCard = DealtCard(seat: seat, card: card, cardCount: index+1)
+            return dealtCard
+        }
+        return nil
+    }
+
 }

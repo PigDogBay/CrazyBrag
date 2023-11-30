@@ -100,7 +100,7 @@ class GamePresenter: GameListener {
     
     func handleTouch(for card : PlayingCard){
         print("Node touched: \(card.display())")
-        if let dealtCard = toTouchableCard(card: card){
+        if let dealtCard = model.toTouchableCard(card: card){
             if selectedCards.contains(where: {$0.card == card}){
                 deselectCard(dealtCard)
             } else if validate(selectedCard: dealtCard) {
@@ -145,23 +145,6 @@ class GamePresenter: GameListener {
     private func deselectCard(_ card : DealtCard){
         selectedCards.removeAll(where: {$0.card == card.card})
         moveCard(dealt: card, yOffset: 0)
-    }
-    private func toTouchableCard(card : PlayingCard) -> DealtCard?{
-        if let playerCard = toDealtCard(card: card, playerHand: model.school.playerHuman.hand, seat: 0){
-            return playerCard
-        }
-        if let middleCard = toDealtCard(card: card, playerHand: model.middle, seat: -1){
-            return middleCard
-        }
-        return nil
-    }
-
-    private func toDealtCard(card : PlayingCard, playerHand : PlayerHand, seat : Int) -> DealtCard?{
-        if let index = playerHand.hand.firstIndex(of: card) {
-            let dealtCard = DealtCard(seat: seat, card: card, cardCount: index+1)
-            return dealtCard
-        }
-        return nil
     }
     
     private func moveCard(dealt : DealtCard, yOffset: Double){
