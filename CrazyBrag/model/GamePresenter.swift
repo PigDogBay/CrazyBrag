@@ -100,36 +100,62 @@ class GamePresenter: GameListener {
     
     func handleTouch(for card : PlayingCard){
         print("Node touched: \(card.display())")
-        if selectedCards.contains(where: {$0.card == card}){
-            deselectCard(card)
-        } else {
-            selectCard(card)
-            checkIfFinishedTurn()
+        if let dealtCard = toTouchableCard(card: card){
+            if selectedCards.contains(where: {$0.card == card}){
+                deselectCard(dealtCard)
+            } else if validate(selectedCard: dealtCard) {
+                selectCard(dealtCard)
+                checkIfFinishedTurn()
+            }
         }
+    }
+    
+    private func validate(selectedCard card: DealtCard) -> Bool{
+        if card.isMiddle {
+            //Only 1 card in the middle can be selected
+            //so deselect any other middle cards
+            selectedCards.filter({ $0.isMiddle }).forEach { dealt in
+                deselectCard(dealt)
+            }
+        }
+        return true
     }
     
     private func checkIfFinishedTurn(){
-        
+        if selectedCards.filter({!$0.isMiddle}).count == 3 {
+            //Player has selected all of their cards to throw in
+            //The first card selected is down
+            if let down = selectedCards.first(where: {!$0.isMiddle}){
+                if let index = model.school.playerHuman.hand.hand.firstIndex(of: down.card){
+                    let turn = Turn.all(downIndex: index)
+                    model.school.humanAI.turn = turn
+                    canUpdateGame = true
+                    selectedCards.removeAll()
+                }
+            }
+            
+        }
     }
     
-    private func selectCard(_ card : PlayingCard){
+    private func selectCard(_ card : DealtCard){
+        let offset = card.seat == 0 ? 50.0 : -50.0
+        selectedCards.append(card)
+        moveCard(dealt: card, yOffset: offset)
+    }
+    private func deselectCard(_ card : DealtCard){
+        selectedCards.removeAll(where: {$0.card == card.card})
+        moveCard(dealt: card, yOffset: 0)
+    }
+    private func toTouchableCard(card : PlayingCard) -> DealtCard?{
         if let playerCard = toDealtCard(card: card, playerHand: model.school.playerHuman.hand, seat: 0){
-            //player card selected
-            selectedCards.append(playerCard)
-            moveCard(dealt: playerCard, yOffset: 50)
-        } else if let middleCard = toDealtCard(card: card, playerHand: model.middle, seat: -1){
-            //middle card selected
-            selectedCards.append(middleCard)
-            moveCard(dealt: middleCard, yOffset: -50)
+            return playerCard
         }
-    }
-    private func deselectCard(_ card : PlayingCard){
-        if let dealt = selectedCards.first(where: {$0.card == card}) {
-            selectedCards.removeAll(where: {$0.card == card})
-            moveCard(dealt: dealt, yOffset: 0)
+        if let middleCard = toDealtCard(card: card, playerHand: model.middle, seat: -1){
+            return middleCard
         }
+        return nil
     }
-    
+
     private func toDealtCard(card : PlayingCard, playerHand : PlayerHand, seat : Int) -> DealtCard?{
         if let index = playerHand.hand.firstIndex(of: card) {
             let dealtCard = DealtCard(seat: seat, card: card, cardCount: index+1)
