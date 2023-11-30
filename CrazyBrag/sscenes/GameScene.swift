@@ -173,28 +173,4 @@ class GameScene: SKScene, GameView {
             }
         }
     }
-
-    private func selectCard(name : String){
-        let card = self.childNode(withName: name)
-        let action = SKAction.move(by: CGVector(dx: 0, dy: 50), duration: 0.2)
-        card?.run(action)
-    }
-    private func selectBoxCard(name : String){
-        let card = self.childNode(withName: name)
-        let action = SKAction.move(by: CGVector(dx: 0, dy: -50), duration: 0.2)
-        card?.run(action){
-            self.swapCards()
-        }
-    }
-    
-    private func swapCards(){
-        let playerCard = self.childNode(withName: "KH")
-        let boxCard = self.childNode(withName: "AS")
-        let playerAction = SKAction.move(to: presenter.tableLayout.boxLayout.position3, duration: 0.2)
-        let boxAction = SKAction.move(to: presenter.tableLayout.playerLayout.position1, duration: 0.2)
-        playerCard?.run(playerAction)
-        boxCard?.run(boxAction)
-        
-    }
-
 }
