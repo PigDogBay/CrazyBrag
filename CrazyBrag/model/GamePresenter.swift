@@ -32,7 +32,6 @@ class GamePresenter: GameListener {
     private var gameUpdateFrequency : Double = 0.5
     ///Set to false if require player input
     private var canUpdateGame = true
-    private var selectedCards = [DealtCard]()
 
     init(size : CGSize, view : GameView){
         self.view = view
@@ -101,7 +100,7 @@ class GamePresenter: GameListener {
     func handleTouch(for card : PlayingCard){
         print("Node touched: \(card.display())")
         if let dealtCard = model.toTouchableCard(card: card){
-            if selectedCards.contains(where: {$0.card == card}){
+            if model.selectedCards.contains(where: {$0.card == card}){
                 deselectCard(dealtCard)
             } else if validate(selectedCard: dealtCard) {
                 selectCard(dealtCard)
@@ -114,7 +113,7 @@ class GamePresenter: GameListener {
         if card.isMiddle {
             //Only 1 card in the middle can be selected
             //so deselect any other middle cards
-            selectedCards.filter({ $0.isMiddle }).forEach { dealt in
+            model.selectedCards.filter({ $0.isMiddle }).forEach { dealt in
                 deselectCard(dealt)
             }
         }
@@ -122,46 +121,24 @@ class GamePresenter: GameListener {
     }
     
     private func checkIfFinishedTurn(){
-        var turn = checkIfSwapped()
+        var turn = model.checkIfSwapped()
         if turn == nil {
-            turn = checkIfAllIn()
+            turn = model.checkIfAllIn()
         }
         if turn != nil {
             model.school.humanAI.turn = turn
             canUpdateGame = true
-            selectedCards.removeAll()
+            model.selectedCards.removeAll()
         }
-    }
-    
-    private func checkIfAllIn() -> Turn?{
-        if selectedCards.filter({!$0.isMiddle}).count == 3 {
-            //Player has selected all of their cards to throw in
-            //The first card selected is down
-            if let down = selectedCards.first(where: {!$0.isMiddle}){
-                if let index = model.school.playerHuman.hand.hand.firstIndex(of: down.card){
-                    return Turn.all(downIndex: index)
-                }
-            }
-        }
-        return nil
-    }
-    
-    private func checkIfSwapped() -> Turn?{
-        guard selectedCards.count == 2,
-            let playerCard = selectedCards.first(where: {!$0.isMiddle}),
-            let middleCard = selectedCards.first(where: {$0.isMiddle}) else {
-            return nil
-        }
-        return Turn.swap(hand: playerCard.card, middle: middleCard.card)
     }
 
     private func selectCard(_ card : DealtCard){
         let offset = card.seat == 0 ? 50.0 : -50.0
-        selectedCards.append(card)
+        model.selectedCards.append(card)
         moveCard(dealt: card, yOffset: offset)
     }
     private func deselectCard(_ card : DealtCard){
-        selectedCards.removeAll(where: {$0.card == card.card})
+        model.selectedCards.removeAll(where: {$0.card == card.card})
         moveCard(dealt: card, yOffset: 0)
     }
     
@@ -247,6 +224,4 @@ class GamePresenter: GameListener {
     func gameOver(winner: Player) {
         logger.gameOver(winner: winner)
     }
-
-    
 }

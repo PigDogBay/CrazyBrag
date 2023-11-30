@@ -20,6 +20,7 @@ class Model {
     var gameState : GameState = .setUp
     var gameListener : GameListener? = nil
     var nextPlayer : Player? = nil
+    var selectedCards = [DealtCard]()
 
     func computerMakeGame(){
         for _ in 1...1000 {
@@ -171,6 +172,28 @@ class Model {
             return dealtCard
         }
         return nil
+    }
+    
+    func checkIfAllIn() -> Turn?{
+        if selectedCards.filter({!$0.isMiddle}).count == 3 {
+            //Player has selected all of their cards to throw in
+            //The first card selected is down
+            if let down = selectedCards.first(where: {!$0.isMiddle}){
+                if let index = school.playerHuman.hand.hand.firstIndex(of: down.card){
+                    return Turn.all(downIndex: index)
+                }
+            }
+        }
+        return nil
+    }
+    
+    func checkIfSwapped() -> Turn?{
+        guard selectedCards.count == 2,
+            let playerCard = selectedCards.first(where: {!$0.isMiddle}),
+            let middleCard = selectedCards.first(where: {$0.isMiddle}) else {
+            return nil
+        }
+        return Turn.swap(hand: playerCard.card, middle: middleCard.card)
     }
 
 }
