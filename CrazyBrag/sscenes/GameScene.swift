@@ -79,7 +79,8 @@ class GameScene: SKScene, GameView {
     }
 
     func updateDealer(player: Player) {
-        dealerTokenNode.position = presenter.tableLayout.getDealerPosition(seat: player.seat)
+        let pos = presenter.tableLayout.getDealerPosition(seat: player.seat)
+        dealerTokenNode.run(SKAction.move(to: pos, duration: 0.5))
     }
     
     func removePlayer(player : Player) {
