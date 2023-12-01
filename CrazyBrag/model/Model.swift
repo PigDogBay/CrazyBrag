@@ -21,6 +21,7 @@ class Model {
     var gameListener : GameListener? = nil
     var nextPlayer : Player? = nil
     var selectedCards = [DealtCard]()
+    var isPlayersTurn = false
 
     func computerMakeGame(){
         for _ in 1...1000 {
@@ -194,6 +195,25 @@ class Model {
             return nil
         }
         return Turn.swap(hand: playerCard.card, middle: middleCard.card)
+    }
+    ///Check if the players selection is valid
+    ///Returns true if valid, false invalid
+    func validate(selectedCard card: DealtCard) -> Bool{
+        //Only allow selection when it is the player's turn
+        if !isPlayersTurn {
+            return false
+        }
+        let middleCount = selectedCards.filter{$0.isMiddle}.count
+        let handCount = selectedCards.count - middleCount
+        //Only 1 card in the middle can be selected
+        if card.isMiddle && middleCount>0{
+            return false
+        }
+        //Cannot select the middle if two hand cards already selected
+        if card.isMiddle && handCount == 2{
+            return false
+        }
+        return true
     }
 
 }

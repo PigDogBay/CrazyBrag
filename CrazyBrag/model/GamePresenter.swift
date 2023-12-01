@@ -102,22 +102,11 @@ class GamePresenter: GameListener {
         if let dealtCard = model.toTouchableCard(card: card){
             if model.selectedCards.contains(where: {$0.card == card}){
                 deselectCard(dealtCard)
-            } else if validate(selectedCard: dealtCard) {
+            } else if model.validate(selectedCard: dealtCard) {
                 selectCard(dealtCard)
                 checkIfFinishedTurn()
             }
         }
-    }
-    
-    private func validate(selectedCard card: DealtCard) -> Bool{
-        if card.isMiddle {
-            //Only 1 card in the middle can be selected
-            //so deselect any other middle cards
-            model.selectedCards.filter({ $0.isMiddle }).forEach { dealt in
-                deselectCard(dealt)
-            }
-        }
-        return true
     }
     
     private func checkIfFinishedTurn(){
@@ -178,12 +167,15 @@ class GamePresenter: GameListener {
         if player.seat == 0 {
             //Stop updating until player has taken their turn
             canUpdateGame = false
+            //Player can now interact with the cards
+            model.isPlayersTurn = true
         }
     }
     
     func turnEnded(player: Player, middle: PlayerHand, turn: Turn) {
         gameUpdateFrequency = 2.5
         logger.turnEnded(player: player, middle: middle, turn: turn)
+        model.isPlayersTurn = false
         let p1 = DealtCard(seat: player.seat, card: player.hand.hand[0], cardCount: 1)
         let p2 = DealtCard(seat: player.seat, card: player.hand.hand[1], cardCount: 2)
         let p3 = DealtCard(seat: player.seat, card: player.hand.hand[2], cardCount: 3)
