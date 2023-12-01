@@ -68,30 +68,21 @@ class GameScene: SKScene, GameView {
             switch player.lives {
             case 1:
                 node.text = "🔴"
-                showExplosion(pos: node.position)
             case 2:
                 node.text = "🔴🔴"
-                showExplosion(pos: node.position)
             case 3:
                 node.text = "🔴🔴🔴"
             default:
-                showExplosion(pos: node.position)
                 node.text = ""
+            }
+            
+            if player.lives != 3{
+                showExplosion(pos: node.position)
+                highlightLoser(player: player)
             }
         }
     }
     
-    private func showExplosion(pos : CGPoint){
-        if let explosion = SKEmitterNode(fileNamed: "Explosion")
-        {
-            explosion.numParticlesToEmit = 100
-            explosion.position = pos
-            addChild(explosion)
-            let removeAfterDead = SKAction.sequence([SKAction.wait(forDuration: 3), SKAction.removeFromParent()])
-            explosion.run(removeAfterDead)
-        }
-    }
-
     func updateDealer(player: Player) {
         let pos = presenter.tableLayout.getDealerPosition(seat: player.seat)
         dealerTokenNode.run(SKAction.move(to: pos, duration: 0.5))
@@ -177,9 +168,30 @@ class GameScene: SKScene, GameView {
         dealerTokenNode.position = presenter.tableLayout.getDealerPosition(seat: 0)
         dealerTokenNode.zPosition = 200
         addChild(dealerTokenNode)
-
     }
     
+    private func highlightLoser(player : Player){
+        guard let node = self.childNode(withName: "table mat \(player.seat)") as? SKShapeNode
+        else { return }
+        let action = SKAction.fadeAlpha(to: 1.0, duration: 0.25)
+        let action2 = SKAction.fadeAlpha(to: 0.2, duration: 0.25)
+        let seq = SKAction.sequence([action, action2])
+        node.run(SKAction.repeat(seq, count: 5))
+    }
+    
+
+    private func showExplosion(pos : CGPoint){
+        if let explosion = SKEmitterNode(fileNamed: "Explosion")
+        {
+            explosion.numParticlesToEmit = 100
+            explosion.position = pos
+            addChild(explosion)
+            let removeAfterDead = SKAction.sequence([SKAction.wait(forDuration: 3), SKAction.removeFromParent()])
+            explosion.run(removeAfterDead)
+        }
+    }
+
+
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let location = touch.location(in: self)
