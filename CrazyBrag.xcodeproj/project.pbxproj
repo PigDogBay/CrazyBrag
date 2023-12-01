@@ -43,6 +43,7 @@
 		009313EC2A4F142D007194D9 /* SchoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313E22A4F142D007194D9 /* SchoolTests.swift */; };
 		009313ED2A4F142D007194D9 /* DeckTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313E32A4F142D007194D9 /* DeckTests.swift */; };
 		009313EE2A4F142D007194D9 /* HandResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313E42A4F142D007194D9 /* HandResolverTests.swift */; };
+		00A68AE02B19FE7D006EC10C /* Explosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 00A68ADF2B19FE7D006EC10C /* Explosion.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,6 +103,7 @@
 		009313E22A4F142D007194D9 /* SchoolTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchoolTests.swift; sourceTree = "<group>"; };
 		009313E32A4F142D007194D9 /* DeckTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeckTests.swift; sourceTree = "<group>"; };
 		009313E42A4F142D007194D9 /* HandResolverTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandResolverTests.swift; sourceTree = "<group>"; };
+		00A68ADF2B19FE7D006EC10C /* Explosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Explosion.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +162,7 @@
 				009313822A4C334B007194D9 /* Main.storyboard */,
 				009313852A4C334D007194D9 /* Assets.xcassets */,
 				009313872A4C334D007194D9 /* LaunchScreen.storyboard */,
+				00A68ADF2B19FE7D006EC10C /* Explosion.sks */,
 			);
 			path = CrazyBrag;
 			sourceTree = "<group>";
@@ -335,6 +338,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				009313842A4C334B007194D9 /* Main.storyboard in Resources */,
+				00A68AE02B19FE7D006EC10C /* Explosion.sks in Resources */,
 				009313862A4C334D007194D9 /* Assets.xcassets in Resources */,
 				009313892A4C334D007194D9 /* LaunchScreen.storyboard in Resources */,
 			);

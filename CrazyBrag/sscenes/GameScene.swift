@@ -68,13 +68,27 @@ class GameScene: SKScene, GameView {
             switch player.lives {
             case 1:
                 node.text = "🔴"
+                showExplosion(pos: node.position)
             case 2:
                 node.text = "🔴🔴"
+                showExplosion(pos: node.position)
             case 3:
                 node.text = "🔴🔴🔴"
             default:
+                showExplosion(pos: node.position)
                 node.text = ""
             }
+        }
+    }
+    
+    private func showExplosion(pos : CGPoint){
+        if let explosion = SKEmitterNode(fileNamed: "Explosion")
+        {
+            explosion.numParticlesToEmit = 100
+            explosion.position = pos
+            addChild(explosion)
+            let removeAfterDead = SKAction.sequence([SKAction.wait(forDuration: 3), SKAction.removeFromParent()])
+            explosion.run(removeAfterDead)
         }
     }
 
