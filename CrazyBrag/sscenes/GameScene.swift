@@ -68,11 +68,11 @@ class GameScene: SKScene, GameView {
         if let node = scoreNodes.first(where: {$0.name == player.name}) {
             switch player.lives {
             case 1:
-                node.text = "🔴"
+                node.text = "💛"
             case 2:
-                node.text = "🔴🔴"
+                node.text = "💛💛"
             case 3:
-                node.text = "🔴🔴🔴"
+                node.text = "💛💛💛"
             default:
                 node.text = ""
             }
@@ -117,7 +117,7 @@ class GameScene: SKScene, GameView {
     }
 
      func addName(name : String, pos : CGPoint){
-         let label = SKLabelNode(fontNamed: "HelveticaNeue")
+         let label = SKLabelNode(fontNamed: "QuentinCaps")
          label.name = "name \(name)"
          label.text = name
          label.fontColor = SKColor.white
@@ -132,7 +132,7 @@ class GameScene: SKScene, GameView {
     func addLives(name : String, pos : CGPoint){
         let label = SKLabelNode(fontNamed: "HelveticaNeue")
         label.name = name
-        label.text = "🔴🔴🔴"
+        label.text = "💛💛💛"
         label.fontSize = 18
         label.verticalAlignmentMode = .bottom
         label.horizontalAlignmentMode = .right
