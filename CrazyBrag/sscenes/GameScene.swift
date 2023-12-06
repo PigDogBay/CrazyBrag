@@ -12,6 +12,7 @@ class GameScene: SKScene, GameView {
     var cardNodes = [CardSpriteNode]()
     var scoreNodes = [SKLabelNode]()
     let dealerTokenNode =  SKLabelNode(fontNamed: "HelveticaNeue")
+    let messageNode = MessageNode()
     
     private var lastGameUpdateTime = TimeInterval()
 
@@ -31,6 +32,8 @@ class GameScene: SKScene, GameView {
         addDealer()
         createCardNodes()
         presenter.allCardsToDeck()
+        messageNode.position = presenter.tableLayout.message
+        addChild(messageNode)
         for i in -1...5 {
             addTableMat(seat: i)
         }
@@ -148,6 +151,10 @@ class GameScene: SKScene, GameView {
         node.alpha = 0.5
         node.zPosition = Layer.tableMat.rawValue
         addChild(node)
+    }
+    
+    func show(message: String) {
+        messageNode.show(message: message)
     }
     
     //MARK: - Misc

@@ -17,6 +17,7 @@ protocol GameView {
     func updateDealer(player : Player)
     func removePlayer(player : Player)
     func highlight(player : Player, status : PlayerStatus)
+    func show(message : String)
 }
 
 enum PlayerStatus {
@@ -93,9 +94,7 @@ class GamePresenter: GameListener {
         }
     }
     
-    ///
-    ///Touch handling:-
-    ///
+    //MARK: - Touch handling
     
     func handleTouch(for card : PlayingCard){
         print("Node touched: \(card.display())")
@@ -138,13 +137,12 @@ class GamePresenter: GameListener {
         view.setPosition(on: dealt.card, pos: moveTo, duration: 0.2, delay: 0)
     }
     
-    ///
-    ///GameListener functions
-    ///
+    //MARK: - GameListener functions
     
     func dealerSelected(dealer: Player) {
-        gameUpdateFrequency = 0.5
         logger.dealerSelected(dealer: dealer)
+        view.show(message: "\(dealer.name)\nDealing")
+        gameUpdateFrequency = 0.5
         view.updateDealer(player: dealer)
         allCardsToDeck()
         for player in model.school.players {
@@ -153,8 +151,8 @@ class GamePresenter: GameListener {
     }
     
     func dealingDone(dealtCards: [DealtCard]) {
-        gameUpdateFrequency = 2.5
         logger.dealingDone(dealtCards: dealtCards)
+        gameUpdateFrequency = 2.5
         positionCard(cards: dealtCards, duration: 0.1)
         showCards(in: model.school.playerHuman.hand)
     }
@@ -169,6 +167,9 @@ class GamePresenter: GameListener {
             canUpdateGame = false
             //Player can now interact with the cards
             model.isPlayersTurn = true
+            view.show(message: "Your Turn")
+        } else {
+            view.show(message: "\(player.name)'s\nTurn")
         }
     }
     
@@ -190,6 +191,7 @@ class GamePresenter: GameListener {
     }
     
     func showHands(players: [Player]) {
+        view.show(message: "End of Round")
         gameUpdateFrequency = 2.5
         logger.showHands(players: players)
         showAllHands()
@@ -197,6 +199,18 @@ class GamePresenter: GameListener {
     
     func roundEnded(losingPlayers: [Player]) {
         logger.roundEnded(losingPlayers: losingPlayers)
+        switch losingPlayers.count {
+        case 0:
+            view.show(message: "")
+        case 1:
+            if losingPlayers[0].seat == 0{
+                view.show(message: "You lose a life")
+            } else{
+                view.show(message: "\(losingPlayers.first?.name ?? "")\nLoses a life")
+            }
+        default:
+            view.show(message: "\(losingPlayers.count) Players\nLose a life")
+        }
         for player in losingPlayers {
             view.updateScore(player: player)
         }
@@ -204,6 +218,18 @@ class GamePresenter: GameListener {
     
     func pullThePeg(outPlayers: [Player]) {
         logger.pullThePeg(outPlayers: outPlayers)
+        switch outPlayers.count {
+        case 0:
+            view.show(message: "")
+        case 1:
+            if outPlayers[0].seat == 0{
+                view.show(message: "You are out")
+            } else{
+                view.show(message: "\(outPlayers.first?.name ?? "")\nIs Out")
+            }
+        default:
+            view.show(message: "\(outPlayers.count) Players\nAre Out")
+        }
         for player in outPlayers {
             view.removePlayer(player: player)
         }
@@ -215,5 +241,6 @@ class GamePresenter: GameListener {
     
     func gameOver(winner: Player) {
         logger.gameOver(winner: winner)
+        view.show(message: "\(winner.name) is the Winner!")
     }
 }

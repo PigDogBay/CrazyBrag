@@ -102,6 +102,10 @@ struct TableLayout {
         let h : Double = w * (CARD_ASSET_HEIGHT/CARD_ASSET_WIDTH)
         return CGSize(width: w, height: h)
     }
+    
+    var message : CGPoint {
+        return CGPoint(x: cpuEast.midX, y: player.midY)
+    }
 
     func getNamePosition(seat : Int) -> CGPoint {
         return getCardPosition(for: seat).namePos
