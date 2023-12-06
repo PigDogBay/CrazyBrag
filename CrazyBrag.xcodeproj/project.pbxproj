@@ -209,6 +209,7 @@
 				009313B82A4C369B007194D9 /* PlayingCard.swift */,
 				009313B42A4C369B007194D9 /* PossibleHandResolver.swift */,
 				009313B32A4C369B007194D9 /* School.swift */,
+				009313AF2A4C3493007194D9 /* TableLayout.swift */,
 				009313D92A4EE536007194D9 /* Timing.swift */,
 				002081AE2B16024800CF4AFF /* GamePresenter.swift */,
 			);
@@ -228,7 +229,6 @@
 			children = (
 				009313AB2A4C3463007194D9 /* StartScene.swift */,
 				0093137E2A4C334B007194D9 /* GameScene.swift */,
-				009313AF2A4C3493007194D9 /* TableLayout.swift */,
 			);
 			path = sscenes;
 			sourceTree = "<group>";
