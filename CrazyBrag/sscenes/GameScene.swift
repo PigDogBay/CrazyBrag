@@ -40,9 +40,7 @@ class GameScene: SKScene, GameView {
         presenter.update(currentTime)
     }
 
-    ///
-    ///GameView:-
-    ///
+    //MARK: - GameView
 
     func setZPosition(on card: PlayingCard, z: CGFloat) {
         if let cardNode = cardNodes.first(where: {$0.playingCard == card}) {
@@ -151,6 +149,7 @@ class GameScene: SKScene, GameView {
         addChild(node)
     }
     
+    //MARK: - Misc
 
     private func addBackground(imageNamed image : String){
         let background = SKSpriteNode(imageNamed: image)
