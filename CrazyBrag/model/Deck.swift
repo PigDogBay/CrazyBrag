@@ -43,8 +43,7 @@ class Deck {
             if deck.contains($0) {
                 throw CardErrors.CardAlreadyInThePack(card: $0)
             }
-            var card = $0
-            deck.append(card)
+            deck.append($0)
         }
     }
     
