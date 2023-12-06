@@ -146,6 +146,7 @@ class GameScene: SKScene, GameView {
         node.fillColor = .gray
         node.strokeColor = .clear
         node.alpha = 0.5
+        node.zPosition = Layer.tableMat.rawValue
         addChild(node)
     }
     
@@ -154,7 +155,7 @@ class GameScene: SKScene, GameView {
     private func addBackground(imageNamed image : String){
         let background = SKSpriteNode(imageNamed: image)
         background.position = CGPoint(x: frame.midX, y: frame.midY)
-        background.zPosition = -1
+        background.zPosition = Layer.background.rawValue
         addChild(background)
     }
     
@@ -165,7 +166,7 @@ class GameScene: SKScene, GameView {
         dealerTokenNode.verticalAlignmentMode = .bottom
         dealerTokenNode.horizontalAlignmentMode = .right
         dealerTokenNode.position = presenter.tableLayout.getDealerPosition(seat: 0)
-        dealerTokenNode.zPosition = 200
+        dealerTokenNode.zPosition = Layer.ui.rawValue
         addChild(dealerTokenNode)
     }
     

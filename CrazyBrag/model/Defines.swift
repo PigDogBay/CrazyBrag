@@ -77,6 +77,14 @@ struct DealtCard {
     ///1-first card, 2 = second card or 3 last card dealt to player/middle
     let cardCount : Int
     
+    var zPosition : CGFloat {
+        switch cardCount {
+        case 1 : return Layer.card1.rawValue
+        case 2 : return Layer.card2.rawValue
+        default : return Layer.card3.rawValue
+        }
+    }
+    
     ///When dealing to a player, call this initialiser
     init(seat: Int, card: PlayingCard, cardCount: Int) {
         self.seat = seat

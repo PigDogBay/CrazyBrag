@@ -61,7 +61,7 @@ class GamePresenter: GameListener {
             let pos = tableLayout.getPosition(dealt: dealt)
             let isFaceUp = dealt.isMiddle && dealt.cardCount != 1
             view.turn(card: dealt.card, isFaceUp: isFaceUp)
-            view.setZPosition(on: dealt.card, z: CGFloat(dealt.cardCount))
+            view.setZPosition(on: dealt.card, z: dealt.zPosition)
             view.setPosition(on: dealt.card, pos: pos, duration: duration, delay: delay)
             delay = delay + 0.1
         }
@@ -84,7 +84,7 @@ class GamePresenter: GameListener {
     
     func allCardsToDeck(){
         let pos = tableLayout.deckPosition
-        var z : CGFloat = 10.0
+        var z = Layer.deck.rawValue
         for card in model.deck.deck{
             view.setZPosition(on: card, z: z)
             view.turn(card: card, isFaceUp: false)

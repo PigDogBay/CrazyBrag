@@ -20,6 +20,11 @@ protocol CardPosition{
     var dealerTokenPos : CGPoint { get }
 }
 
+///Z-Positioning for the game 
+enum Layer : CGFloat {
+    case background, tableMat, ui, card1, card2, card3, messages, deck
+}
+
 struct TableLayout {
     
     let size : CGSize
