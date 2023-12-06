@@ -14,8 +14,8 @@ class StartScene: SKScene {
     override func didMove(to view: SKView) {
         
         addBackground(imageNamed: "treestump")
-        let topLabel = SKLabelNode(fontNamed: "HelveticaNeue-Bold")
-        topLabel.text = "Crazy Br♠️g"
+        let topLabel = SKLabelNode(fontNamed: "QuentinCaps")
+        topLabel.text = "Crazy Brag"
         topLabel.fontColor = SKColor.white
         topLabel.fontSize = 48
         topLabel.position = CGPoint(x: frame.midX, y: frame.midY * 1.4)
@@ -53,7 +53,7 @@ class StartScene: SKScene {
     }
     
     private func addStartButton(){
-        let label = SKLabelNode(fontNamed: "HelveticaNeue-Bold")
+        let label = SKLabelNode(fontNamed: "QuentinCaps")
         label.text = "START"
         label.fontColor = SKColor.red
         label.fontSize = 36
