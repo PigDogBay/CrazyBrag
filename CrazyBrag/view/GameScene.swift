@@ -16,7 +16,7 @@ class GameScene: SKScene, GameView {
     
     private var lastGameUpdateTime = TimeInterval()
 
-    lazy var presenter  = GamePresenter(size: self.size, view: self)
+    lazy var presenter  : GamePresenter = GamePresenter(size: self.size, view: self)
     
     func createCardNodes() {
         cardNodes = presenter.model.deck.deck.map {
@@ -27,6 +27,10 @@ class GameScene: SKScene, GameView {
         }
     }
     
+    deinit {
+        print("GAME SCENE DEINIT")
+    }
+    
     override func didMove(to view: SKView) {
         addBackground(imageNamed: "treestump")
         addDealer()
@@ -34,6 +38,7 @@ class GameScene: SKScene, GameView {
         presenter.allCardsToDeck()
         messageNode.position = presenter.tableLayout.message
         addChild(messageNode)
+        addBackButton()
         for i in -1...5 {
             addTableMat(seat: i)
         }
@@ -157,6 +162,16 @@ class GameScene: SKScene, GameView {
         messageNode.show(message: message)
     }
     
+    func quit(){
+        print("QUIT")
+        removeAllActions()
+        removeAllChildren()
+        cardNodes.removeAll()
+        scoreNodes.removeAll()
+        let transition = SKTransition.doorway(withDuration: 1)
+        view?.presentScene(StartScene(size: frame.size), transition: transition)
+    }
+    
     //MARK: - Misc
 
     private func addBackground(imageNamed image : String){
@@ -197,13 +212,30 @@ class GameScene: SKScene, GameView {
             explosion.run(removeAfterDead)
         }
     }
+    
+    private func addBackButton(){
+        let label = SKLabelNode(fontNamed: "QuentinCaps")
+        label.text = "QUIT"
+        label.fontColor = SKColor.red
+        label.fontSize = 36
+        label.position = CGPoint(x: 10, y: 10)
+        label.zPosition = 10
+        label.name="back button"
+        label.horizontalAlignmentMode = .left
+        label.verticalAlignmentMode = .bottom
+        addChild(label)
+
+    }
 
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let location = touch.location(in: self)
-            if let cardNode = atPoint(location) as? CardSpriteNode {
+            let node = atPoint(location)
+            if let cardNode = node as? CardSpriteNode {
                 presenter.handleTouch(for: cardNode.playingCard)
+            } else if node.name == "back button" {
+                quit()
             }
         }
     }
