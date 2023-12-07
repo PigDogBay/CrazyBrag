@@ -199,6 +199,7 @@
 				009313BC2A4C369B007194D9 /* Deck.swift */,
 				009313B92A4C369B007194D9 /* Defines.swift */,
 				009313B62A4C369B007194D9 /* GameListener.swift */,
+				002081AE2B16024800CF4AFF /* GamePresenter.swift */,
 				009313B22A4C369B007194D9 /* GameUpdateLogger.swift */,
 				009313BE2A4C369B007194D9 /* HandGenerator.swift */,
 				009313BA2A4C369B007194D9 /* HandResolver.swift */,
@@ -211,7 +212,6 @@
 				009313B32A4C369B007194D9 /* School.swift */,
 				009313AF2A4C3493007194D9 /* TableLayout.swift */,
 				009313D92A4EE536007194D9 /* Timing.swift */,
-				002081AE2B16024800CF4AFF /* GamePresenter.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";

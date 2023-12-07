@@ -16,27 +16,28 @@ class GameScene: SKScene, GameView {
     
     private var lastGameUpdateTime = TimeInterval()
 
-    lazy var presenter  : GamePresenter = GamePresenter(size: self.size, view: self)
+    var presenter  : GamePresenter? = nil
     
     func createCardNodes() {
-        cardNodes = presenter.model.deck.deck.map {
-            CardSpriteNode(card: $0, cardSize: presenter.tableLayout.cardSize)
+        if let presenter = presenter {
+            cardNodes = presenter.model.deck.deck.map {
+                CardSpriteNode(card: $0, cardSize: presenter.tableLayout.cardSize)
+            }
+            for card in cardNodes {
+                addChild(card)
+            }
         }
-        for card in cardNodes {
-            addChild(card)
-        }
-    }
-    
-    deinit {
-        print("GAME SCENE DEINIT")
     }
     
     override func didMove(to view: SKView) {
+        presenter = GamePresenter(size: self.size, view: self)
         addBackground(imageNamed: "treestump")
         addDealer()
         createCardNodes()
-        presenter.allCardsToDeck()
-        messageNode.position = presenter.tableLayout.message
+        if let presenter = presenter {
+            presenter.allCardsToDeck()
+            messageNode.position = presenter.tableLayout.message
+        }
         addChild(messageNode)
         addBackButton()
         for i in -1...5 {
@@ -45,10 +46,18 @@ class GameScene: SKScene, GameView {
     }
     
     override func update(_ currentTime: TimeInterval) {
-        presenter.update(currentTime)
+        presenter?.update(currentTime)
     }
 
     //MARK: - GameView
+    
+    func quit(){
+        //Break strong reference cycle
+        presenter = nil
+        removeAllActions()
+        let transition = SKTransition.doorway(withDuration: 1)
+        view?.presentScene(StartScene(size: frame.size), transition: transition)
+    }
 
     func setZPosition(on card: PlayingCard, z: CGFloat) {
         if let cardNode = cardNodes.first(where: {$0.playingCard == card}) {
@@ -90,8 +99,10 @@ class GameScene: SKScene, GameView {
     }
     
     func updateDealer(player: Player) {
-        let pos = presenter.tableLayout.getDealerPosition(seat: player.seat)
-        dealerTokenNode.run(SKAction.move(to: pos, duration: 0.5))
+        if let presenter = presenter {
+            let pos = presenter.tableLayout.getDealerPosition(seat: player.seat)
+            dealerTokenNode.run(SKAction.move(to: pos, duration: 0.5))
+        }
     }
     
     func removePlayer(player : Player) {
@@ -148,28 +159,20 @@ class GameScene: SKScene, GameView {
     }
     
     func addTableMat(seat : Int){
-        let frame = presenter.tableLayout.getFrame(seat: seat).insetBy(dx: -8.0, dy: -8.0)
-        let node = SKShapeNode(rect: frame, cornerRadius: 20.0)
-        node.name = "table mat \(seat)"
-        node.fillColor = .gray
-        node.strokeColor = .clear
-        node.alpha = 0.5
-        node.zPosition = Layer.tableMat.rawValue
-        addChild(node)
+        if let presenter = presenter {
+            let frame = presenter.tableLayout.getFrame(seat: seat).insetBy(dx: -8.0, dy: -8.0)
+            let node = SKShapeNode(rect: frame, cornerRadius: 20.0)
+            node.name = "table mat \(seat)"
+            node.fillColor = .gray
+            node.strokeColor = .clear
+            node.alpha = 0.5
+            node.zPosition = Layer.tableMat.rawValue
+            addChild(node)
+        }
     }
     
     func show(message: String) {
         messageNode.show(message: message)
-    }
-    
-    func quit(){
-        print("QUIT")
-        removeAllActions()
-        removeAllChildren()
-        cardNodes.removeAll()
-        scoreNodes.removeAll()
-        let transition = SKTransition.doorway(withDuration: 1)
-        view?.presentScene(StartScene(size: frame.size), transition: transition)
     }
     
     //MARK: - Misc
@@ -187,7 +190,7 @@ class GameScene: SKScene, GameView {
         dealerTokenNode.fontSize = 36
         dealerTokenNode.verticalAlignmentMode = .bottom
         dealerTokenNode.horizontalAlignmentMode = .right
-        dealerTokenNode.position = presenter.tableLayout.getDealerPosition(seat: 0)
+        dealerTokenNode.position = presenter?.tableLayout.getDealerPosition(seat: 0) ?? CGPoint.zero
         dealerTokenNode.zPosition = Layer.ui.rawValue
         addChild(dealerTokenNode)
     }
@@ -233,9 +236,9 @@ class GameScene: SKScene, GameView {
             let location = touch.location(in: self)
             let node = atPoint(location)
             if let cardNode = node as? CardSpriteNode {
-                presenter.handleTouch(for: cardNode.playingCard)
+                presenter?.handleTouch(for: cardNode.playingCard)
             } else if node.name == "back button" {
-                quit()
+                presenter?.quit()
             }
         }
     }

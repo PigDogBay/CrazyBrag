@@ -8,6 +8,7 @@
 import Foundation
 
 protocol GameView {
+    func quit()
     func setZPosition(on card: PlayingCard, z : CGFloat)
     func setPosition(on card: PlayingCard, pos: CGPoint, duration : TimeInterval, delay : TimeInterval)
     func addName(name : String, pos : CGPoint)
@@ -34,6 +35,10 @@ class GamePresenter: GameListener {
     ///Set to false if require player input
     private var canUpdateGame = true
 
+    deinit {
+        print("PRESENTER DEINIT")
+    }
+
     init(size : CGSize, view : GameView){
         self.view = view
         tableLayout = TableLayout(size: size)
@@ -45,6 +50,12 @@ class GamePresenter: GameListener {
             view.addName(name: player.name, pos: tableLayout.getNamePosition(seat: player.seat))
             view.addLives(name: player.name, pos: tableLayout.getLivesPosition(seat: player.seat))
         }
+    }
+    
+    func quit(){
+        //remove strong reference to allow object to be de-allocated
+        model.gameListener = nil
+        view.quit()
     }
     
     func update(_ currentTime: TimeInterval){
