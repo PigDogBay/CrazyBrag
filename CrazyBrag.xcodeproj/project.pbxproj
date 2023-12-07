@@ -160,15 +160,9 @@
 			isa = PBXGroup;
 			children = (
 				00A220CE2B20D5BD00B16292 /* Info.plist */,
-				00A220CB2B20D2F300B16292 /* Fonts */,
 				009313B12A4C35DE007194D9 /* model */,
 				00A220D22B21CF3800B16292 /* resources */,
 				009313D32A4ECAA2007194D9 /* view */,
-				009313782A4C334B007194D9 /* AppDelegate.swift */,
-				009313822A4C334B007194D9 /* Main.storyboard */,
-				009313852A4C334D007194D9 /* Assets.xcassets */,
-				009313872A4C334D007194D9 /* LaunchScreen.storyboard */,
-				00A68ADF2B19FE7D006EC10C /* Explosion.sks */,
 			);
 			path = CrazyBrag;
 			sourceTree = "<group>";
@@ -225,6 +219,7 @@
 		009313D32A4ECAA2007194D9 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				009313782A4C334B007194D9 /* AppDelegate.swift */,
 				009313AD2A4C3489007194D9 /* CardSprite.swift */,
 				0093137E2A4C334B007194D9 /* GameScene.swift */,
 				009313802A4C334B007194D9 /* GameViewController.swift */,
@@ -234,17 +229,14 @@
 			path = view;
 			sourceTree = "<group>";
 		};
-		00A220CB2B20D2F300B16292 /* Fonts */ = {
-			isa = PBXGroup;
-			children = (
-				00A220CC2B20D31A00B16292 /* Quentincaps-owxKz.ttf */,
-			);
-			name = Fonts;
-			sourceTree = "<group>";
-		};
 		00A220D22B21CF3800B16292 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				009313852A4C334D007194D9 /* Assets.xcassets */,
+				00A68ADF2B19FE7D006EC10C /* Explosion.sks */,
+				009313872A4C334D007194D9 /* LaunchScreen.storyboard */,
+				009313822A4C334B007194D9 /* Main.storyboard */,
+				00A220CC2B20D31A00B16292 /* Quentincaps-owxKz.ttf */,
 			);
 			name = resources;
 			sourceTree = "<group>";
