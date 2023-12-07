@@ -26,7 +26,7 @@ class School {
     }()
     lazy var playerHolly : Player = {
         let ai = OneDownAI()
-        let player = Player(name: "Mad Dog", ai: ai)
+        let player = Player(name: "Pig Dog", ai: ai)
         ai.player = player
         return player
     }()
