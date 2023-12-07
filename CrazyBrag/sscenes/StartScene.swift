@@ -54,7 +54,7 @@ class StartScene: SKScene {
     
     private func addStartButton(){
         let label = SKLabelNode(fontNamed: "QuentinCaps")
-        label.text = "START"
+        label.text = "DEAL"
         label.fontColor = SKColor.red
         label.fontSize = 36
         label.position = CGPoint(x: frame.midX, y: frame.height * 0.2 )
