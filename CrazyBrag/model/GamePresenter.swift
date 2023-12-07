@@ -35,10 +35,6 @@ class GamePresenter: GameListener {
     ///Set to false if require player input
     private var canUpdateGame = true
 
-    deinit {
-        print("PRESENTER DEINIT")
-    }
-
     init(size : CGSize, view : GameView){
         self.view = view
         tableLayout = TableLayout(size: size)
