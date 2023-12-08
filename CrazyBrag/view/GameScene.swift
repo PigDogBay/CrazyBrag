@@ -136,7 +136,7 @@ class GameScene: SKScene, GameView {
          let label = SKLabelNode(fontNamed: "QuentinCaps")
          label.name = "name \(name)"
          label.text = name
-         label.fontColor = SKColor.white
+         label.fontColor = SKColor.black
          label.fontSize = 24
          label.verticalAlignmentMode = .bottom
          label.horizontalAlignmentMode = .left
