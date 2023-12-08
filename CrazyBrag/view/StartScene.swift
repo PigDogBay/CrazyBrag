@@ -16,12 +16,14 @@ class StartScene: SKScene {
         addBackground(imageNamed: "treestump")
         let topLabel = SKLabelNode(fontNamed: "QuentinCaps")
         topLabel.text = "Crazy Brag"
-        topLabel.fontColor = SKColor.white
+        topLabel.fontColor = SKColor.black
         topLabel.fontSize = 48
         topLabel.position = CGPoint(x: frame.midX, y: frame.midY * 1.4)
+        topLabel.zPosition = Layer.messages.rawValue
         addChild(topLabel)
 
         cardQH.position = CGPoint(x: frame.midX, y: 0)
+        cardQH.zPosition = Layer.card1.rawValue
         addChild(cardQH)
         
         let action = SKAction.move(by: CGVector(dx: 0, dy: frame.midY), duration: 1)
@@ -47,8 +49,9 @@ class StartScene: SKScene {
 
     private func addBackground(imageNamed image : String){
         let background = SKSpriteNode(imageNamed: image)
-        background.position = CGPoint(x: frame.midX, y: frame.midY)
-        background.zPosition = -1
+        background.anchorPoint = CGPoint(x: 1.0, y: 1.0)
+        background.position = CGPoint(x: frame.maxX, y: frame.maxY)
+        background.zPosition = Layer.background.rawValue
         addChild(background)
     }
     
@@ -58,7 +61,7 @@ class StartScene: SKScene {
         label.fontColor = SKColor.red
         label.fontSize = 36
         label.position = CGPoint(x: frame.midX, y: frame.height * 0.2 )
-        label.zPosition = 10
+        label.zPosition = Layer.ui.rawValue
         label.name="start button"
         addChild(label)
 

@@ -179,7 +179,8 @@ class GameScene: SKScene, GameView {
 
     private func addBackground(imageNamed image : String){
         let background = SKSpriteNode(imageNamed: image)
-        background.position = CGPoint(x: frame.midX, y: frame.midY)
+        background.anchorPoint = CGPoint(x: 1.0, y: 1.0)
+        background.position = CGPoint(x: frame.maxX, y: frame.maxY)
         background.zPosition = Layer.background.rawValue
         addChild(background)
     }
