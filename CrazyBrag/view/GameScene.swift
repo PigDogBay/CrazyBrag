@@ -134,7 +134,7 @@ class GameScene: SKScene, GameView {
          label.verticalAlignmentMode = .bottom
          label.horizontalAlignmentMode = .left
          label.position = pos
-         label.zPosition = 200
+         label.zPosition = Layer.ui.rawValue
          addChild(label)
     }
     
@@ -146,7 +146,7 @@ class GameScene: SKScene, GameView {
         label.verticalAlignmentMode = .bottom
         label.horizontalAlignmentMode = .right
         label.position = pos
-        label.zPosition = 200
+        label.zPosition = Layer.ui.rawValue
         addChild(label)
         scoreNodes.append(label)
     }
