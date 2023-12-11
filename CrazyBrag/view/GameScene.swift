@@ -12,7 +12,7 @@ class GameScene: SKScene, GameView {
     var cardNodes = [CardSpriteNode]()
     var scoreNodes = [SKLabelNode]()
     let dealerTokenNode =  SKLabelNode(fontNamed: "HelveticaNeue")
-    let messageNode = MessageNode()
+    let messageNode = MessageNode(fontSize: 28.0)
     
     private var lastGameUpdateTime = TimeInterval()
 
@@ -31,7 +31,8 @@ class GameScene: SKScene, GameView {
     
     override func didMove(to view: SKView) {
         let isPhone = UIDevice.current.userInterfaceIdiom == .phone
-        presenter = GamePresenter(size: self.size, view: self, isPhone: isPhone)
+        self.presenter = GamePresenter(size: self.size, view: self, isPhone: isPhone)
+        self.presenter?.setUpGame()
         addBackground(imageNamed: "treestump")
         addDealer()
         createCardNodes()
@@ -138,7 +139,7 @@ class GameScene: SKScene, GameView {
          label.name = "name \(name)"
          label.text = name
          label.fontColor = SKColor.black
-         label.fontSize = 24
+         label.fontSize = presenter?.tableLayout.nameFontSize ?? 0.0
          label.verticalAlignmentMode = .bottom
          label.horizontalAlignmentMode = .left
          label.position = pos
@@ -150,7 +151,7 @@ class GameScene: SKScene, GameView {
         let label = SKLabelNode(fontNamed: "HelveticaNeue")
         label.name = name
         label.text = "💛💛💛"
-        label.fontSize = 18
+        label.fontSize = presenter?.tableLayout.livesFontSize ?? 0.0
         label.verticalAlignmentMode = .bottom
         label.horizontalAlignmentMode = .right
         label.position = pos
@@ -189,7 +190,7 @@ class GameScene: SKScene, GameView {
     private func addDealer(){
         dealerTokenNode.name = "dealer"
         dealerTokenNode.text = "⭐️"
-        dealerTokenNode.fontSize = 36
+        dealerTokenNode.fontSize = presenter?.tableLayout.dealerFontSize ?? 0.0
         dealerTokenNode.verticalAlignmentMode = .bottom
         dealerTokenNode.horizontalAlignmentMode = .right
         dealerTokenNode.position = presenter?.tableLayout.getDealerPosition(seat: 0) ?? CGPoint.zero
@@ -222,7 +223,7 @@ class GameScene: SKScene, GameView {
         let label = SKLabelNode(fontNamed: "QuentinCaps")
         label.text = "QUIT"
         label.fontColor = SKColor.red
-        label.fontSize = 36
+        label.fontSize = presenter?.tableLayout.buttonFontSize ?? 0.0
         label.position = CGPoint(x: 10, y: 10)
         label.zPosition = 10
         label.name="back button"

@@ -12,13 +12,13 @@ class MessageNode : SKLabelNode {
     ///Uses attributedText so that multi-line text can be center justified
     let attributes: [NSAttributedString.Key : Any]
 
-    override init(){
+    init(fontSize : CGFloat){
         let paragraph = NSMutableParagraphStyle()
         paragraph.alignment = .center
         attributes = [
             .foregroundColor : SKColor.black,
             .backgroundColor: UIColor.clear,
-            .font: UIFont(name: "QuentinCaps", size: 28.0)!,
+            .font: UIFont(name: "QuentinCaps", size: fontSize)!,
             .paragraphStyle: paragraph
         ]
 

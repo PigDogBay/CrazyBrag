@@ -38,6 +38,9 @@ class GamePresenter: GameListener {
     init(size : CGSize, view : GameView, isPhone : Bool){
         self.view = view
         tableLayout = TableLayout(size: size, isPhone: isPhone)
+    }
+    
+    func setUpGame(){
         model.setUpGame()
         model.gameListener = self
 

@@ -29,7 +29,12 @@ struct TableLayout {
     
     let size : CGSize
     let isPhone : Bool
-    
+    let nameFontSize : CGFloat
+    let livesFontSize : CGFloat
+    let buttonFontSize : CGFloat
+    let dealerFontSize : CGFloat
+    let statusFontSize : CGFloat
+
     var boxLayout : BoxLayout { BoxLayout(frame: box, cardSize: cardSize)}
     var playerLayout : BoxLayout {BoxLayout(frame: player, cardSize: cardSize)}
     var cpuWestLayout : CPULayout {CPULayout(frame: cpuWest, cardSize: cardSize)}
@@ -38,6 +43,16 @@ struct TableLayout {
     var cpuNorthWestLayout : CPULayout {CPULayout(frame: cpuNorthWest, cardSize: cardSize)}
     var cpuNorthEastLayout : CPULayout {CPULayout(frame: cpuNorthEast, cardSize: cardSize)}
     
+    internal init(size: CGSize, isPhone: Bool) {
+        self.size = size
+        self.isPhone = isPhone
+        self.nameFontSize = 24.0
+        self.livesFontSize = 18.0
+        self.buttonFontSize = 36.0
+        self.dealerFontSize = 36.0
+        self.statusFontSize = 28.0
+    }
+
     var deckPosition : CGPoint {
         return CGPoint(x: 100, y: cardSize.height)
     }
