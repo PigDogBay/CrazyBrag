@@ -30,7 +30,8 @@ class GameScene: SKScene, GameView {
     }
     
     override func didMove(to view: SKView) {
-        presenter = GamePresenter(size: self.size, view: self)
+        let isPhone = UIDevice.current.userInterfaceIdiom == .phone
+        presenter = GamePresenter(size: self.size, view: self, isPhone: isPhone)
         addBackground(imageNamed: "treestump")
         addDealer()
         createCardNodes()

@@ -35,9 +35,9 @@ class GamePresenter: GameListener {
     ///Set to false if require player input
     private var canUpdateGame = true
 
-    init(size : CGSize, view : GameView){
+    init(size : CGSize, view : GameView, isPhone : Bool){
         self.view = view
-        tableLayout = TableLayout(size: size)
+        tableLayout = TableLayout(size: size, isPhone: isPhone)
         model.setUpGame()
         model.gameListener = self
 

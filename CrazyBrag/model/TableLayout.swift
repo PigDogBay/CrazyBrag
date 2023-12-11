@@ -28,6 +28,7 @@ enum Layer : CGFloat {
 struct TableLayout {
     
     let size : CGSize
+    let isPhone : Bool
     
     var boxLayout : BoxLayout { BoxLayout(frame: box, cardSize: cardSize)}
     var playerLayout : BoxLayout {BoxLayout(frame: player, cardSize: cardSize)}
