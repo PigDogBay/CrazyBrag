@@ -10,7 +10,7 @@ import SpriteKit
 class GameScene: SKScene, GameView {
     
     private let dealerTokenNode =  SKLabelNode(fontNamed: "HelveticaNeue")
-    private let messageNode = MessageNode(fontSize: 28.0)
+    private let messageNode : MessageNode
     private let presenter  : GamePresenter
     private var cardNodes = [CardSpriteNode]()
     private var scoreNodes = [SKLabelNode]()
@@ -19,6 +19,7 @@ class GameScene: SKScene, GameView {
     override init(size: CGSize) {
         let isPhone = UIDevice.current.userInterfaceIdiom == .phone
         self.presenter = GamePresenter(size: size, isPhone: isPhone)
+        self.messageNode = MessageNode(fontSize: presenter.tableLayout.statusFontSize)
         super.init(size: size)
     }
     
