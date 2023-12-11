@@ -9,37 +9,30 @@ import SpriteKit
 
 class GameScene: SKScene, GameView {
     
-    var cardNodes = [CardSpriteNode]()
-    var scoreNodes = [SKLabelNode]()
-    let dealerTokenNode =  SKLabelNode(fontNamed: "HelveticaNeue")
-    let messageNode = MessageNode(fontSize: 28.0)
-    
+    private let dealerTokenNode =  SKLabelNode(fontNamed: "HelveticaNeue")
+    private let messageNode = MessageNode(fontSize: 28.0)
+    private let presenter  : GamePresenter
+    private var cardNodes = [CardSpriteNode]()
+    private var scoreNodes = [SKLabelNode]()
     private var lastGameUpdateTime = TimeInterval()
 
-    var presenter  : GamePresenter? = nil
+    override init(size: CGSize) {
+        let isPhone = UIDevice.current.userInterfaceIdiom == .phone
+        self.presenter = GamePresenter(size: size, isPhone: isPhone)
+        super.init(size: size)
+    }
     
-    func createCardNodes() {
-        if let presenter = presenter {
-            cardNodes = presenter.model.deck.deck.map {
-                CardSpriteNode(card: $0, cardSize: presenter.tableLayout.cardSize)
-            }
-            for card in cardNodes {
-                addChild(card)
-            }
-        }
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func didMove(to view: SKView) {
-        let isPhone = UIDevice.current.userInterfaceIdiom == .phone
-        self.presenter = GamePresenter(size: self.size, view: self, isPhone: isPhone)
-        self.presenter?.setUpGame()
+        self.presenter.setUpGame(view: self)
         addBackground(imageNamed: "treestump")
         addDealer()
         createCardNodes()
-        if let presenter = presenter {
-            presenter.allCardsToDeck()
-            messageNode.position = presenter.tableLayout.message
-        }
+        presenter.allCardsToDeck()
+        messageNode.position = presenter.tableLayout.message
         addChild(messageNode)
         addBackButton()
         for i in -1...5 {
@@ -48,14 +41,13 @@ class GameScene: SKScene, GameView {
     }
     
     override func update(_ currentTime: TimeInterval) {
-        presenter?.update(currentTime)
+        presenter.update(currentTime)
     }
+
 
     //MARK: - GameView
     
     func quit(){
-        //Break strong reference cycle
-        presenter = nil
         removeAllActions()
         let transition = SKTransition.doorway(withDuration: 1)
         view?.presentScene(StartScene(size: frame.size), transition: transition)
@@ -101,10 +93,8 @@ class GameScene: SKScene, GameView {
     }
     
     func updateDealer(player: Player) {
-        if let presenter = presenter {
-            let pos = presenter.tableLayout.getDealerPosition(seat: player.seat)
-            dealerTokenNode.run(SKAction.move(to: pos, duration: 0.5))
-        }
+        let pos = presenter.tableLayout.getDealerPosition(seat: player.seat)
+        dealerTokenNode.run(SKAction.move(to: pos, duration: 0.5))
     }
     
     func removePlayer(player : Player) {
@@ -139,7 +129,7 @@ class GameScene: SKScene, GameView {
          label.name = "name \(name)"
          label.text = name
          label.fontColor = SKColor.black
-         label.fontSize = presenter?.tableLayout.nameFontSize ?? 0.0
+         label.fontSize = presenter.tableLayout.nameFontSize
          label.verticalAlignmentMode = .bottom
          label.horizontalAlignmentMode = .left
          label.position = pos
@@ -151,7 +141,7 @@ class GameScene: SKScene, GameView {
         let label = SKLabelNode(fontNamed: "HelveticaNeue")
         label.name = name
         label.text = "💛💛💛"
-        label.fontSize = presenter?.tableLayout.livesFontSize ?? 0.0
+        label.fontSize = presenter.tableLayout.livesFontSize
         label.verticalAlignmentMode = .bottom
         label.horizontalAlignmentMode = .right
         label.position = pos
@@ -161,16 +151,14 @@ class GameScene: SKScene, GameView {
     }
     
     func addTableMat(seat : Int){
-        if let presenter = presenter {
-            let frame = presenter.tableLayout.getFrame(seat: seat).insetBy(dx: -8.0, dy: -8.0)
-            let node = SKShapeNode(rect: frame, cornerRadius: 20.0)
-            node.name = "table mat \(seat)"
-            node.fillColor = .gray
-            node.strokeColor = .clear
-            node.alpha = 0.5
-            node.zPosition = Layer.tableMat.rawValue
-            addChild(node)
-        }
+        let frame = presenter.tableLayout.getFrame(seat: seat).insetBy(dx: -8.0, dy: -8.0)
+        let node = SKShapeNode(rect: frame, cornerRadius: 20.0)
+        node.name = "table mat \(seat)"
+        node.fillColor = .gray
+        node.strokeColor = .clear
+        node.alpha = 0.5
+        node.zPosition = Layer.tableMat.rawValue
+        addChild(node)
     }
     
     func show(message: String) {
@@ -179,6 +167,15 @@ class GameScene: SKScene, GameView {
     
     //MARK: - Misc
 
+    private func createCardNodes() {
+        cardNodes = presenter.model.deck.deck.map {
+            CardSpriteNode(card: $0, cardSize: presenter.tableLayout.cardSize)
+        }
+        for card in cardNodes {
+            addChild(card)
+        }
+    }
+    
     private func addBackground(imageNamed image : String){
         let background = SKSpriteNode(imageNamed: image)
         background.anchorPoint = CGPoint(x: 1.0, y: 1.0)
@@ -190,10 +187,10 @@ class GameScene: SKScene, GameView {
     private func addDealer(){
         dealerTokenNode.name = "dealer"
         dealerTokenNode.text = "⭐️"
-        dealerTokenNode.fontSize = presenter?.tableLayout.dealerFontSize ?? 0.0
+        dealerTokenNode.fontSize = presenter.tableLayout.dealerFontSize
         dealerTokenNode.verticalAlignmentMode = .bottom
         dealerTokenNode.horizontalAlignmentMode = .right
-        dealerTokenNode.position = presenter?.tableLayout.getDealerPosition(seat: 0) ?? CGPoint.zero
+        dealerTokenNode.position = presenter.tableLayout.getDealerPosition(seat: 0)
         dealerTokenNode.zPosition = Layer.ui.rawValue
         addChild(dealerTokenNode)
     }
@@ -223,7 +220,7 @@ class GameScene: SKScene, GameView {
         let label = SKLabelNode(fontNamed: "QuentinCaps")
         label.text = "QUIT"
         label.fontColor = SKColor.red
-        label.fontSize = presenter?.tableLayout.buttonFontSize ?? 0.0
+        label.fontSize = presenter.tableLayout.buttonFontSize
         label.position = CGPoint(x: 10, y: 10)
         label.zPosition = 10
         label.name="back button"
@@ -239,9 +236,9 @@ class GameScene: SKScene, GameView {
             let location = touch.location(in: self)
             let node = atPoint(location)
             if let cardNode = node as? CardSpriteNode {
-                presenter?.handleTouch(for: cardNode.playingCard)
+                presenter.handleTouch(for: cardNode.playingCard)
             } else if node.name == "back button" {
-                presenter?.quit()
+                presenter.quit()
             }
         }
     }

@@ -29,18 +29,18 @@ class GamePresenter: GameListener {
     let tableLayout : TableLayout
     let model = Model()
     let logger = GameUpdateLogger()
-    let view : GameView
+    var view : GameView? = nil
     private var lastGameUpdateTime = TimeInterval()
     private var gameUpdateFrequency : Double = 0.5
     ///Set to false if require player input
     private var canUpdateGame = true
 
-    init(size : CGSize, view : GameView, isPhone : Bool){
-        self.view = view
+    init(size : CGSize, isPhone : Bool){
         tableLayout = TableLayout(size: size, isPhone: isPhone)
     }
     
-    func setUpGame(){
+    func setUpGame(view : GameView){
+        self.view = view
         model.setUpGame()
         model.gameListener = self
 
@@ -54,7 +54,8 @@ class GamePresenter: GameListener {
     func quit(){
         //remove strong reference to allow object to be de-allocated
         model.gameListener = nil
-        view.quit()
+        view?.quit()
+        view = nil
     }
     
     func update(_ currentTime: TimeInterval){
@@ -71,16 +72,16 @@ class GamePresenter: GameListener {
         for dealt in cards {
             let pos = tableLayout.getPosition(dealt: dealt)
             let isFaceUp = dealt.isMiddle && dealt.cardCount != 1
-            view.turn(card: dealt.card, isFaceUp: isFaceUp)
-            view.setZPosition(on: dealt.card, z: dealt.zPosition)
-            view.setPosition(on: dealt.card, pos: pos, duration: duration, delay: delay)
+            view?.turn(card: dealt.card, isFaceUp: isFaceUp)
+            view?.setZPosition(on: dealt.card, z: dealt.zPosition)
+            view?.setPosition(on: dealt.card, pos: pos, duration: duration, delay: delay)
             delay = delay + 0.1
         }
     }
     
     private func showCards(in hand: PlayerHand){
         for card in hand.hand {
-            view.turn(card: card, isFaceUp: true)
+            view?.turn(card: card, isFaceUp: true)
             if (hand.hand.count != 3){
                 fatalError("Hand does NOT contain 3 cards \(hand.hand.count)")
             }
@@ -97,10 +98,10 @@ class GamePresenter: GameListener {
         let pos = tableLayout.deckPosition
         var z = Layer.deck.rawValue
         for card in model.deck.deck{
-            view.setZPosition(on: card, z: z)
-            view.turn(card: card, isFaceUp: false)
+            view?.setZPosition(on: card, z: z)
+            view?.turn(card: card, isFaceUp: false)
             z = z + 1
-            view.setPosition(on: card, pos: pos, duration: 0.1, delay: 0)
+            view?.setPosition(on: card, pos: pos, duration: 0.1, delay: 0)
         }
     }
     
@@ -144,19 +145,19 @@ class GamePresenter: GameListener {
         let pos = tableLayout.getPosition(dealt: dealt)
         let translation = CGAffineTransform(translationX: 0.0, y: yOffset)
         let moveTo = pos.applying(translation)
-        view.setPosition(on: dealt.card, pos: moveTo, duration: 0.2, delay: 0)
+        view?.setPosition(on: dealt.card, pos: moveTo, duration: 0.2, delay: 0)
     }
     
     //MARK: - GameListener functions
     
     func dealerSelected(dealer: Player) {
         logger.dealerSelected(dealer: dealer)
-        view.show(message: "\(dealer.name)\nDealing")
+        view?.show(message: "\(dealer.name)\nDealing")
         gameUpdateFrequency = 0.5
-        view.updateDealer(player: dealer)
+        view?.updateDealer(player: dealer)
         allCardsToDeck()
         for player in model.school.players {
-            view.highlight(player: player, status: .ready)
+            view?.highlight(player: player, status: .ready)
         }
     }
     
@@ -170,16 +171,16 @@ class GamePresenter: GameListener {
     func turnStarted(player: Player, middle: PlayerHand) {
         logger.turnStarted(player: player, middle: middle)
         gameUpdateFrequency = 1
-        view.highlight(player: player, status: .turn)
+        view?.highlight(player: player, status: .turn)
         //Auto play for human
         if player.seat == 0 {
             //Stop updating until player has taken their turn
             canUpdateGame = false
             //Player can now interact with the cards
             model.isPlayersTurn = true
-            view.show(message: "Your Turn")
+            view?.show(message: "Your Turn")
         } else {
-            view.show(message: "\(player.name)'s\nTurn")
+            view?.show(message: "\(player.name)'s\nTurn")
         }
     }
     
@@ -197,11 +198,11 @@ class GamePresenter: GameListener {
         if player.seat == 0{
             showCards(in: model.school.playerHuman.hand)
         }
-        view.highlight(player: player, status: .played)
+        view?.highlight(player: player, status: .played)
     }
     
     func showHands(players: [Player]) {
-        view.show(message: "End of Round")
+        view?.show(message: "End of Round")
         gameUpdateFrequency = 2.5
         logger.showHands(players: players)
         showAllHands()
@@ -211,18 +212,18 @@ class GamePresenter: GameListener {
         logger.roundEnded(losingPlayers: losingPlayers)
         switch losingPlayers.count {
         case 0:
-            view.show(message: "")
+            view?.show(message: "")
         case 1:
             if losingPlayers[0].seat == 0{
-                view.show(message: "You lose a life")
+                view?.show(message: "You lose a life")
             } else{
-                view.show(message: "\(losingPlayers.first?.name ?? "")\nLoses a life")
+                view?.show(message: "\(losingPlayers.first?.name ?? "")\nLoses a life")
             }
         default:
-            view.show(message: "\(losingPlayers.count) Players\nLose a life")
+            view?.show(message: "\(losingPlayers.count) Players\nLose a life")
         }
         for player in losingPlayers {
-            view.updateScore(player: player)
+            view?.updateScore(player: player)
         }
     }
     
@@ -230,18 +231,18 @@ class GamePresenter: GameListener {
         logger.pullThePeg(outPlayers: outPlayers)
         switch outPlayers.count {
         case 0:
-            view.show(message: "")
+            view?.show(message: "")
         case 1:
             if outPlayers[0].seat == 0{
-                view.show(message: "You are out")
+                view?.show(message: "You are out")
             } else{
-                view.show(message: "\(outPlayers.first?.name ?? "")\nIs Out")
+                view?.show(message: "\(outPlayers.first?.name ?? "")\nIs Out")
             }
         default:
-            view.show(message: "\(outPlayers.count) Players\nAre Out")
+            view?.show(message: "\(outPlayers.count) Players\nAre Out")
         }
         for player in outPlayers {
-            view.removePlayer(player: player)
+            view?.removePlayer(player: player)
         }
     }
     
@@ -251,6 +252,6 @@ class GamePresenter: GameListener {
     
     func gameOver(winner: Player) {
         logger.gameOver(winner: winner)
-        view.show(message: "\(winner.name) is the Winner!")
+        view?.show(message: "\(winner.name) is the Winner!")
     }
 }
