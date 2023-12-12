@@ -19,6 +19,8 @@ class MessageNode : SKLabelNode {
             .foregroundColor : SKColor.black,
             .backgroundColor: UIColor.clear,
             .font: UIFont(name: "QuentinCaps", size: fontSize)!,
+            .strokeColor : UIColor.white,
+            .strokeWidth : -0.25,
             .paragraphStyle: paragraph
         ]
 
