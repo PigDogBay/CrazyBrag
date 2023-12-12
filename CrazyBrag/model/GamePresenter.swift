@@ -45,7 +45,7 @@ class GamePresenter: GameListener {
         model.gameListener = self
 
         if !tableLayout.isPhone {
-            view.addName(name: "Middle", pos: tableLayout.boxLayout.namePos)
+            view.addName(name: "Middle", pos: tableLayout.getNamePosition(seat: -1))
         }
         for player in model.school.players {
             view.addName(name: player.name, pos: tableLayout.getNamePosition(seat: player.seat))
