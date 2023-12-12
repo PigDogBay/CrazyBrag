@@ -33,7 +33,7 @@ struct GamesFonts {
     let statusFontSize : CGFloat
 }
 
-struct TableLayout {
+struct IPadLayout {
     
     private let size : CGSize
     private let cardSizeDivisor : Double
