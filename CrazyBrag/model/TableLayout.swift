@@ -34,6 +34,7 @@ struct TableLayout {
     let buttonFontSize : CGFloat
     let dealerFontSize : CGFloat
     let statusFontSize : CGFloat
+    let cardSizeDivisor : Double
 
     var boxLayout : BoxLayout { BoxLayout(frame: box, cardSize: cardSize)}
     var playerLayout : BoxLayout {BoxLayout(frame: player, cardSize: cardSize)}
@@ -46,11 +47,22 @@ struct TableLayout {
     internal init(size: CGSize, isPhone: Bool) {
         self.size = size
         self.isPhone = isPhone
-        self.nameFontSize = 24.0
-        self.livesFontSize = 18.0
-        self.buttonFontSize = 36.0
-        self.dealerFontSize = 36.0
-        self.statusFontSize = 28.0
+        if isPhone {
+            self.nameFontSize = 12.0
+            self.livesFontSize = 12.0
+            self.buttonFontSize = 18.0
+            self.dealerFontSize = 18.0
+            self.statusFontSize = 17.0
+            self.cardSizeDivisor = 14.0
+        } else {
+            self.nameFontSize = 24.0
+            self.livesFontSize = 18.0
+            self.buttonFontSize = 36.0
+            self.dealerFontSize = 36.0
+            self.statusFontSize = 28.0
+            self.cardSizeDivisor = 10.0
+        }
+        
     }
 
     var deckPosition : CGPoint {
@@ -114,7 +126,7 @@ struct TableLayout {
     }
 
     var cardSize : CGSize {
-        let w : Double = size.width / 10.0
+        let w : Double = size.width / self.cardSizeDivisor
         let h : Double = w * (CARD_ASSET_HEIGHT/CARD_ASSET_WIDTH)
         return CGSize(width: w, height: h)
     }
