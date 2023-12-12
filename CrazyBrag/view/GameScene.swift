@@ -19,7 +19,7 @@ class GameScene: SKScene, GameView {
     override init(size: CGSize) {
         let isPhone = UIDevice.current.userInterfaceIdiom == .phone
         self.presenter = GamePresenter(size: size, isPhone: isPhone)
-        self.messageNode = MessageNode(fontSize: presenter.tableLayout.statusFontSize)
+        self.messageNode = MessageNode(fontSize: presenter.tableLayout.fonts.statusFontSize)
         super.init(size: size)
     }
     
@@ -130,7 +130,7 @@ class GameScene: SKScene, GameView {
          label.name = "name \(name)"
          label.text = name
          label.fontColor = SKColor.black
-         label.fontSize = presenter.tableLayout.nameFontSize
+         label.fontSize = presenter.tableLayout.fonts.nameFontSize
          label.verticalAlignmentMode = .bottom
          label.horizontalAlignmentMode = .left
          label.position = pos
@@ -142,7 +142,7 @@ class GameScene: SKScene, GameView {
         let label = SKLabelNode(fontNamed: "HelveticaNeue")
         label.name = name
         label.text = "💛💛💛"
-        label.fontSize = presenter.tableLayout.livesFontSize
+        label.fontSize = presenter.tableLayout.fonts.livesFontSize
         label.verticalAlignmentMode = .bottom
         label.horizontalAlignmentMode = .right
         label.position = pos
@@ -188,7 +188,7 @@ class GameScene: SKScene, GameView {
     private func addDealer(){
         dealerTokenNode.name = "dealer"
         dealerTokenNode.text = "⭐️"
-        dealerTokenNode.fontSize = presenter.tableLayout.dealerFontSize
+        dealerTokenNode.fontSize = presenter.tableLayout.fonts.dealerFontSize
         dealerTokenNode.verticalAlignmentMode = .bottom
         dealerTokenNode.horizontalAlignmentMode = .right
         dealerTokenNode.position = presenter.tableLayout.getDealerPosition(seat: 0)
@@ -221,7 +221,7 @@ class GameScene: SKScene, GameView {
         let label = SKLabelNode(fontNamed: "QuentinCaps")
         label.text = "QUIT"
         label.fontColor = SKColor.red
-        label.fontSize = presenter.tableLayout.buttonFontSize
+        label.fontSize = presenter.tableLayout.fonts.buttonFontSize
         label.position = CGPoint(x: 10, y: 10)
         label.zPosition = 10
         label.name="back button"

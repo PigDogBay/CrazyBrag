@@ -25,39 +25,38 @@ enum Layer : CGFloat {
     case background, tableMat, ui, card1, card2, card3, messages, deck
 }
 
+struct GamesFonts {
+    let nameFontSize : CGFloat
+    let livesFontSize : CGFloat
+    let buttonFontSize : CGFloat
+    let dealerFontSize : CGFloat
+    let statusFontSize : CGFloat
+}
+
 struct TableLayout {
     
     private let size : CGSize
     private let cardSizeDivisor : Double
     private let yNameOffset : CGFloat
     let isPhone : Bool
-    let nameFontSize : CGFloat
-    let livesFontSize : CGFloat
-    let buttonFontSize : CGFloat
-    let dealerFontSize : CGFloat
-    let statusFontSize : CGFloat
+    let fonts : GamesFonts
     
     internal init(size: CGSize, isPhone: Bool) {
         self.size = size
         self.isPhone = isPhone
         if isPhone {
-            self.nameFontSize = 12.0
-            self.livesFontSize = 12.0
-            self.buttonFontSize = 18.0
-            self.dealerFontSize = 18.0
-            self.statusFontSize = 22.0
+            self.fonts = GamesFonts(
+                nameFontSize: 12.0, livesFontSize: 12.0, buttonFontSize: 18.0,
+                dealerFontSize: 18.0, statusFontSize: 22.0)
             self.cardSizeDivisor = 14.0
             self.yNameOffset = 5.0
         } else {
-            self.nameFontSize = 24.0
-            self.livesFontSize = 18.0
-            self.buttonFontSize = 36.0
-            self.dealerFontSize = 36.0
-            self.statusFontSize = 28.0
+            self.fonts = GamesFonts(
+                nameFontSize: 24.0, livesFontSize: 18.0, buttonFontSize: 36.0,
+                dealerFontSize: 36.0, statusFontSize: 28.0)
             self.cardSizeDivisor = 10.0
             self.yNameOffset = 8.0
         }
-        
     }
 
     var deckPosition : CGPoint {
@@ -169,7 +168,6 @@ struct TableLayout {
         default:
             fatalError("Bad seat position \(seat)")
         }
-
     }
     
     private func getPosition(cardPosition : CardPosition, index : Int) -> CGPoint {
@@ -182,7 +180,6 @@ struct TableLayout {
             return cardPosition.position3
         default:
             fatalError("Bad index \(index)")
-
         }
     }
 }
