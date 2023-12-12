@@ -29,6 +29,7 @@ class GamePresenter: GameListener {
     let tableLayout : TableLayout
     let model = Model()
     let logger = GameUpdateLogger()
+    let isPhone : Bool
     var view : GameView? = nil
     private var lastGameUpdateTime = TimeInterval()
     private var gameUpdateFrequency : Double = 0.5
@@ -36,7 +37,12 @@ class GamePresenter: GameListener {
     private var canUpdateGame = true
 
     init(size : CGSize, isPhone : Bool){
-        tableLayout = TableLayout(size: size, isPhone: isPhone)
+        self.isPhone = isPhone
+        if isPhone {
+            tableLayout = IPhoneLayout(size: size)
+        } else {
+            tableLayout = IPadLayout(size: size)
+        }
     }
     
     func setUpGame(view : GameView){
@@ -44,7 +50,7 @@ class GamePresenter: GameListener {
         model.setUpGame()
         model.gameListener = self
 
-        if !tableLayout.isPhone {
+        if !isPhone {
             view.addName(name: "Middle", pos: tableLayout.getNamePosition(seat: -1))
         }
         for player in model.school.players {

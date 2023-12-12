@@ -25,7 +25,7 @@ enum Layer : CGFloat {
     case background, tableMat, ui, card1, card2, card3, messages, deck
 }
 
-struct GamesFonts {
+struct GameFonts {
     let nameFontSize : CGFloat
     let livesFontSize : CGFloat
     let buttonFontSize : CGFloat
@@ -33,34 +33,60 @@ struct GamesFonts {
     let statusFontSize : CGFloat
 }
 
-struct IPadLayout {
-    
-    private let size : CGSize
-    private let cardSizeDivisor : Double
-    private let yNameOffset : CGFloat
-    let isPhone : Bool
-    let fonts : GamesFonts
-    
-    internal init(size: CGSize, isPhone: Bool) {
-        self.size = size
-        self.isPhone = isPhone
-        if isPhone {
-            self.fonts = GamesFonts(
-                nameFontSize: 12.0, livesFontSize: 12.0, buttonFontSize: 18.0,
-                dealerFontSize: 18.0, statusFontSize: 22.0)
-            self.cardSizeDivisor = 14.0
-            self.yNameOffset = 5.0
-        } else {
-            self.fonts = GamesFonts(
-                nameFontSize: 24.0, livesFontSize: 18.0, buttonFontSize: 36.0,
-                dealerFontSize: 36.0, statusFontSize: 28.0)
-            self.cardSizeDivisor = 10.0
-            self.yNameOffset = 8.0
-        }
-    }
+protocol TableLayout {
+    var fonts : GameFonts { get }
+    var cardSize : CGSize { get }
+    var message : CGPoint { get }
+    var deckPosition : CGPoint { get }
+    func getNamePosition(seat : Int) -> CGPoint
+    func getLivesPosition(seat : Int) -> CGPoint
+    func getDealerPosition(seat : Int) -> CGPoint
+    func getPosition(dealt : DealtCard) -> CGPoint
+    func getFrame(seat : Int) -> CGRect
+}
 
+
+struct IPadLayout : TableLayout{
+    let size : CGSize
+    private let yNameOffset : CGFloat = 8.0
+
+    var fonts : GameFonts { return GameFonts(
+        nameFontSize: 24.0, livesFontSize: 18.0, buttonFontSize: 36.0,
+        dealerFontSize: 36.0, statusFontSize: 28.0)
+    }
+    
     var deckPosition : CGPoint {
         return CGPoint(x: 100, y: cardSize.height)
+    }
+    
+    var cardSize : CGSize {
+        let w : Double = size.width / 10.0
+        let h : Double = w * (CARD_ASSET_HEIGHT/CARD_ASSET_WIDTH)
+        return CGSize(width: w, height: h)
+    }
+    
+    var message : CGPoint {
+        return CGPoint(x: cpuEast.midX, y: player.midY)
+    }
+
+    func getNamePosition(seat : Int) -> CGPoint {
+        return getCardPosition(for: seat).namePos
+    }
+    
+    func getLivesPosition(seat : Int) -> CGPoint {
+        return getCardPosition(for: seat).livesPos
+    }
+
+    func getDealerPosition(seat : Int) -> CGPoint {
+        return getCardPosition(for: seat).dealerTokenPos
+    }
+
+    func getPosition(dealt : DealtCard) -> CGPoint {
+        return getPosition(cardPosition: getCardPosition(for: dealt.seat), index: dealt.cardCount)
+    }
+    
+    func getFrame(seat : Int) -> CGRect {
+        return getCardPosition(for: seat).frame
     }
     
     private var box : CGRect {
@@ -117,36 +143,6 @@ struct IPadLayout {
         let x = size.width * 0.95 - w
         let y = size.height * 0.95 - h
         return CGRect(x: x, y: y, width: w, height: h)
-    }
-
-    var cardSize : CGSize {
-        let w : Double = size.width / self.cardSizeDivisor
-        let h : Double = w * (CARD_ASSET_HEIGHT/CARD_ASSET_WIDTH)
-        return CGSize(width: w, height: h)
-    }
-    
-    var message : CGPoint {
-        return CGPoint(x: cpuEast.midX, y: player.midY)
-    }
-
-    func getNamePosition(seat : Int) -> CGPoint {
-        return getCardPosition(for: seat).namePos
-    }
-    
-    func getLivesPosition(seat : Int) -> CGPoint {
-        return getCardPosition(for: seat).livesPos
-    }
-
-    func getDealerPosition(seat : Int) -> CGPoint {
-        return getCardPosition(for: seat).dealerTokenPos
-    }
-
-    func getPosition(dealt : DealtCard) -> CGPoint {
-        return getPosition(cardPosition: getCardPosition(for: dealt.seat), index: dealt.cardCount)
-    }
-    
-    func getFrame(seat : Int) -> CGRect {
-        return getCardPosition(for: seat).frame
     }
 
     private func getCardPosition(for seat : Int) -> CardPosition {

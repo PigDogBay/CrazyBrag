@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		002081AF2B16024800CF4AFF /* GamePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002081AE2B16024800CF4AFF /* GamePresenter.swift */; };
 		003EF97D2B208D9100E9B21A /* MessageNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003EF97C2B208D9100E9B21A /* MessageNode.swift */; };
+		007BAB6C2B287DA400FE7658 /* IPhoneLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007BAB6B2B287DA400FE7658 /* IPhoneLayout.swift */; };
 		009313792A4C334B007194D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313782A4C334B007194D9 /* AppDelegate.swift */; };
 		0093137F2A4C334B007194D9 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0093137E2A4C334B007194D9 /* GameScene.swift */; };
 		009313812A4C334B007194D9 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313802A4C334B007194D9 /* GameViewController.swift */; };
@@ -20,7 +21,7 @@
 		0093139F2A4C334D007194D9 /* CrazyBragUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0093139E2A4C334D007194D9 /* CrazyBragUITestsLaunchTests.swift */; };
 		009313AC2A4C3463007194D9 /* StartScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313AB2A4C3463007194D9 /* StartScene.swift */; };
 		009313AE2A4C3489007194D9 /* CardSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313AD2A4C3489007194D9 /* CardSprite.swift */; };
-		009313B02A4C3493007194D9 /* TableLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313AF2A4C3493007194D9 /* TableLayout.swift */; };
+		009313B02A4C3493007194D9 /* IPadLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313AF2A4C3493007194D9 /* IPadLayout.swift */; };
 		009313C12A4C369B007194D9 /* GameUpdateLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313B22A4C369B007194D9 /* GameUpdateLogger.swift */; };
 		009313C22A4C369B007194D9 /* School.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313B32A4C369B007194D9 /* School.swift */; };
 		009313C32A4C369B007194D9 /* PossibleHandResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313B42A4C369B007194D9 /* PossibleHandResolver.swift */; };
@@ -68,6 +69,7 @@
 /* Begin PBXFileReference section */
 		002081AE2B16024800CF4AFF /* GamePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePresenter.swift; sourceTree = "<group>"; };
 		003EF97C2B208D9100E9B21A /* MessageNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageNode.swift; sourceTree = "<group>"; };
+		007BAB6B2B287DA400FE7658 /* IPhoneLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPhoneLayout.swift; sourceTree = "<group>"; };
 		009313752A4C334B007194D9 /* CrazyBrag.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CrazyBrag.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		009313782A4C334B007194D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0093137E2A4C334B007194D9 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -82,7 +84,7 @@
 		0093139E2A4C334D007194D9 /* CrazyBragUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrazyBragUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		009313AB2A4C3463007194D9 /* StartScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartScene.swift; sourceTree = "<group>"; };
 		009313AD2A4C3489007194D9 /* CardSprite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardSprite.swift; sourceTree = "<group>"; };
-		009313AF2A4C3493007194D9 /* TableLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableLayout.swift; sourceTree = "<group>"; };
+		009313AF2A4C3493007194D9 /* IPadLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IPadLayout.swift; sourceTree = "<group>"; };
 		009313B22A4C369B007194D9 /* GameUpdateLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameUpdateLogger.swift; sourceTree = "<group>"; };
 		009313B32A4C369B007194D9 /* School.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = School.swift; sourceTree = "<group>"; };
 		009313B42A4C369B007194D9 /* PossibleHandResolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PossibleHandResolver.swift; sourceTree = "<group>"; };
@@ -203,6 +205,8 @@
 				009313B22A4C369B007194D9 /* GameUpdateLogger.swift */,
 				009313BE2A4C369B007194D9 /* HandGenerator.swift */,
 				009313BA2A4C369B007194D9 /* HandResolver.swift */,
+				009313AF2A4C3493007194D9 /* IPadLayout.swift */,
+				007BAB6B2B287DA400FE7658 /* IPhoneLayout.swift */,
 				009313BB2A4C369B007194D9 /* Model.swift */,
 				009313BD2A4C369B007194D9 /* OneDownAI.swift */,
 				009313B52A4C369B007194D9 /* Player.swift */,
@@ -210,7 +214,6 @@
 				009313B82A4C369B007194D9 /* PlayingCard.swift */,
 				009313B42A4C369B007194D9 /* PossibleHandResolver.swift */,
 				009313B32A4C369B007194D9 /* School.swift */,
-				009313AF2A4C3493007194D9 /* TableLayout.swift */,
 				009313D92A4EE536007194D9 /* Timing.swift */,
 			);
 			path = model;
@@ -376,7 +379,7 @@
 			files = (
 				009313C82A4C369B007194D9 /* Defines.swift in Sources */,
 				009313C52A4C369B007194D9 /* GameListener.swift in Sources */,
-				009313B02A4C3493007194D9 /* TableLayout.swift in Sources */,
+				009313B02A4C3493007194D9 /* IPadLayout.swift in Sources */,
 				009313CE2A4C369B007194D9 /* PlayerHand.swift in Sources */,
 				0093137F2A4C334B007194D9 /* GameScene.swift in Sources */,
 				009313C12A4C369B007194D9 /* GameUpdateLogger.swift in Sources */,
@@ -388,6 +391,7 @@
 				009313CC2A4C369B007194D9 /* OneDownAI.swift in Sources */,
 				009313CF2A4C369B007194D9 /* AI.swift in Sources */,
 				003EF97D2B208D9100E9B21A /* MessageNode.swift in Sources */,
+				007BAB6C2B287DA400FE7658 /* IPhoneLayout.swift in Sources */,
 				009313C32A4C369B007194D9 /* PossibleHandResolver.swift in Sources */,
 				009313C72A4C369B007194D9 /* PlayingCard.swift in Sources */,
 				009313792A4C334B007194D9 /* AppDelegate.swift in Sources */,
