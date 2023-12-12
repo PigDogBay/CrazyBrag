@@ -14,22 +14,22 @@ struct IPhoneLayout : TableLayout {
     
     var fonts : GameFonts { return GameFonts(
         nameFontSize: 16.0, livesFontSize: 12.0, buttonFontSize: 18.0,
-        dealerFontSize: 26.0, statusFontSize: 24.0)
+        dealerFontSize: 26.0, statusFontSize: 22.0)
     }
     
     var deckPosition : CGPoint {
-        return CGPoint(x: 100, y: cardSize.height)
+        return CGPoint(x: 150, y: 0)
     }
 
     var cardSize : CGSize {
-        let w : Double = size.width / 14.0
+        let w : Double = size.width / 11.0
         let h : Double = w * (CARD_ASSET_HEIGHT/CARD_ASSET_WIDTH)
         return CGSize(width: w, height: h)
     }
     
     var message : CGPoint {
         let x = size.width / 2
-        let y = size.height - 50
+        let y = size.height / 2 - 10
         return CGPoint(x: x, y: y)
     }
 
@@ -57,7 +57,7 @@ struct IPhoneLayout : TableLayout {
         let w = cardSize.width * 3.2
         let h = cardSize.height
         let x = (size.width - w) / 2.0
-        let y = (size.height - h) / 2.0 + 50
+        let y = (size.height - h) - 20
         return CGRect(x: x, y: y, width: w, height: h)
     }
     
@@ -65,15 +65,15 @@ struct IPhoneLayout : TableLayout {
         let w = cardSize.width * 3.2
         let h = cardSize.height
         let x = (size.width - w) / 2.0
-        let y = size.height * 0.05 + 30
+        let y = size.height * 0.05 + 10
         return CGRect(x: x, y: y, width: w, height: h)
     }
     
     private var cpuWest : CGRect {
         let w = cardSize.width * 2.0
         let h = cardSize.height
-        let x = size.width * 0.05
-        let y = (size.height - h) / 2.0
+        let x = size.width * 0.060
+        let y = (size.height - h) / 2.0 - 60
         return CGRect(x: x, y: y, width: w, height: h)
     }
 
@@ -81,7 +81,7 @@ struct IPhoneLayout : TableLayout {
         let w = cardSize.width * 2.0
         let h = cardSize.height
         let x = size.width * 0.95 - w
-        let y = (size.height - h) / 2.0
+        let y = (size.height - h) / 2.0 - 60
         return CGRect(x: x, y: y, width: w, height: h)
     }
 
@@ -90,14 +90,14 @@ struct IPhoneLayout : TableLayout {
         let h = cardSize.height
         let x = size.width * 0.95 - w
         let y = size.height * 0.05
-        return CGRect(x: x, y: y, width: w, height: h)
+        return CGRect(x: x, y: y, width: w, height: -h * 2)
     }
 
     private var cpuNorthWest : CGRect {
         let w = cardSize.width * 2.0
         let h = cardSize.height
-        let x = size.width * 0.05
-        let y = size.height * 0.95 - h
+        let x = size.width * 0.075
+        let y = size.height * 0.95 - h - 10
         return CGRect(x: x, y: y, width: w, height: h)
     }
 
@@ -105,7 +105,7 @@ struct IPhoneLayout : TableLayout {
         let w = cardSize.width * 2.0
         let h = cardSize.height
         let x = size.width * 0.95 - w
-        let y = size.height * 0.95 - h
+        let y = size.height * 0.95 - h - 10
         return CGRect(x: x, y: y, width: w, height: h)
     }
 
