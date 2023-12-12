@@ -44,7 +44,7 @@ class Model {
     func updateState(){
         switch gameState {
         case .setUp:
-            setUpGame()
+            setUpGame(numberOfAIPlayers: 5)
         case .selectDealer:
             school.nextDealer()
             deck.shuffle()
@@ -71,10 +71,10 @@ class Model {
         }
     }
     
-    func setUpGame(){
+    func setUpGame(numberOfAIPlayers : Int){
         deck.createDeck()
         deck.shuffle()
-        school.setUpPlayers()
+        school.setUpPlayers(numberOfAIPlayers: numberOfAIPlayers)
         gameState = .selectDealer
     }
     

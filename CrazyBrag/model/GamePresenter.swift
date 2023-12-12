@@ -47,7 +47,8 @@ class GamePresenter: GameListener {
     
     func setUpGame(view : GameView){
         self.view = view
-        model.setUpGame()
+        let numberOfPlayers = isPhone ? 4 : 5
+        model.setUpGame(numberOfAIPlayers: numberOfPlayers)
         model.gameListener = self
 
         if !isPhone {

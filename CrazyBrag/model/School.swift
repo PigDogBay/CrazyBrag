@@ -54,10 +54,12 @@ class School {
         [playerChris, playerHowie, playerHolly, playerBomber, playerGeordie]
     }
         
-    func setUpPlayers(){
+    func setUpPlayers(numberOfAIPlayers : Int){
         players.removeAll()
-        players.append(contentsOf: getAllPlayers)
-        players.shuffle()
+        let aiPlayers = getAllPlayers.shuffled()
+        for i in 0..<numberOfAIPlayers {
+            players.append(aiPlayers[i])
+        }
         //Human player if seat position 0
         players.insert(playerHuman, at: 0)
         //Set up lives and seat positions
