@@ -15,6 +15,13 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         
         if let view = self.view as! SKView? {
+            //The view size is the logical size (eg pixel resolution / scale factor):
+            //iPhone 15 Pro Max - 430 x 932, ratio 0.46
+            //iPhone 12 - 390 x 844, ratio 0.46
+            //iPhone SE 3 - 375 x 667, ratio 0.56
+            //iPad Pro 6 12.9" - 1024 x 1336, 0.75
+            //iPad Air 5 - 820 x 1180, 0.69
+            //iPad Mini 6 - 744 x 1133, 0.66
             let scene = StartScene(size: view.frame.size)
             scene.scaleMode = .resizeFill
             
