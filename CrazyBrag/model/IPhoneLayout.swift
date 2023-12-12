@@ -13,8 +13,8 @@ struct IPhoneLayout : TableLayout {
     let yNameOffset : CGFloat = 5.0
     
     var fonts : GameFonts { return GameFonts(
-        nameFontSize: 12.0, livesFontSize: 12.0, buttonFontSize: 18.0,
-        dealerFontSize: 18.0, statusFontSize: 22.0)
+        nameFontSize: 16.0, livesFontSize: 12.0, buttonFontSize: 18.0,
+        dealerFontSize: 26.0, statusFontSize: 24.0)
     }
     
     var deckPosition : CGPoint {
@@ -28,7 +28,9 @@ struct IPhoneLayout : TableLayout {
     }
     
     var message : CGPoint {
-        return CGPoint(x: cpuEast.midX, y: player.midY)
+        let x = size.width / 2
+        let y = size.height - 50
+        return CGPoint(x: x, y: y)
     }
 
     func getNamePosition(seat : Int) -> CGPoint {
@@ -55,7 +57,7 @@ struct IPhoneLayout : TableLayout {
         let w = cardSize.width * 3.2
         let h = cardSize.height
         let x = (size.width - w) / 2.0
-        let y = (size.height - h) / 2.0
+        let y = (size.height - h) / 2.0 + 50
         return CGRect(x: x, y: y, width: w, height: h)
     }
     
@@ -63,7 +65,7 @@ struct IPhoneLayout : TableLayout {
         let w = cardSize.width * 3.2
         let h = cardSize.height
         let x = (size.width - w) / 2.0
-        let y = size.height * 0.05
+        let y = size.height * 0.05 + 30
         return CGRect(x: x, y: y, width: w, height: h)
     }
     
@@ -83,11 +85,11 @@ struct IPhoneLayout : TableLayout {
         return CGRect(x: x, y: y, width: w, height: h)
     }
 
-    private var cpuNorth : CGRect {
+    private var cpuSouthEast : CGRect {
         let w = cardSize.width * 2.0
         let h = cardSize.height
-        let x = (size.width - w) / 2.0
-        let y = size.height * 0.95 - h
+        let x = size.width * 0.95 - w
+        let y = size.height * 0.05
         return CGRect(x: x, y: y, width: w, height: h)
     }
 
@@ -118,11 +120,11 @@ struct IPhoneLayout : TableLayout {
         case 2:
             return CPULayout(frame: cpuNorthWest, cardSize: cardSize, yNameOffset: yNameOffset)
         case 3:
-            return CPULayout(frame: cpuNorth, cardSize: cardSize, yNameOffset: yNameOffset)
-        case 4:
             return CPULayout(frame: cpuNorthEast, cardSize: cardSize, yNameOffset: yNameOffset)
-        case 5:
+        case 4:
             return CPULayout(frame: cpuEast, cardSize: cardSize, yNameOffset: yNameOffset)
+        case 5:
+            return CPULayout(frame: cpuSouthEast, cardSize: cardSize, yNameOffset: yNameOffset)
         default:
             fatalError("Bad seat position \(seat)")
         }
