@@ -35,14 +35,15 @@ struct TableLayout {
     let dealerFontSize : CGFloat
     let statusFontSize : CGFloat
     let cardSizeDivisor : Double
+    let yNameOffset : CGFloat
 
-    var boxLayout : BoxLayout { BoxLayout(frame: box, cardSize: cardSize)}
-    var playerLayout : BoxLayout {BoxLayout(frame: player, cardSize: cardSize)}
-    var cpuWestLayout : CPULayout {CPULayout(frame: cpuWest, cardSize: cardSize)}
-    var cpuEastLayout : CPULayout {CPULayout(frame: cpuEast, cardSize: cardSize)}
-    var cpuNorthLayout : CPULayout {CPULayout(frame: cpuNorth, cardSize: cardSize)}
-    var cpuNorthWestLayout : CPULayout {CPULayout(frame: cpuNorthWest, cardSize: cardSize)}
-    var cpuNorthEastLayout : CPULayout {CPULayout(frame: cpuNorthEast, cardSize: cardSize)}
+    var boxLayout : BoxLayout { BoxLayout(frame: box, cardSize: cardSize, yNameOffset: yNameOffset)}
+    var playerLayout : BoxLayout {BoxLayout(frame: player, cardSize: cardSize, yNameOffset: yNameOffset)}
+    var cpuWestLayout : CPULayout {CPULayout(frame: cpuWest, cardSize: cardSize, yNameOffset: yNameOffset)}
+    var cpuEastLayout : CPULayout {CPULayout(frame: cpuEast, cardSize: cardSize, yNameOffset: yNameOffset)}
+    var cpuNorthLayout : CPULayout {CPULayout(frame: cpuNorth, cardSize: cardSize, yNameOffset: yNameOffset)}
+    var cpuNorthWestLayout : CPULayout {CPULayout(frame: cpuNorthWest, cardSize: cardSize, yNameOffset: yNameOffset)}
+    var cpuNorthEastLayout : CPULayout {CPULayout(frame: cpuNorthEast, cardSize: cardSize, yNameOffset: yNameOffset)}
     
     internal init(size: CGSize, isPhone: Bool) {
         self.size = size
@@ -52,8 +53,9 @@ struct TableLayout {
             self.livesFontSize = 12.0
             self.buttonFontSize = 18.0
             self.dealerFontSize = 18.0
-            self.statusFontSize = 17.0
+            self.statusFontSize = 22.0
             self.cardSizeDivisor = 14.0
+            self.yNameOffset = 5.0
         } else {
             self.nameFontSize = 24.0
             self.livesFontSize = 18.0
@@ -61,6 +63,7 @@ struct TableLayout {
             self.dealerFontSize = 36.0
             self.statusFontSize = 28.0
             self.cardSizeDivisor = 10.0
+            self.yNameOffset = 8.0
         }
         
     }
@@ -195,7 +198,8 @@ struct TableLayout {
 struct BoxLayout : CardPosition {
     let frame : CGRect
     let cardSize : CGSize
-    
+    let yNameOffset : CGFloat
+
     var position1 : CGPoint {
         let w : CGFloat = frame.width
         return CGPoint(x: w/6.0 + frame.origin.x, y: frame.midY)
@@ -212,11 +216,11 @@ struct BoxLayout : CardPosition {
     }
     
     var namePos : CGPoint {
-        return CGPoint(x: frame.origin.x, y: frame.maxY + 8.0)
+        return CGPoint(x: frame.origin.x, y: frame.maxY + yNameOffset)
     }
     
     var livesPos : CGPoint {
-        return CGPoint(x: frame.maxX, y: frame.maxY + 8.0)
+        return CGPoint(x: frame.maxX, y: frame.maxY + yNameOffset)
     }
 
     var dealerTokenPos : CGPoint {
@@ -227,6 +231,7 @@ struct BoxLayout : CardPosition {
 struct CPULayout : CardPosition{
     let frame : CGRect
     let cardSize : CGSize
+    let yNameOffset : CGFloat
     
     var position1 : CGPoint {
         return CGPoint(x: cardSize.width/2.0 + frame.origin.x, y: frame.midY)
@@ -241,11 +246,11 @@ struct CPULayout : CardPosition{
     }
     
     var namePos : CGPoint {
-        return CGPoint(x: frame.origin.x, y: frame.maxY + 8.0)
+        return CGPoint(x: frame.origin.x, y: frame.maxY + yNameOffset)
     }
     
     var livesPos : CGPoint {
-        return CGPoint(x: frame.maxX, y: frame.maxY + 8.0)
+        return CGPoint(x: frame.maxX, y: frame.maxY + yNameOffset)
     }
     
     var dealerTokenPos : CGPoint {
