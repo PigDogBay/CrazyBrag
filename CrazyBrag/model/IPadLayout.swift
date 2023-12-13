@@ -4,18 +4,7 @@
 //
 //  Created by Mark Bailey on 22/06/2023.
 //
-
 import Foundation
-
-protocol CardPosition{
-    var frame : CGRect {get}
-    var position1 : CGPoint { get }
-    var position2 : CGPoint { get }
-    var position3 : CGPoint { get }
-    var namePos : CGPoint { get }
-    var livesPos : CGPoint { get }
-    var dealerTokenPos : CGPoint { get }
-}
 
 ///Z-Positioning for the game 
 enum Layer : CGFloat {
@@ -42,7 +31,6 @@ protocol TableLayout {
     func getPosition(dealt : DealtCard) -> CGPoint
     func getFrame(seat : Int) -> CGRect
 }
-
 
 struct IPadLayout : TableLayout {
     static let CARD_WIDTH : Double = 100
@@ -90,19 +78,19 @@ struct IPadLayout : TableLayout {
     private func getCardPosition(for seat : Int) -> CardPosition {
         switch (seat){
         case -1:
-            return BoxLayout(frame: box, cardSize: cardSize, yNameOffset: yNameOffset)
+            return CardPosition(frame: box, cardSize: cardSize, yNameOffset: yNameOffset)
         case 0:
-            return BoxLayout(frame: player, cardSize: cardSize, yNameOffset: yNameOffset)
+            return CardPosition(frame: player, cardSize: cardSize, yNameOffset: yNameOffset)
         case 1:
-            return CPULayout(frame: cpuWest, cardSize: cardSize, yNameOffset: yNameOffset)
+            return CardPosition(frame: cpuWest, cardSize: cardSize, yNameOffset: yNameOffset)
         case 2:
-            return CPULayout(frame: cpuNorthWest, cardSize: cardSize, yNameOffset: yNameOffset)
+            return CardPosition(frame: cpuNorthWest, cardSize: cardSize, yNameOffset: yNameOffset)
         case 3:
-            return CPULayout(frame: cpuNorth, cardSize: cardSize, yNameOffset: yNameOffset)
+            return CardPosition(frame: cpuNorth, cardSize: cardSize, yNameOffset: yNameOffset)
         case 4:
-            return CPULayout(frame: cpuNorthEast, cardSize: cardSize, yNameOffset: yNameOffset)
+            return CardPosition(frame: cpuNorthEast, cardSize: cardSize, yNameOffset: yNameOffset)
         case 5:
-            return CPULayout(frame: cpuEast, cardSize: cardSize, yNameOffset: yNameOffset)
+            return CardPosition(frame: cpuEast, cardSize: cardSize, yNameOffset: yNameOffset)
         default:
             fatalError("Bad seat position \(seat)")
         }
@@ -122,66 +110,22 @@ struct IPadLayout : TableLayout {
     }
 }
 
-struct BoxLayout : CardPosition {
+struct CardPosition {
     let frame : CGRect
-    let cardSize : CGSize
-    let yNameOffset : CGFloat
+    let position1 : CGPoint
+    let position2 : CGPoint
+    let position3 : CGPoint
+    let namePos : CGPoint
+    let livesPos : CGPoint
+    let dealerTokenPos : CGPoint
 
-    var position1 : CGPoint {
-        let w : CGFloat = frame.width
-        return CGPoint(x: w/6.0 + frame.origin.x, y: frame.midY)
+    internal init(frame: CGRect, cardSize: CGSize, yNameOffset: CGFloat) {
+        self.frame = frame
+        position1 = CGPoint(x: cardSize.width / 2.0 + frame.origin.x, y: frame.midY)
+        position2 = CGPoint(x: frame.midX, y: frame.midY)
+        position3 = CGPoint(x: frame.maxX - cardSize.width / 2.0, y: frame.midY)
+        namePos = CGPoint(x: frame.origin.x, y: frame.maxY + yNameOffset)
+        livesPos = CGPoint(x: frame.maxX, y: frame.maxY + yNameOffset)
+        dealerTokenPos = CGPoint(x: frame.origin.x - 10.0, y: frame.midY)
     }
-    
-    var position2 : CGPoint {
-        let w : CGFloat = frame.width
-        return CGPoint(x: w/2.0 + frame.origin.x, y: frame.midY)
-    }
-    
-    var position3 : CGPoint {
-        let w : CGFloat = frame.width
-        return CGPoint(x: w*5.0/6.0 + frame.origin.x, y: frame.midY)
-    }
-    
-    var namePos : CGPoint {
-        return CGPoint(x: frame.origin.x, y: frame.maxY + yNameOffset)
-    }
-    
-    var livesPos : CGPoint {
-        return CGPoint(x: frame.maxX, y: frame.maxY + yNameOffset)
-    }
-
-    var dealerTokenPos : CGPoint {
-        return CGPoint(x: frame.origin.x - 10.0, y: frame.midY)
-    }
-}
-
-struct CPULayout : CardPosition{
-    let frame : CGRect
-    let cardSize : CGSize
-    let yNameOffset : CGFloat
-    
-    var position1 : CGPoint {
-        return CGPoint(x: cardSize.width/2.0 + frame.origin.x, y: frame.midY)
-    }
-    
-    var position2 : CGPoint {
-        return CGPoint(x: frame.midX, y: frame.midY)
-    }
-    
-    var position3 : CGPoint {
-        return CGPoint(x: cardSize.width * 1.5 + frame.origin.x, y: frame.midY)
-    }
-    
-    var namePos : CGPoint {
-        return CGPoint(x: frame.origin.x, y: frame.maxY + yNameOffset)
-    }
-    
-    var livesPos : CGPoint {
-        return CGPoint(x: frame.maxX, y: frame.maxY + yNameOffset)
-    }
-    
-    var dealerTokenPos : CGPoint {
-        return CGPoint(x: frame.origin.x - 10.0, y: frame.midY)
-    }
-
 }

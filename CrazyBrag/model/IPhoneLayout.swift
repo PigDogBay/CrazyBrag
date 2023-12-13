@@ -54,19 +54,19 @@ struct IPhoneLayout : TableLayout {
     private func getCardPosition(for seat : Int) -> CardPosition {
         switch (seat){
         case -1:
-            return BoxLayout(frame: box, cardSize: cardSize, yNameOffset: yNameOffset)
+            return CardPosition(frame: box, cardSize: cardSize, yNameOffset: yNameOffset)
         case 0:
-            return BoxLayout(frame: player, cardSize: cardSize, yNameOffset: yNameOffset)
+            return CardPosition(frame: player, cardSize: cardSize, yNameOffset: yNameOffset)
         case 1:
-            return CPULayout(frame: cpuWest, cardSize: cardSize, yNameOffset: yNameOffset)
+            return CardPosition(frame: cpuWest, cardSize: cardSize, yNameOffset: yNameOffset)
         case 2:
-            return CPULayout(frame: cpuNorthWest, cardSize: cardSize, yNameOffset: yNameOffset)
+            return CardPosition(frame: cpuNorthWest, cardSize: cardSize, yNameOffset: yNameOffset)
         case 3:
-            return CPULayout(frame: cpuNorthEast, cardSize: cardSize, yNameOffset: yNameOffset)
+            return CardPosition(frame: cpuNorthEast, cardSize: cardSize, yNameOffset: yNameOffset)
         case 4:
-            return CPULayout(frame: cpuEast, cardSize: cardSize, yNameOffset: yNameOffset)
+            return CardPosition(frame: cpuEast, cardSize: cardSize, yNameOffset: yNameOffset)
         case 5:
-            return CPULayout(frame: cpuSouthEast, cardSize: cardSize, yNameOffset: yNameOffset)
+            return CardPosition(frame: cpuSouthEast, cardSize: cardSize, yNameOffset: yNameOffset)
         default:
             fatalError("Bad seat position \(seat)")
         }
