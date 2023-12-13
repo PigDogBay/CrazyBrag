@@ -8,7 +8,7 @@ import Foundation
 
 ///Z-Positioning for the game 
 enum Layer : CGFloat {
-    case background, tableMat, ui, card1, card2, card3, messages, deck
+    case background, tableMat, ui, messages, card1, card2, card3, deck
 }
 
 struct GameFonts {
