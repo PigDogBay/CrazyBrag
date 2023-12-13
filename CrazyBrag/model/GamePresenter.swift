@@ -27,6 +27,7 @@ enum PlayerStatus {
 }
     
 class GamePresenter: GameListener {
+    
     let tableLayout : TableLayout
     let model = Model()
     let logger = GameUpdateLogger()
@@ -184,10 +185,14 @@ class GamePresenter: GameListener {
         logger.dealingDone(dealtCards: dealtCards)
         gameUpdateFrequency = 2.5
         positionCard(cards: dealtCards, duration: 0.1)
+    }
+    
+    func reveal() {
+        logger.reveal()
         showCards(in: model.school.playerHuman.hand)
         hideDeck()
     }
-    
+
     func turnStarted(player: Player, middle: PlayerHand) {
         logger.turnStarted(player: player, middle: middle)
         gameUpdateFrequency = 1

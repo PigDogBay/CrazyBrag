@@ -9,7 +9,7 @@ import Foundation
 
 
 enum GameState {
-    case setUp, selectDealer, deal, turnStart, turnEnd, scoreRound, updateLives, gameOver
+    case setUp, selectDealer, deal, reveal, turnStart, turnEnd, scoreRound, updateLives, gameOver
 }
 
 class Model {
@@ -52,10 +52,12 @@ class Model {
             gameState = .deal
         case .deal:
             let dealt = deal()
-            gameState = .turnStart
+            gameState = .reveal
             //Next Player will be moved on in turnStart
             nextPlayer = school.dealer
             gameListener?.dealingDone(dealtCards: dealt)
+        case .reveal:
+            reveal()
         case .turnStart:
             turnStart()
         case .turnEnd:
@@ -107,6 +109,11 @@ class Model {
         }
         school.playerHuman.hand.show()
         return dealActions
+    }
+    
+    func reveal(){
+        gameListener?.reveal()
+        gameState = .turnStart
     }
     
     func turnStart(){
