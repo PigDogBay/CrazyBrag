@@ -220,10 +220,10 @@ class GameScene: SKScene, GameView {
         label.text = "QUIT"
         label.fontColor = SKColor.red
         label.fontSize = presenter.tableLayout.fonts.buttonFontSize
-        label.position = CGPoint(x: 10, y: 10)
+        label.position = presenter.tableLayout.backButton
         label.zPosition = 10
         label.name="back button"
-        label.horizontalAlignmentMode = .left
+        label.horizontalAlignmentMode = .right
         label.verticalAlignmentMode = .bottom
         addChild(label)
 

@@ -22,7 +22,8 @@ struct IPhoneLayout : TableLayout {
         dealerFontSize: 26.0, statusFontSize: 22.0)
     
     let deckPosition = CGPoint(x: 150, y: 0)
-    
+    let backButton = CGPoint(x: 900.0, y: 15.0)
+
     private let box = CGRect(x: 330.0, y: 280.0, width: 3.0 * (CARD_WIDTH + 6.0), height: CARD_HEIGHT)
     private let player = CGRect(x: 330.0, y: 32.0, width: 3.0 * (CARD_WIDTH + 6.0), height: CARD_HEIGHT)
     private let cpuWest = CGRect(x: 56.0, y: 80.0, width: 2.0*CARD_WIDTH, height: CARD_HEIGHT)

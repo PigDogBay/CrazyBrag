@@ -25,6 +25,7 @@ protocol TableLayout {
     var cardSize : CGSize { get }
     var message : CGPoint { get }
     var deckPosition : CGPoint { get }
+    var backButton : CGPoint { get }
     func getNamePosition(seat : Int) -> CGPoint
     func getLivesPosition(seat : Int) -> CGPoint
     func getDealerPosition(seat : Int) -> CGPoint
@@ -44,6 +45,7 @@ struct IPadLayout : TableLayout {
         dealerFontSize: 36.0, statusFontSize: 28.0)
     let deckPosition = CGPoint(x: 100, y: 100)
     let message = CGPoint(x: 872.0, y: 120.0)
+    let backButton = CGPoint(x: 1000.0, y: 15.0)
 
     private let box = CGRect(x: 352.0, y: 307.5, width: 3.0 * (CARD_WIDTH + 7.0), height: CARD_HEIGHT)
     private let player = CGRect(x: 352.0, y: 38.0, width: 3.0 * (CARD_WIDTH + 7.0), height: CARD_HEIGHT)
