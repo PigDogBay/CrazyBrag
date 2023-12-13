@@ -25,8 +25,8 @@ struct IPhoneLayout : TableLayout {
     
     private let box = CGRect(x: 330.0, y: 280.0, width: 3.0 * (CARD_WIDTH + 6.0), height: CARD_HEIGHT)
     private let player = CGRect(x: 330.0, y: 32.0, width: 3.0 * (CARD_WIDTH + 6.0), height: CARD_HEIGHT)
-    private let cpuWest = CGRect(x: 56.0, y: 85.0, width: 2.0*CARD_WIDTH, height: CARD_HEIGHT)
-    private let cpuEast = CGRect(x: 715.0, y: 85.0, width: 2.0*CARD_WIDTH, height: CARD_HEIGHT)
+    private let cpuWest = CGRect(x: 56.0, y: 80.0, width: 2.0*CARD_WIDTH, height: CARD_HEIGHT)
+    private let cpuEast = CGRect(x: 715.0, y: 80.0, width: 2.0*CARD_WIDTH, height: CARD_HEIGHT)
     private let cpuNorthWest = CGRect(x: 70.0, y: 264.0, width: 2.0*CARD_WIDTH, height: CARD_HEIGHT)
     private let cpuNorthEast = CGRect(x: 701.0, y: 264.0, width: 2.0*CARD_WIDTH, height: CARD_HEIGHT)
 
