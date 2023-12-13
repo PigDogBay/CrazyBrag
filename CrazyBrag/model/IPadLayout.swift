@@ -7,9 +7,6 @@
 
 import Foundation
 
-let CARD_ASSET_WIDTH : Double = 691.0
-let CARD_ASSET_HEIGHT : Double = 1056.0
-
 protocol CardPosition{
     var frame : CGRect {get}
     var position1 : CGPoint { get }
@@ -60,13 +57,13 @@ struct IPadLayout : TableLayout {
     let deckPosition = CGPoint(x: 100, y: 100)
     let message = CGPoint(x: 872.0, y: 120.0)
 
-    private let box = CGRect(x: 352.0, y: 307.5, width: 320.0, height: CARD_HEIGHT)
-    private let player = CGRect(x: 352.0, y: 38.0, width: 320.0, height: CARD_HEIGHT)
-    private let cpuWest = CGRect(x: 51.0, y: 308.0, width: 200.0, height: CARD_HEIGHT)
-    private let cpuEast = CGRect(x: 772.0, y: 308.0, width: 200.0, height: CARD_HEIGHT)
-    private let cpuNorth = CGRect(x: 412.0, y: 570.0, width: 200.0, height: CARD_HEIGHT)
-    private let cpuNorthWest = CGRect(x: 60.0, y: 570.0, width: 200.0, height: CARD_HEIGHT)
-    private let cpuNorthEast = CGRect(x: 764.0, y: 570.0, width: 200.0, height: CARD_HEIGHT)
+    private let box = CGRect(x: 352.0, y: 307.5, width: 3.0 * (CARD_WIDTH + 7.0), height: CARD_HEIGHT)
+    private let player = CGRect(x: 352.0, y: 38.0, width: 3.0 * (CARD_WIDTH + 7.0), height: CARD_HEIGHT)
+    private let cpuWest = CGRect(x: 51.0, y: 308.0, width: 2.0 * CARD_WIDTH, height: CARD_HEIGHT)
+    private let cpuEast = CGRect(x: 772.0, y: 308.0, width: 2.0 * CARD_WIDTH, height: CARD_HEIGHT)
+    private let cpuNorth = CGRect(x: 412.0, y: 570.0, width: 2.0 * CARD_WIDTH, height: CARD_HEIGHT)
+    private let cpuNorthWest = CGRect(x: 60.0, y: 570.0, width: 2.0 * CARD_WIDTH, height: CARD_HEIGHT)
+    private let cpuNorthEast = CGRect(x: 764.0, y: 570.0, width: 2.0 * CARD_WIDTH, height: CARD_HEIGHT)
 
     private let yNameOffset : CGFloat = 8.0
 
