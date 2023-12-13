@@ -33,6 +33,11 @@ class StartScene: SKScene {
 
     }
 
+    private func startGame(){
+        let transition = SKTransition.doorway(withDuration: 1)
+        self.view?.presentScene(GameScene(size: self.frame.size), transition: transition)
+    }
+
     private func addBackground(imageNamed image : String){
         let background = SKSpriteNode(imageNamed: image)
         background.anchorPoint = CGPoint(x: 1.0, y: 1.0)
@@ -42,9 +47,8 @@ class StartScene: SKScene {
     }
     
     private func addStartButton(){
-        let button = ButtonNode(label: "DEAL", fontSize: 36.0){
-            let transition = SKTransition.doorway(withDuration: 1)
-            self.view?.presentScene(GameScene(size: self.frame.size), transition: transition)
+        let button = ButtonNode(label: "DEAL", fontSize: 36.0){ [weak self] in
+            self?.startGame()
         }
         button.position = CGPoint(x: frame.midX, y: frame.height * 0.2 )
         button.zPosition = Layer.ui.rawValue

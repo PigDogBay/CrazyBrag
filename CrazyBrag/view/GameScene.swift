@@ -216,19 +216,13 @@ class GameScene: SKScene, GameView {
     }
     
     private func addBackButton(){
-        let label = SKLabelNode(fontNamed: "QuentinCaps")
-        label.text = "QUIT"
-        label.fontColor = SKColor.red
-        label.fontSize = presenter.tableLayout.fonts.buttonFontSize
-        label.position = presenter.tableLayout.backButton
-        label.zPosition = 10
-        label.name="back button"
-        label.horizontalAlignmentMode = .right
-        label.verticalAlignmentMode = .bottom
-        addChild(label)
-
+        let button = ButtonNode(label: "QUIT", fontSize: presenter.tableLayout.fonts.buttonFontSize){ [weak self] in
+            self?.presenter.quit()
+        }
+        button.position = presenter.tableLayout.backButton
+        button.zPosition = Layer.ui.rawValue
+        addChild(button)
     }
-
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
@@ -236,8 +230,6 @@ class GameScene: SKScene, GameView {
             let node = atPoint(location)
             if let cardNode = node as? CardSpriteNode {
                 presenter.handleTouch(for: cardNode.playingCard)
-            } else if node.name == "back button" {
-                presenter.quit()
             }
         }
     }

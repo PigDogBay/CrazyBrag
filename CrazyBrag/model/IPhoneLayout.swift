@@ -18,11 +18,11 @@ struct IPhoneLayout : TableLayout {
     let message = CGPoint(x: 466.0, y: 207.0)
     let yNameOffset : CGFloat = 8.0
     let fonts = GameFonts(
-        nameFontSize: 16.0, livesFontSize: 12.0, buttonFontSize: 18.0,
+        nameFontSize: 16.0, livesFontSize: 12.0, buttonFontSize: 20.0,
         dealerFontSize: 26.0, statusFontSize: 22.0)
     
     let deckPosition = CGPoint(x: 150, y: 0)
-    let backButton = CGPoint(x: 900.0, y: 15.0)
+    let backButton = CGPoint(x: 870.0, y: 30.0)
 
     private let box = CGRect(x: 330.0, y: 280.0, width: 3.0 * (CARD_WIDTH + 6.0), height: CARD_HEIGHT)
     private let player = CGRect(x: 330.0, y: 32.0, width: 3.0 * (CARD_WIDTH + 6.0), height: CARD_HEIGHT)

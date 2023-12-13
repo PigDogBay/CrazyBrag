@@ -45,9 +45,9 @@ class ButtonNode : SKShapeNode {
         buttonPressed()
     }
     
-    //Ensure touch up is inside the button
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first, let parentNode = self.parent {
+            //Ensure touch up is inside the button
             if contains(touch.location(in: parentNode)) && isButtonPressed {
                 isButtonPressed = false
                 onPressed()
