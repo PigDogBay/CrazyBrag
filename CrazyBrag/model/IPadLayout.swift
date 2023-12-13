@@ -9,8 +9,6 @@ import Foundation
 
 let CARD_ASSET_WIDTH : Double = 691.0
 let CARD_ASSET_HEIGHT : Double = 1056.0
-let CARD_WIDTH : Double = 100
-let CARD_HEIGHT : Double = 153
 
 protocol CardPosition{
     var frame : CGRect {get}
@@ -50,6 +48,9 @@ protocol TableLayout {
 
 
 struct IPadLayout : TableLayout {
+    static let CARD_WIDTH : Double = 100
+    static let CARD_HEIGHT : Double = 153
+
     //iPad 6th Gen logical screen size
     let size = CGSize(width: 1024.0, height: 768.0)
     let cardSize = CGSize(width: CARD_WIDTH, height: CARD_HEIGHT)
@@ -68,8 +69,6 @@ struct IPadLayout : TableLayout {
     private let cpuNorthEast = CGRect(x: 764.0, y: 570.0, width: 200.0, height: CARD_HEIGHT)
 
     private let yNameOffset : CGFloat = 8.0
-
-    
 
     func getNamePosition(seat : Int) -> CGPoint {
         return getCardPosition(for: seat).namePos
