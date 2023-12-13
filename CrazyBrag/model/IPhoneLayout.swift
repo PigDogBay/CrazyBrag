@@ -27,7 +27,6 @@ struct IPhoneLayout : TableLayout {
     private let player = CGRect(x: 330.0, y: 32.0, width: 3.0 * (CARD_WIDTH + 6.0), height: CARD_HEIGHT)
     private let cpuWest = CGRect(x: 56.0, y: 90.0, width: 2.0*CARD_WIDTH, height: CARD_HEIGHT)
     private let cpuEast = CGRect(x: 715.0, y: 90.0, width: 2.0*CARD_WIDTH, height: CARD_HEIGHT)
-    private let cpuSouthEast = CGRect(x: 715.0, y: 22.0, width: 2.0*CARD_WIDTH, height: CARD_HEIGHT)
     private let cpuNorthWest = CGRect(x: 70.0, y: 269.0, width: 2.0*CARD_WIDTH, height: CARD_HEIGHT)
     private let cpuNorthEast = CGRect(x: 701.0, y: 269.0, width: 2.0*CARD_WIDTH, height: CARD_HEIGHT)
 
@@ -65,8 +64,6 @@ struct IPhoneLayout : TableLayout {
             return CardPosition(frame: cpuNorthEast, cardSize: cardSize, yNameOffset: yNameOffset)
         case 4:
             return CardPosition(frame: cpuEast, cardSize: cardSize, yNameOffset: yNameOffset)
-        case 5:
-            return CardPosition(frame: cpuSouthEast, cardSize: cardSize, yNameOffset: yNameOffset)
         default:
             fatalError("Bad seat position \(seat)")
         }
