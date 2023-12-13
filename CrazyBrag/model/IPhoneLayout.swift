@@ -21,7 +21,7 @@ struct IPhoneLayout : TableLayout {
         nameFontSize: 16.0, livesFontSize: 12.0, buttonFontSize: 20.0,
         dealerFontSize: 26.0, statusFontSize: 22.0)
     
-    let deckPosition = CGPoint(x: 150, y: 0)
+    let deckPosition = CGPoint(x: 100, y: -70.0)
     let backButton = CGPoint(x: 870.0, y: 30.0)
 
     private let box = CGRect(x: 330.0, y: 280.0, width: 3.0 * (CARD_WIDTH + 6.0), height: CARD_HEIGHT)

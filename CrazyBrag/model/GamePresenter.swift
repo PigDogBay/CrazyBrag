@@ -107,6 +107,12 @@ class GamePresenter: GameListener {
         }
     }
     
+    private func hideDeck(){
+        for card in model.deck.deck{
+            view?.setZPosition(on: card, z: -1.0)
+        }
+    }
+    
     func allCardsToDeck(){
         let pos = tableLayout.deckPosition
         var z = Layer.deck.rawValue
@@ -179,6 +185,7 @@ class GamePresenter: GameListener {
         gameUpdateFrequency = 2.5
         positionCard(cards: dealtCards, duration: 0.1)
         showCards(in: model.school.playerHuman.hand)
+        hideDeck()
     }
     
     func turnStarted(player: Player, middle: PlayerHand) {

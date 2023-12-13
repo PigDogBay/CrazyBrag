@@ -171,6 +171,7 @@ class GameScene: SKScene, GameView {
             CardSpriteNode(card: $0, cardSize: presenter.tableLayout.cardSize)
         }
         for card in cardNodes {
+            card.position = presenter.tableLayout.deckPosition
             addChild(card)
         }
     }
