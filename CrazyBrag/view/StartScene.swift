@@ -18,7 +18,7 @@ class StartScene: SKScene {
         topLabel.text = "Crazy Brag"
         topLabel.fontColor = SKColor.black
         topLabel.fontSize = 48
-        topLabel.position = CGPoint(x: frame.midX, y: frame.midY * 1.4)
+        topLabel.position = CGPoint(x: frame.midX, y: frame.midY * 1.5)
         topLabel.zPosition = Layer.messages.rawValue
         addChild(topLabel)
 
@@ -32,20 +32,6 @@ class StartScene: SKScene {
         addStartButton()
 
     }
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for touch in touches {
-            let location = touch.location(in: self)
-            let touchNode = atPoint(location)
-            switch touchNode.name {
-            case "start button":
-                let transition = SKTransition.doorway(withDuration: 1)
-                view?.presentScene(GameScene(size: frame.size), transition: transition)
-                break
-            default:
-                break
-            }
-        }
-    }
 
     private func addBackground(imageNamed image : String){
         let background = SKSpriteNode(imageNamed: image)
@@ -56,14 +42,12 @@ class StartScene: SKScene {
     }
     
     private func addStartButton(){
-        let label = SKLabelNode(fontNamed: "QuentinCaps")
-        label.text = "DEAL"
-        label.fontColor = SKColor.red
-        label.fontSize = 36
-        label.position = CGPoint(x: frame.midX, y: frame.height * 0.2 )
-        label.zPosition = Layer.ui.rawValue
-        label.name="start button"
-        addChild(label)
-
+        let button = ButtonNode(label: "DEAL", fontSize: 36.0){
+            let transition = SKTransition.doorway(withDuration: 1)
+            self.view?.presentScene(GameScene(size: self.frame.size), transition: transition)
+        }
+        button.position = CGPoint(x: frame.midX, y: frame.height * 0.2 )
+        button.zPosition = Layer.ui.rawValue
+        addChild(button)
     }
 }
