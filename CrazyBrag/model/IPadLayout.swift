@@ -34,6 +34,7 @@ struct GameFonts {
 }
 
 protocol TableLayout {
+    var size : CGSize { get }
     var fonts : GameFonts { get }
     var cardSize : CGSize { get }
     var message : CGPoint { get }
@@ -46,8 +47,9 @@ protocol TableLayout {
 }
 
 
-struct IPadLayout : TableLayout{
-    let size : CGSize
+struct IPadLayout : TableLayout {
+    //iPad 6th Gen logical screen size
+    let size = CGSize(width: 1024.0, height: 768.0)
     private let yNameOffset : CGFloat = 8.0
 
     var fonts : GameFonts { return GameFonts(

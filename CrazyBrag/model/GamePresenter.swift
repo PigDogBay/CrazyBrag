@@ -40,9 +40,9 @@ class GamePresenter: GameListener {
     init(size : CGSize, isPhone : Bool){
         self.isPhone = isPhone
         if isPhone {
-            tableLayout = IPhoneLayout(size: size)
+            tableLayout = IPhoneLayout()
         } else {
-            tableLayout = IPadLayout(size: size)
+            tableLayout = IPadLayout()
         }
     }
     

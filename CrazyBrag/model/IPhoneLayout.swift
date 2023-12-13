@@ -9,7 +9,8 @@ import Foundation
 
 
 struct IPhoneLayout : TableLayout {
-    let size : CGSize
+    //IPhone 15 Pro Max logical screen size
+    let size = CGSize(width: 932.0, height: 430.0)
     let yNameOffset : CGFloat = 5.0
     
     var fonts : GameFonts { return GameFonts(

@@ -20,7 +20,8 @@ class GameScene: SKScene, GameView {
         let isPhone = UIDevice.current.userInterfaceIdiom == .phone
         self.presenter = GamePresenter(size: size, isPhone: isPhone)
         self.messageNode = MessageNode(fontSize: presenter.tableLayout.fonts.statusFontSize)
-        super.init(size: size)
+        super.init(size: presenter.tableLayout.size)
+        self.scaleMode = .fill
     }
     
     required init?(coder aDecoder: NSCoder) {
