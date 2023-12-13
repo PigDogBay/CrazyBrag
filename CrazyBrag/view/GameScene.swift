@@ -36,9 +36,6 @@ class GameScene: SKScene, GameView {
         messageNode.position = presenter.tableLayout.message
         addChild(messageNode)
         addBackButton()
-        for i in -1...5 {
-            addTableMat(seat: i)
-        }
     }
     
     override func update(_ currentTime: TimeInterval) {

@@ -13,7 +13,8 @@ protocol GameView {
     func setPosition(on card: PlayingCard, pos: CGPoint, duration : TimeInterval, delay : TimeInterval)
     func addName(name : String, pos : CGPoint)
     func turn(card: PlayingCard, isFaceUp : Bool)
-    func addLives(name : String,pos : CGPoint)
+    func addLives(name : String, pos : CGPoint)
+    func addTableMat(seat : Int)
     func updateScore(player : Player)
     func updateDealer(player : Player)
     func removePlayer(player : Player)
@@ -54,10 +55,13 @@ class GamePresenter: GameListener {
         if !isPhone {
             view.addName(name: "Middle", pos: tableLayout.getNamePosition(seat: -1))
         }
+        view.addTableMat(seat: -1)
         for player in model.school.players {
+            view.addTableMat(seat: player.seat)
             view.addName(name: player.name, pos: tableLayout.getNamePosition(seat: player.seat))
             view.addLives(name: player.name, pos: tableLayout.getLivesPosition(seat: player.seat))
         }
+
     }
     
     func quit(){
