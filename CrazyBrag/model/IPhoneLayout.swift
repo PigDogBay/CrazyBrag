@@ -39,7 +39,16 @@ struct IPhoneLayout : TableLayout {
     }
 
     func getDealerPosition(seat : Int) -> CGPoint {
-        return getCardPosition(for: seat).dealerTokenPos
+        switch (seat){
+        case 1:
+            //Place dealer token on the inside
+            return CGPoint(x: cpuWest.maxX + 40.0, y: cpuWest.midY)
+        case 2:
+            //Place dealer token on the inside
+            return CGPoint(x: cpuNorthWest.maxX + 40.0, y: cpuNorthWest.midY)
+        default:
+            return getCardPosition(for: seat).dealerTokenPos
+        }
     }
 
     func getPosition(dealt : DealtCard) -> CGPoint {
