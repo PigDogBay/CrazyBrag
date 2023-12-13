@@ -9,6 +9,8 @@ import Foundation
 
 let CARD_ASSET_WIDTH : Double = 691.0
 let CARD_ASSET_HEIGHT : Double = 1056.0
+let CARD_WIDTH : Double = 100
+let CARD_HEIGHT : Double = 153
 
 protocol CardPosition{
     var frame : CGRect {get}
@@ -50,26 +52,24 @@ protocol TableLayout {
 struct IPadLayout : TableLayout {
     //iPad 6th Gen logical screen size
     let size = CGSize(width: 1024.0, height: 768.0)
-    private let yNameOffset : CGFloat = 8.0
-
-    var fonts : GameFonts { return GameFonts(
+    let cardSize = CGSize(width: CARD_WIDTH, height: CARD_HEIGHT)
+    let fonts =  GameFonts(
         nameFontSize: 24.0, livesFontSize: 18.0, buttonFontSize: 36.0,
         dealerFontSize: 36.0, statusFontSize: 28.0)
-    }
+    let deckPosition = CGPoint(x: 100, y: 100)
+    let message = CGPoint(x: 872.0, y: 120.0)
+
+    private let box = CGRect(x: 352.0, y: 307.5, width: 320.0, height: CARD_HEIGHT)
+    private let player = CGRect(x: 352.0, y: 38.0, width: 320.0, height: CARD_HEIGHT)
+    private let cpuWest = CGRect(x: 51.0, y: 308.0, width: 200.0, height: CARD_HEIGHT)
+    private let cpuEast = CGRect(x: 772.0, y: 308.0, width: 200.0, height: CARD_HEIGHT)
+    private let cpuNorth = CGRect(x: 412.0, y: 570.0, width: 200.0, height: CARD_HEIGHT)
+    private let cpuNorthWest = CGRect(x: 60.0, y: 570.0, width: 200.0, height: CARD_HEIGHT)
+    private let cpuNorthEast = CGRect(x: 764.0, y: 570.0, width: 200.0, height: CARD_HEIGHT)
+
+    private let yNameOffset : CGFloat = 8.0
+
     
-    var deckPosition : CGPoint {
-        return CGPoint(x: 100, y: cardSize.height)
-    }
-    
-    var cardSize : CGSize {
-        let w : Double = size.width / 10.0
-        let h : Double = w * (CARD_ASSET_HEIGHT/CARD_ASSET_WIDTH)
-        return CGSize(width: w, height: h)
-    }
-    
-    var message : CGPoint {
-        return CGPoint(x: cpuEast.midX, y: player.midY)
-    }
 
     func getNamePosition(seat : Int) -> CGPoint {
         return getCardPosition(for: seat).namePos
@@ -89,62 +89,6 @@ struct IPadLayout : TableLayout {
     
     func getFrame(seat : Int) -> CGRect {
         return getCardPosition(for: seat).frame
-    }
-    
-    private var box : CGRect {
-        let w = cardSize.width * 3.2
-        let h = cardSize.height
-        let x = (size.width - w) / 2.0
-        let y = (size.height - h) / 2.0
-        return CGRect(x: x, y: y, width: w, height: h)
-    }
-    
-    private var player : CGRect {
-        let w = cardSize.width * 3.2
-        let h = cardSize.height
-        let x = (size.width - w) / 2.0
-        let y = size.height * 0.05
-        return CGRect(x: x, y: y, width: w, height: h)
-    }
-    
-    private var cpuWest : CGRect {
-        let w = cardSize.width * 2.0
-        let h = cardSize.height
-        let x = size.width * 0.05
-        let y = (size.height - h) / 2.0
-        return CGRect(x: x, y: y, width: w, height: h)
-    }
-
-    private var cpuEast : CGRect {
-        let w = cardSize.width * 2.0
-        let h = cardSize.height
-        let x = size.width * 0.95 - w
-        let y = (size.height - h) / 2.0
-        return CGRect(x: x, y: y, width: w, height: h)
-    }
-
-    private var cpuNorth : CGRect {
-        let w = cardSize.width * 2.0
-        let h = cardSize.height
-        let x = (size.width - w) / 2.0
-        let y = size.height * 0.95 - h
-        return CGRect(x: x, y: y, width: w, height: h)
-    }
-
-    private var cpuNorthWest : CGRect {
-        let w = cardSize.width * 2.0
-        let h = cardSize.height
-        let x = size.width * 0.05
-        let y = size.height * 0.95 - h
-        return CGRect(x: x, y: y, width: w, height: h)
-    }
-
-    private var cpuNorthEast : CGRect {
-        let w = cardSize.width * 2.0
-        let h = cardSize.height
-        let x = size.width * 0.95 - w
-        let y = size.height * 0.95 - h
-        return CGRect(x: x, y: y, width: w, height: h)
     }
 
     private func getCardPosition(for seat : Int) -> CardPosition {
