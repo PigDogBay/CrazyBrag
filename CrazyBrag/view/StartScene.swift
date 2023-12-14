@@ -7,12 +7,24 @@
 
 import Foundation
 import SpriteKit
+import AVFoundation
 
 class StartScene: SKScene {
     let cardQH = CardSpriteNode(card: PlayingCard(suit: .hearts, rank: .queen), cardSize: CGSize(width: 100, height: 152))
+    let musicAudioNode = SKAudioNode(fileNamed: "honky-tonk.wav")
 
     override func didMove(to view: SKView) {
-        
+        audioEngine.mainMixerNode.outputVolume = 0.0
+        musicAudioNode.autoplayLooped = true
+        musicAudioNode.isPositional = false
+        addChild(musicAudioNode)
+        //Mute then fade in music
+        musicAudioNode.run(SKAction.changeVolume(to: 0.0, duration: 0.0))
+        run(SKAction.wait(forDuration: 2.0)){[unowned self] in
+            self.audioEngine.mainMixerNode.outputVolume = 0.25
+            self.musicAudioNode.run(SKAction.changeVolume(to: 0.1, duration: 5.0))
+        }
+
         addBackground(imageNamed: "treestump")
         let topLabel = SKLabelNode(fontNamed: "QuentinCaps")
         topLabel.text = "Crazy Brag"
