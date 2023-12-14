@@ -22,24 +22,6 @@ class Model {
     var selectedCards = [DealtCard]()
     var isPlayersTurn = false
 
-    func computerMakeGame(){
-        for _ in 1...1000 {
-            while(gameState != .gameOver){
-                updateState()
-            }
-            gameOver()
-            gameState = .setUp
-        }
-        school.getAllPlayers
-            .sorted(by: {$0.gamesWon < $1.gamesWon})
-            .forEach{printStats($0)}
-    }
-    
-    func printStats(_ player : Player){
-        print("\(player.name) \(player.gamesWon)")
-    }
-    
-    
     func updateState(){
         switch gameState {
         case .setUp:
@@ -177,6 +159,7 @@ class Model {
         }
         return nil
     }
+    
     private func toDealtCard(card : PlayingCard, playerHand : PlayerHand, seat : Int) -> DealtCard?{
         if let index = playerHand.hand.firstIndex(of: card) {
             let dealtCard = DealtCard(seat: seat, card: card, cardCount: index+1)
@@ -206,6 +189,7 @@ class Model {
         }
         return Turn.swap(hand: playerCard.card, middle: middleCard.card)
     }
+    
     ///Check if the players selection is valid
     ///Returns true if valid, false invalid
     func validate(selectedCard card: DealtCard) -> Bool{
@@ -225,5 +209,4 @@ class Model {
         }
         return true
     }
-
 }
