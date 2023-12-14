@@ -48,8 +48,8 @@ class GameScene: SKScene, GameView {
     
     func quit(){
         removeAllActions()
-        let sound = SKAction.playSoundFileNamed("sad_whistle", waitForCompletion: false)
-        run(sound)
+//        let sound = SKAction.playSoundFileNamed("sad_whistle", waitForCompletion: false)
+//        run(sound)
         let transition = SKTransition.doorway(withDuration: 1)
         view?.presentScene(StartScene(size: frame.size), transition: transition)
     }
@@ -166,6 +166,10 @@ class GameScene: SKScene, GameView {
         messageNode.show(message: message)
     }
     
+    func play(soundNamed : String) {
+        run(SKAction.playSoundFileNamed(soundNamed, waitForCompletion: false))
+    }
+
     //MARK: - Misc
 
     private func createCardNodes() {

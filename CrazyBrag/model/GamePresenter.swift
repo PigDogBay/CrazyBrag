@@ -20,6 +20,7 @@ protocol GameView {
     func removePlayer(player : Player)
     func highlight(player : Player, status : PlayerStatus)
     func show(message : String)
+    func play(soundNamed : String)
 }
 
 enum PlayerStatus {
@@ -69,6 +70,7 @@ class GamePresenter: GameListener {
         //remove strong reference to allow object to be de-allocated
         model.gameListener = nil
         view?.quit()
+        view?.play(soundNamed: "sad_whistle")
         view = nil
     }
     
@@ -154,6 +156,7 @@ class GamePresenter: GameListener {
     private func selectCard(_ card : DealtCard){
         let offset = card.seat == 0 ? 50.0 : -50.0
         model.selectedCards.append(card)
+        view?.play(soundNamed: "card")
         moveCard(dealt: card, yOffset: offset)
     }
     private func deselectCard(_ card : DealtCard){
