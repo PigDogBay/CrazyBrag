@@ -20,8 +20,8 @@ class StartScene: SKScene {
         addChild(musicAudioNode)
         //Mute then fade in music
         musicAudioNode.run(SKAction.changeVolume(to: 0.0, duration: 0.0))
-        run(SKAction.wait(forDuration: 2.0)){[unowned self] in
-            self.audioEngine.mainMixerNode.outputVolume = 0.25
+        run(SKAction.wait(forDuration: 1.0)){[unowned self] in
+            self.audioEngine.mainMixerNode.outputVolume = 0.50
             self.musicAudioNode.run(SKAction.changeVolume(to: 0.1, duration: 5.0))
         }
 
