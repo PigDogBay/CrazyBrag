@@ -72,7 +72,6 @@ class ModelTests: XCTestCase, GameListener {
         }
         model.gameState = .updateLives
         model.updateState()
-        model.gameListener = nil
         XCTAssertTrue(everyoneOutSoReplayRoundCalled)
         XCTAssertFalse(pullThePegCalled)
     }

@@ -13,7 +13,6 @@ enum GameState {
 }
 
 class Model {
-    
     let deck = Deck()
     let middle = PlayerHand()
     let school = School()
