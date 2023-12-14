@@ -18,7 +18,7 @@ class Model {
     let middle = PlayerHand()
     let school = School()
     var gameState : GameState = .setUp
-    var gameListener : GameListener? = nil
+    weak var gameListener : GameListener? = nil
     private var nextPlayer : Player? = nil
     var selectedCards = [DealtCard]()
     var isPlayersTurn = false

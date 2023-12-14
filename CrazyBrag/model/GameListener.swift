@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol GameListener {
+protocol GameListener : AnyObject {
     func dealerSelected(dealer : Player)
     func dealingDone(dealtCards : [DealtCard])
     func reveal()
