@@ -48,6 +48,9 @@
 		00A68AE02B19FE7D006EC10C /* Explosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 00A68ADF2B19FE7D006EC10C /* Explosion.sks */; };
 		00C0299D2B2A09830062B26A /* ButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C0299C2B2A09830062B26A /* ButtonNode.swift */; };
 		00C029A12B2A26140062B26A /* DebugUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C029A02B2A26140062B26A /* DebugUtils.swift */; };
+		00C029A82B2B26390062B26A /* honky-tonk.wav in Resources */ = {isa = PBXBuildFile; fileRef = 00C029A42B2B26380062B26A /* honky-tonk.wav */; };
+		00C029AA2B2B26390062B26A /* card.wav in Resources */ = {isa = PBXBuildFile; fileRef = 00C029A62B2B26390062B26A /* card.wav */; };
+		00C029AC2B2B2BE00062B26A /* ricochet.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 00C029AB2B2B2BE00062B26A /* ricochet.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,6 +116,9 @@
 		00A68ADF2B19FE7D006EC10C /* Explosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Explosion.sks; sourceTree = "<group>"; };
 		00C0299C2B2A09830062B26A /* ButtonNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonNode.swift; sourceTree = "<group>"; };
 		00C029A02B2A26140062B26A /* DebugUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugUtils.swift; sourceTree = "<group>"; };
+		00C029A42B2B26380062B26A /* honky-tonk.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "honky-tonk.wav"; sourceTree = "<group>"; };
+		00C029A62B2B26390062B26A /* card.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = card.wav; sourceTree = "<group>"; };
+		00C029AB2B2B2BE00062B26A /* ricochet.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ricochet.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +172,7 @@
 				00A220CE2B20D5BD00B16292 /* Info.plist */,
 				009313B12A4C35DE007194D9 /* model */,
 				00A220D22B21CF3800B16292 /* resources */,
+				00C029A22B2B25F20062B26A /* sounds */,
 				00C0299F2B2A25F60062B26A /* utils */,
 				009313D32A4ECAA2007194D9 /* view */,
 			);
@@ -253,6 +260,16 @@
 				00C029A02B2A26140062B26A /* DebugUtils.swift */,
 			);
 			name = utils;
+			sourceTree = "<group>";
+		};
+		00C029A22B2B25F20062B26A /* sounds */ = {
+			isa = PBXGroup;
+			children = (
+				00C029A62B2B26390062B26A /* card.wav */,
+				00C029AB2B2B2BE00062B26A /* ricochet.mp3 */,
+				00C029A42B2B26380062B26A /* honky-tonk.wav */,
+			);
+			path = sounds;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -364,6 +381,9 @@
 				009313862A4C334D007194D9 /* Assets.xcassets in Resources */,
 				00A220CD2B20D33500B16292 /* Quentincaps-owxKz.ttf in Resources */,
 				009313892A4C334D007194D9 /* LaunchScreen.storyboard in Resources */,
+				00C029AC2B2B2BE00062B26A /* ricochet.mp3 in Resources */,
+				00C029A82B2B26390062B26A /* honky-tonk.wav in Resources */,
+				00C029AA2B2B26390062B26A /* card.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
