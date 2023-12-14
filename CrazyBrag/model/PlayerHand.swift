@@ -62,4 +62,8 @@ class PlayerHand {
             middle.hand.insert(down, at: 0)
         }
     }
+    
+    func indexOf(card : PlayingCard) -> Int{
+        return hand.firstIndex(of: card) ?? -1
+    }
 }
