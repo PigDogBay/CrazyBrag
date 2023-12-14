@@ -51,6 +51,7 @@
 		00C029A82B2B26390062B26A /* honky-tonk.wav in Resources */ = {isa = PBXBuildFile; fileRef = 00C029A42B2B26380062B26A /* honky-tonk.wav */; };
 		00C029AA2B2B26390062B26A /* card.wav in Resources */ = {isa = PBXBuildFile; fileRef = 00C029A62B2B26390062B26A /* card.wav */; };
 		00C029AC2B2B2BE00062B26A /* ricochet.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 00C029AB2B2B2BE00062B26A /* ricochet.mp3 */; };
+		00FF03CA2B2B971600ADA2ED /* sad_whistle.wav in Resources */ = {isa = PBXBuildFile; fileRef = 00FF03C92B2B971600ADA2ED /* sad_whistle.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,6 +120,7 @@
 		00C029A42B2B26380062B26A /* honky-tonk.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "honky-tonk.wav"; sourceTree = "<group>"; };
 		00C029A62B2B26390062B26A /* card.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = card.wav; sourceTree = "<group>"; };
 		00C029AB2B2B2BE00062B26A /* ricochet.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ricochet.mp3; sourceTree = "<group>"; };
+		00FF03C92B2B971600ADA2ED /* sad_whistle.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sad_whistle.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -265,6 +267,7 @@
 		00C029A22B2B25F20062B26A /* sounds */ = {
 			isa = PBXGroup;
 			children = (
+				00FF03C92B2B971600ADA2ED /* sad_whistle.wav */,
 				00C029A62B2B26390062B26A /* card.wav */,
 				00C029AB2B2B2BE00062B26A /* ricochet.mp3 */,
 				00C029A42B2B26380062B26A /* honky-tonk.wav */,
@@ -377,6 +380,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				009313842A4C334B007194D9 /* Main.storyboard in Resources */,
+				00FF03CA2B2B971600ADA2ED /* sad_whistle.wav in Resources */,
 				00A68AE02B19FE7D006EC10C /* Explosion.sks in Resources */,
 				009313862A4C334D007194D9 /* Assets.xcassets in Resources */,
 				00A220CD2B20D33500B16292 /* Quentincaps-owxKz.ttf in Resources */,

@@ -48,7 +48,7 @@ class GameScene: SKScene, GameView {
     
     func quit(){
         removeAllActions()
-        let sound = SKAction.playSoundFileNamed("ricochet", waitForCompletion: false)
+        let sound = SKAction.playSoundFileNamed("sad_whistle", waitForCompletion: false)
         run(sound)
         let transition = SKTransition.doorway(withDuration: 1)
         view?.presentScene(StartScene(size: frame.size), transition: transition)
