@@ -19,7 +19,7 @@ class Model {
     let school = School()
     var gameState : GameState = .setUp
     var gameListener : GameListener? = nil
-    var nextPlayer : Player? = nil
+    private var nextPlayer : Player? = nil
     var selectedCards = [DealtCard]()
     var isPlayersTurn = false
 
@@ -64,7 +64,6 @@ class Model {
             turnEnd()
         case .scoreRound:
             scoreRound()
-            gameState = .updateLives
         case .updateLives:
             stashAll()
             updateLives()
@@ -111,18 +110,18 @@ class Model {
         return dealActions
     }
     
-    func reveal(){
+    private func reveal(){
         gameListener?.reveal()
         gameState = .turnStart
     }
     
-    func turnStart(){
+    private func turnStart(){
         nextPlayer = school.nextPlayer(current: nextPlayer!)
         gameListener?.turnStarted(player: nextPlayer!, middle: middle)
         gameState = .turnEnd
     }
         
-    func turnEnd(){
+    private func turnEnd(){
         let turn = nextPlayer?.play(middle: middle)
         gameListener?.turnEnded(player: nextPlayer!, middle: middle, turn: turn!)
         //Dealer is last player
@@ -130,7 +129,7 @@ class Model {
     }
     
     /// Find losing hand and lose player a life
-    func scoreRound(){
+    private func scoreRound(){
         school.showAllHands()
         gameListener?.showHands(players: school.players)
         school.resolveHands()
@@ -140,24 +139,29 @@ class Model {
             }
             gameListener?.roundEnded(losingPlayers: losingPlayers)
         }
+        gameState = .updateLives
+
     }
-    func updateLives(){
+    
+    private func updateLives(){
         let pegPullers = school.playersWithNoLivesLeft()
-        gameListener?.pullThePeg(outPlayers: pegPullers)
         school.removePlayersWithNoLivesLeft()
         if school.areAllPlayersOut() {
             //Oops no one won, so play another round
             school.reinstatePlayers()
             gameListener?.everyoneOutSoReplayRound()
+        } else {
+            //Notify view of which players are out
+            gameListener?.pullThePeg(outPlayers: pegPullers)
         }
         gameState = isGameWon() ? .gameOver : .selectDealer
     }
     
-    func isGameWon() -> Bool{
+    private func isGameWon() -> Bool{
         return school.players.count < 2
     }
     
-    func gameOver(){
+    private func gameOver(){
         if let winner = school.players.first {
             winner.gamesWon += 1
             gameListener?.gameOver(winner: winner)
