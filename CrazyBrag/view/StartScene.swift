@@ -46,6 +46,8 @@ class StartScene: SKScene {
     }
 
     private func startGame(){
+        let sound = SKAction.playSoundFileNamed("ricochet", waitForCompletion: false)
+        run(sound)
         let transition = SKTransition.doorway(withDuration: 1)
         self.view?.presentScene(GameScene(size: self.frame.size), transition: transition)
     }
