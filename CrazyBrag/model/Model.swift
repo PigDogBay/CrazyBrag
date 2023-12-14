@@ -45,8 +45,8 @@ class Model {
             turnEnd()
         case .scoreRound:
             scoreRound()
-        case .updateLives:
             stashAll()
+        case .updateLives:
             updateLives()
         case .gameOver:
             gameOver()
@@ -114,27 +114,28 @@ class Model {
         school.showAllHands()
         gameListener?.showHands(players: school.players)
         school.resolveHands()
+        gameState = .updateLives
         if let losingPlayers = school.determineLosingHands(){
             losingPlayers.forEach{
                 $0.lives = $0.lives - 1
             }
-            gameListener?.roundEnded(losingPlayers: losingPlayers)
+            if school.areAllPlayersOut() {
+                //Oops no one won, so play another round
+                school.reinstatePlayers()
+                //Don't update lives, start another deal
+                gameListener?.everyoneOutSoReplayRound()
+                gameState = .selectDealer
+            } else {
+                gameListener?.roundEnded(losingPlayers: losingPlayers)
+            }
         }
-        gameState = .updateLives
-
     }
     
     private func updateLives(){
         let pegPullers = school.playersWithNoLivesLeft()
         school.removePlayersWithNoLivesLeft()
-        if school.areAllPlayersOut() {
-            //Oops no one won, so play another round
-            school.reinstatePlayers()
-            gameListener?.everyoneOutSoReplayRound()
-        } else {
-            //Notify view of which players are out
-            gameListener?.pullThePeg(outPlayers: pegPullers)
-        }
+        //Notify view of which players are out
+        gameListener?.pullThePeg(outPlayers: pegPullers)
         gameState = isGameWon() ? .gameOver : .selectDealer
     }
     

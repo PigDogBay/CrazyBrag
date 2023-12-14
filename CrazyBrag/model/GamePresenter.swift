@@ -273,6 +273,7 @@ class GamePresenter: GameListener {
     
     func everyoneOutSoReplayRound() {
         logger.everyoneOutSoReplayRound()
+        view?.show(message: "A Draw\nDeal Again")
     }
     
     func gameOver(winner: Player) {
