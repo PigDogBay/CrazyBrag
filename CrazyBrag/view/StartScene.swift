@@ -12,6 +12,7 @@ import AVFoundation
 class StartScene: SKScene {
     let cardQH = CardSpriteNode(card: PlayingCard(suit: .hearts, rank: .queen), cardSize: CGSize(width: 100, height: 152))
     let musicAudioNode = SKAudioNode(fileNamed: "honky-tonk.wav")
+    private var audioPlayer : AVAudioPlayer? = nil
 
     override func didMove(to view: SKView) {
         audioEngine.mainMixerNode.outputVolume = 0.0
@@ -44,11 +45,18 @@ class StartScene: SKScene {
         addStartButton()
 
     }
-
+    
+    private func playSound(named: String, volume : Float){
+        let path = Bundle.main.path(forResource: named, ofType: nil)!
+        let url = URL(fileURLWithPath: path)
+        audioPlayer = try? AVAudioPlayer(contentsOf: url)
+        audioPlayer?.volume = volume
+        audioPlayer?.play()
+    }
+    
     private func startGame(){
-        let sound = SKAction.playSoundFileNamed("ricochet", waitForCompletion: false)
-        run(sound)
-        let transition = SKTransition.doorway(withDuration: 1)
+        playSound(named: "ricochet.mp3", volume: 0.05)
+        let transition = SKTransition.doorway(withDuration: 1.25)
         self.view?.presentScene(GameScene(size: self.frame.size), transition: transition)
     }
 
