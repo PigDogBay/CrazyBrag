@@ -43,9 +43,25 @@ class StartScene: SKScene {
         cardQH.run(action)
         
         addStartButton()
-
+#if DEBUG
+        autoPlay()
+#endif
     }
     
+#if DEBUG
+    deinit{
+        print("StartScene DEINIT")
+    }
+    private func autoPlay(){
+        if DEBUG_AUTO_PLAY{
+            let startAction = SKAction.run {[unowned self] in
+                self.startGame()
+            }
+            let wait = SKAction.wait(forDuration: 3.0)
+            run(SKAction.sequence([wait,startAction]))
+        }
+    }
+#endif
     private func playSound(named: String, volume : Float){
         let path = Bundle.main.path(forResource: named, ofType: nil)!
         let url = URL(fileURLWithPath: path)

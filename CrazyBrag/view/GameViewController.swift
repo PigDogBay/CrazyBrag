@@ -9,6 +9,10 @@ import UIKit
 import SpriteKit
 import GameplayKit
 
+#if DEBUG
+let DEBUG_AUTO_PLAY = false
+#endif
+
 class GameViewController: UIViewController {
 
     override func viewDidLoad() {

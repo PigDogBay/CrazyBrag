@@ -16,6 +16,12 @@ class GameScene: SKScene, GameView {
     private var scoreNodes = [SKLabelNode]()
     private var lastGameUpdateTime = TimeInterval()
 
+#if DEBUG
+    deinit{
+        print("GameScene DEINIT")
+    }
+#endif
+    
     override init(size: CGSize) {
         let isPhone = UIDevice.current.userInterfaceIdiom == .phone
         self.presenter = GamePresenter(size: size, isPhone: isPhone)

@@ -78,8 +78,12 @@ class GamePresenter: GameListener {
         if (currentTime - lastGameUpdateTime) > gameUpdateFrequency {
             if canUpdateGame {
                 model.updateState()
-//            } else {
-//                autoPlay()
+            } else {
+#if DEBUG
+                if DEBUG_AUTO_PLAY{
+                    autoPlay()
+                }
+#endif
             }
             lastGameUpdateTime = currentTime
         }
@@ -309,5 +313,10 @@ class GamePresenter: GameListener {
     func gameOver(winner: Player) {
         logger.gameOver(winner: winner)
         view?.show(message: "\(winner.name) is the Winner!")
+#if DEBUG
+                if DEBUG_AUTO_PLAY{
+                    quit()
+                }
+#endif
     }
 }
