@@ -56,4 +56,8 @@ class Deck {
             }
         }
     }
+    
+    func remove(card : PlayingCard){
+        deck.removeAll(where: {$0 == card})
+    }
 }

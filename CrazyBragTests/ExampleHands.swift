@@ -46,6 +46,9 @@ let Weetabix456Run = [PlayingCard(suit: .clubs, rank: .five),
 let Beehive345Run = [PlayingCard(suit: .clubs, rank: .five),
             PlayingCard(suit: .spades, rank: .three),
             PlayingCard(suit: .hearts, rank: .four)]
+let Beehive345Run2 = [PlayingCard(suit: .spades, rank: .five),
+            PlayingCard(suit: .hearts, rank: .three),
+            PlayingCard(suit: .clubs, rank: .four)]
 
 let AKJFlush = [PlayingCard(suit: .diamonds, rank: .ace),
             PlayingCard(suit: .diamonds, rank: .jack),

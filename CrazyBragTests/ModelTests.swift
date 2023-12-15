@@ -66,12 +66,23 @@ class ModelTests: XCTestCase, GameListener {
     func testEverybodyOut1() throws {
         let model = Model()
         model.gameListener = self
-        model.setUpGame(numberOfAIPlayers: 2)
+        model.setUpGame(numberOfAIPlayers: 1)
+        //Set up players with 1 life and similar hands so they both lose
         for player in model.school.players {
-            player.lives = 0
+            player.lives = 1
         }
-        model.gameState = .updateLives
+        Beehive345Run.forEach{ card in
+            model.deck.remove(card: card)
+            model.school.players[0].hand.receive(card: card)
+        }
+        Beehive345Run2.forEach{ card in
+            model.deck.remove(card: card)
+            model.school.players[1].hand.receive(card: card)
+        }
+
+        model.gameState = .scoreRound
         model.updateState()
+        //Its a draw, so need to replay the hand
         XCTAssertTrue(everyoneOutSoReplayRoundCalled)
         XCTAssertFalse(pullThePegCalled)
     }
