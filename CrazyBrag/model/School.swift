@@ -50,7 +50,7 @@ class School {
         return player
     }()
 
-    var getAllPlayers : [Player] {
+    private var getAllPlayers : [Player] {
         [playerChris, playerHowie, playerHolly, playerBomber, playerGeordie]
     }
         
