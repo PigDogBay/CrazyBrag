@@ -38,7 +38,6 @@ class GamePresenter: GameListener {
     private var gameUpdateFrequency : Double = 0.5
     ///Set to false if require player input
     private var canUpdateGame = true
-    private let autoPlay = true
 
     init(size : CGSize, isPhone : Bool){
         self.isPhone = isPhone
@@ -54,9 +53,6 @@ class GamePresenter: GameListener {
         let numberOfPlayers = isPhone ? 4 : 5
         model.setUpGame(numberOfAIPlayers: numberOfPlayers)
         model.gameListener = self
-        if autoPlay {
-            model.school.players[0] = Player(name: "Auto", ai: ChancerAI())
-        }
 
         if !isPhone {
             view.addName(name: "Middle", pos: tableLayout.getNamePosition(seat: -1))
@@ -82,8 +78,17 @@ class GamePresenter: GameListener {
         if (currentTime - lastGameUpdateTime) > gameUpdateFrequency {
             if canUpdateGame {
                 model.updateState()
+//            } else {
+//                autoPlay()
             }
             lastGameUpdateTime = currentTime
+        }
+    }
+    
+    private func autoPlay(){
+        if let human = model.school.players.first(where: {$0.seat == 0}) {
+            self.handleTouch(for: human.hand.hand[Int.random(in: 0...2)])
+            self.handleTouch(for: model.middle.hand[Int.random(in: 0...2)])
         }
     }
   
@@ -205,7 +210,7 @@ class GamePresenter: GameListener {
         gameUpdateFrequency = 1
         view?.highlight(player: player, status: .turn)
         //Auto play for human
-        if player.seat == 0 && !autoPlay {
+        if player.seat == 0 {
             //Stop updating until player has taken their turn
             canUpdateGame = false
             //Player can now interact with the cards
@@ -304,8 +309,5 @@ class GamePresenter: GameListener {
     func gameOver(winner: Player) {
         logger.gameOver(winner: winner)
         view?.show(message: "\(winner.name) is the Winner!")
-        if autoPlay {
-            setUpGame(view: self.view!)
-        }
     }
 }
