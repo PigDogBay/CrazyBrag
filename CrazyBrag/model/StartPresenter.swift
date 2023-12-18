@@ -19,7 +19,7 @@ protocol StartView : AnyObject{
 }
 
 enum StartDemoStates {
-    case deal, show, spread, wait, gather
+    case deal, show, spread, wait, gather, next
 }
 
 class StartPresenter {
@@ -29,10 +29,11 @@ class StartPresenter {
     weak var view : StartView? = nil
     
     private var state : StartDemoStates = .deal
+    private var exampleIndex = 0
 
-    let A23Run = [PlayingCard(suit: .spades, rank: .ace),
-                PlayingCard(suit: .hearts, rank: .two),
-                PlayingCard(suit: .clubs, rank: .three)]
+    private var hand : [PlayingCard] {
+        return ExampleHands[exampleIndex].hand
+    }
 
     
     init(isPhone : Bool){
@@ -51,8 +52,8 @@ class StartPresenter {
             return
         }
         let x = 500.0 + 25.0 * CGFloat(index)
-        view?.setZ(card: A23Run[index], z: Layer.card1.rawValue + CGFloat(index))
-        view?.actionMove(card: A23Run[index], pos: CGPoint(x: x, y: 400), duration: 0.25) { [weak self] in
+        view?.setZ(card: hand[index], z: Layer.card1.rawValue + CGFloat(index))
+        view?.actionMove(card: hand[index], pos: CGPoint(x: x, y: 400), duration: 0.25) { [weak self] in
             //Use recursion instead of nesting completion blocks (Pyramid of Doom)
             self?.deal(index: index + 1)
         }
@@ -63,7 +64,7 @@ class StartPresenter {
             state = .spread
             next()
         } else {
-            view?.actionTurnCard(card: A23Run[index], duration: 0.1){ [weak self] in
+            view?.actionTurnCard(card: hand[index], duration: 0.1){ [weak self] in
                 self?.turn(index: index + 1)
             }
         }
@@ -71,29 +72,28 @@ class StartPresenter {
     
     private func gather(index : Int){
         if index == 3 {
-            state = .deal
+            state = .next
             next()
         } else {
-            view?.actionGather(card: A23Run[index], pos: tableLayout.deckPosition, duration: 0.1) { [weak self] in
+            view?.actionGather(card: hand[index], pos: tableLayout.deckPosition, duration: 0.1) { [weak self] in
                 self?.gather(index: index + 1)
             }
         }
     }
 
     func next(){
-        print("next: \(state)")
         switch state {
         case .deal:
             deal(index: 0)
         case .show:
             turn(index: 0)
         case .spread:
-            self.view?.actionSpread(hand: A23Run, byX: 50.0){[weak self] in
+            self.view?.actionSpread(hand: hand, byX: 50.0){[weak self] in
                 self?.state = .wait
                 self?.next()
             }
         case .wait:
-            view?.actionFadeInName(name: "1 2 3 UP A TREE", duration: 2.0)
+            view?.actionFadeInName(name: ExampleHands[exampleIndex].name, duration: 2.0)
             self.view?.actionWait(duration: 3.0){ [weak self] in
                 self?.state = .gather
                 self?.next()
@@ -102,6 +102,14 @@ class StartPresenter {
             break
         case .gather:
             gather(index: 0)
+        case .next:
+            exampleIndex += 1
+            if exampleIndex == ExampleHands.count {
+                exampleIndex = 0
+            }
+            state = .deal
+            next()
+
         }
     }
 }

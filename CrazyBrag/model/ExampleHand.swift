@@ -13,8 +13,21 @@ struct ExampleHand {
     let type : BragHandTypes
 }
 
+let ExampleHands = [
+    ExampleKingHigh,
+    ExamplePairAces,
+    ExampleKingFlush,
+    Example345,
+    ExampleJQKTrotter,
+    Example333
+]
 
-let Example333 = ExampleHand(hand: PrialOfThrees, name: "Prial of threes", type: .prial)
+let ExampleKingHigh = ExampleHand(hand: KQ3High, name: "King High", type: .high)
+let ExamplePairAces = ExampleHand(hand: AAQPair, name: "Pair of Bullets", type: .pair)
+let ExampleKingFlush = ExampleHand(hand: KJ9Flush, name: "King Flush", type: .flush)
+let Example345 = ExampleHand(hand: Beehive345Run, name: "3 4 5 Beehive", type: .run)
+let ExampleJQKTrotter = ExampleHand(hand: JQKTrotter, name: "Jack Queen King Trotter", type: .trotter)
+let Example333 = ExampleHand(hand: PrialOfThrees, name: "Prial of 3's", type: .prial)
 
 let PrialOfAces = [PlayingCard(suit: .clubs, rank: .ace),
             PlayingCard(suit: .hearts, rank: .ace),

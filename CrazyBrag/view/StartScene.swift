@@ -97,7 +97,7 @@ class StartScene: SKScene, StartView {
         handNameNode.text = ""
         handNameNode.fontColor = SKColor.black
         handNameNode.fontSize = 22
-        handNameNode.position = CGPoint(x: frame.midX, y: 280.0)
+        handNameNode.position = CGPoint(x: frame.midX + 16.0, y: 280.0)
         handNameNode.zPosition = Layer.messages.rawValue
         handNameNode.alpha = 0.0
         addChild(handNameNode)
