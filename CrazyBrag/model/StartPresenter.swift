@@ -43,40 +43,44 @@ class StartPresenter {
     
     func next(){
         print("next: \(state)")
+        let card1 = PlayingCard(suit: .spades, rank: .ace)
+        let card2 = PlayingCard(suit: .hearts, rank: .two)
+        let card3 = PlayingCard(suit: .clubs, rank: .three)
         switch state {
         case .deal:
-            view?.setZ(card: A23Run[0], z: Layer.card1.rawValue)
-            view?.setZ(card: A23Run[1], z: Layer.card2.rawValue)
-            view?.setZ(card: A23Run[2], z: Layer.card3.rawValue)
-            view?.actionMove(card: A23Run[0], pos: CGPoint(x: 450, y: 400), duration: 0.25) {
-                self.view?.actionMove(card: self.A23Run[1], pos: CGPoint(x: 475, y: 400), duration: 0.25){
-                    self.view?.actionMove(card: self.A23Run[2], pos: CGPoint(x: 500, y: 400), duration: 0.25){
-                        self.state = .show
-                        self.next()
+            view?.setZ(card: card1, z: Layer.card1.rawValue)
+            view?.setZ(card: card2, z: Layer.card2.rawValue)
+            view?.setZ(card: card3, z: Layer.card3.rawValue)
+            view?.actionMove(card: card1, pos: CGPoint(x: 450, y: 400), duration: 0.25) { [weak self] in
+                self?.view?.actionMove(card: card2, pos: CGPoint(x: 475, y: 400), duration: 0.25){ [weak self] in
+                    self?.view?.actionMove(card: card3, pos: CGPoint(x: 500, y: 400), duration: 0.25){ [weak self] in
+                        self?.state = .show
+                        self?.next()
                     }
                 }
             }
         case .show:
-            view?.actionTurnCard(card: A23Run[2], duration: 0.1){
-                self.view?.actionTurnCard(card: self.A23Run[1], duration: 0.1){
-                    self.view?.actionTurnCard(card: self.A23Run[0], duration: 0.1){
-                        self.state = .wait
-                        self.next()
+            view?.actionTurnCard(card: card1, duration: 0.1){ [weak self] in
+                self?.view?.actionTurnCard(card: card2, duration: 0.1){ [weak self] in
+                    self?.view?.actionTurnCard(card: card3, duration: 0.1){ [weak self] in
+                        self?.state = .wait
+                        self?.next()
                     }
                 }
             }
         case .wait:
-            self.view?.actionWait(duration: 3.0){
-                self.state = .gather
-                self.next()
+            self.view?.actionWait(duration: 3.0){ [weak self] in
+                self?.state = .gather
+                self?.next()
             }
             break
         case .gather:
-            view?.actionGather(card: A23Run[0], pos: tableLayout.deckPosition, duration: 0.1) {
-                self.view?.actionGather(card: self.A23Run[1], pos: self.tableLayout.deckPosition, duration: 0.1){
-                    self.view?.actionGather(card: self.A23Run[2], pos: self.tableLayout.deckPosition, duration: 0.1){
-                        self.state = .deal
-                        self.next()
+            let deckPos = self.tableLayout.deckPosition
+            view?.actionGather(card: card1, pos: deckPos, duration: 0.1) { [weak self] in
+                self?.view?.actionGather(card: card2, pos: deckPos, duration: 0.1){ [weak self] in
+                    self?.view?.actionGather(card: card3, pos: deckPos, duration: 0.1){ [weak self] in
+                        self?.state = .deal
+                        self?.next()
                     }
                 }
             }
