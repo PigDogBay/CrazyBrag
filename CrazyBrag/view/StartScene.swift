@@ -9,7 +9,7 @@ import Foundation
 import SpriteKit
 import AVFoundation
 
-class StartScene: SKScene {
+class StartScene: SKScene, StartView {
     let musicAudioNode = SKAudioNode(fileNamed: "honky-tonk.wav")
     private var audioPlayer : AVAudioPlayer? = nil
     private var cardNodes = [CardSpriteNode]()
@@ -19,6 +19,7 @@ class StartScene: SKScene {
         let isPhone = UIDevice.current.userInterfaceIdiom == .phone
         self.presenter = StartPresenter(isPhone: isPhone)
         super.init(size: presenter.tableLayout.size)
+        self.presenter.view = self
         self.scaleMode = .fill
     }
     
@@ -32,6 +33,7 @@ class StartScene: SKScene {
         addTitle()
         createCardNodes()
         addStartButton()
+        presenter.next()
 #if DEBUG
         autoPlay()
 #endif
@@ -117,5 +119,39 @@ class StartScene: SKScene {
         button.position = CGPoint(x: frame.midX, y: frame.height * 0.2 )
         button.zPosition = Layer.ui.rawValue
         addChild(button)
+    }
+    
+    ///MARK: - StartView
+    
+    func setZ(card : PlayingCard, z : CGFloat){
+        if let cardNode = cardNodes.first(where: {$0.playingCard == card}) {
+            cardNode.zPosition = z
+        }
+    }
+
+    func actionMove(card: PlayingCard, pos: CGPoint, duration: CGFloat, completion block: @escaping () -> Void) {
+        if let cardNode = cardNodes.first(where: {$0.playingCard == card}) {
+            cardNode.run(SKAction.move(to: pos, duration: duration), completion: block)
+        }
+    }
+    
+    func actionTurnCard(card: PlayingCard, duration: CGFloat, completion block: @escaping () -> Void) {
+        if let cardNode = cardNodes.first(where: {$0.playingCard == card}) {
+            let action = SKAction.run {
+                cardNode.faceUp()
+            }
+            cardNode.run(SKAction.sequence([SKAction.wait(forDuration: duration), action]), completion: block)
+        }
+    }
+    
+    func actionGather(card: PlayingCard, pos: CGPoint, duration: CGFloat, completion block: @escaping () -> Void) {
+        if let cardNode = cardNodes.first(where: {$0.playingCard == card}) {
+            cardNode.faceDown()
+            cardNode.run(SKAction.move(to: pos, duration: duration), completion: block)
+        }
+    }
+    
+    func actionWait(duration : CGFloat, completion block: @escaping () -> Void){
+        run(SKAction.wait(forDuration: duration), completion: block)
     }
 }
