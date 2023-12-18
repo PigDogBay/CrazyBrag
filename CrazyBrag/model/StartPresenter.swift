@@ -12,11 +12,12 @@ protocol StartView : AnyObject{
     func actionMove(card : PlayingCard, pos : CGPoint, duration : CGFloat, completion block: @escaping () -> Void)
     func actionGather(card : PlayingCard, pos : CGPoint, duration : CGFloat, completion block: @escaping () -> Void)
     func actionTurnCard(card : PlayingCard, duration : CGFloat, completion block: @escaping () -> Void)
+    func actionSpread(hand : [PlayingCard], byX : CGFloat, completion block: @escaping () -> Void)
     func actionWait(duration : CGFloat, completion block: @escaping () -> Void)
 }
 
 enum StartDemoStates {
-    case deal, show, wait, gather
+    case deal, show, spread, wait, gather
 }
 
 class StartPresenter {
@@ -57,7 +58,7 @@ class StartPresenter {
     
     private func turn(index : Int){
         if index == 3 {
-            state = .wait
+            state = .spread
             next()
         } else {
             view?.actionTurnCard(card: A23Run[index], duration: 0.1){ [weak self] in
@@ -84,6 +85,11 @@ class StartPresenter {
             deal(index: 0)
         case .show:
             turn(index: 0)
+        case .spread:
+            self.view?.actionSpread(hand: A23Run, byX: 50.0){[weak self] in
+                self?.state = .wait
+                self?.next()
+            }
         case .wait:
             self.view?.actionWait(duration: 3.0){ [weak self] in
                 self?.state = .gather

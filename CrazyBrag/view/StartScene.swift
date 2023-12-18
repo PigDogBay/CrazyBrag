@@ -10,6 +10,7 @@ import SpriteKit
 import AVFoundation
 
 class StartScene: SKScene, StartView {
+    
     let musicAudioNode = SKAudioNode(fileNamed: "honky-tonk.wav")
     private var audioPlayer : AVAudioPlayer? = nil
     private var cardNodes = [CardSpriteNode]()
@@ -147,7 +148,27 @@ class StartScene: SKScene, StartView {
     func actionGather(card: PlayingCard, pos: CGPoint, duration: CGFloat, completion block: @escaping () -> Void) {
         if let cardNode = cardNodes.first(where: {$0.playingCard == card}) {
             cardNode.faceDown()
+            cardNode.zRotation = 0.0
             cardNode.run(SKAction.move(to: pos, duration: duration), completion: block)
+        }
+    }
+    
+    func actionSpread(hand: [PlayingCard], byX : CGFloat, completion block: @escaping () -> Void) {
+        let nodes = hand.compactMap{ card in
+            cardNodes.first(where: {$0.playingCard == card})
+        }
+        let duration = 0.25
+        let angle = CGFloat.pi / 12.0
+        if nodes.count == 3 {
+            nodes[0].run(SKAction.group([
+                SKAction.moveTo(x: nodes[0].position.x - byX, duration: duration),
+                SKAction.rotate(toAngle: angle, duration: duration)
+            ]))
+            nodes[1].run(SKAction.moveTo(y: nodes[1].position.y + byX/4, duration: duration))
+            nodes[2].run(SKAction.group([
+                SKAction.moveTo(x: nodes[2].position.x + byX, duration: duration),
+                SKAction.rotate(toAngle: -angle, duration: duration)
+            ]), completion: block)
         }
     }
     
