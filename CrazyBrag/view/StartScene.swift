@@ -15,7 +15,8 @@ class StartScene: SKScene, StartView {
     private var audioPlayer : AVAudioPlayer? = nil
     private var cardNodes = [CardSpriteNode]()
     private let presenter : StartPresenter
-    
+    private let handNameNode = SKLabelNode(fontNamed: "QuentinCaps")
+
     override init(){
         let isPhone = UIDevice.current.userInterfaceIdiom == .phone
         self.presenter = StartPresenter(isPhone: isPhone)
@@ -32,6 +33,7 @@ class StartScene: SKScene, StartView {
         addMusic()
         addBackground(imageNamed: "treestump")
         addTitle()
+        addHandName()
         createCardNodes()
         addStartButton()
         presenter.next()
@@ -90,7 +92,17 @@ class StartScene: SKScene, StartView {
         topLabel.zPosition = Layer.messages.rawValue
         addChild(topLabel)
     }
-    
+
+    private func addHandName(){
+        handNameNode.text = ""
+        handNameNode.fontColor = SKColor.black
+        handNameNode.fontSize = 22
+        handNameNode.position = CGPoint(x: frame.midX, y: 280.0)
+        handNameNode.zPosition = Layer.messages.rawValue
+        handNameNode.alpha = 0.0
+        addChild(handNameNode)
+    }
+
     private func playSound(named: String, volume : Float){
         let path = Bundle.main.path(forResource: named, ofType: nil)!
         let url = URL(fileURLWithPath: path)
@@ -174,5 +186,14 @@ class StartScene: SKScene, StartView {
     
     func actionWait(duration : CGFloat, completion block: @escaping () -> Void){
         run(SKAction.wait(forDuration: duration), completion: block)
+    }
+    
+    func actionFadeInName(name: String, duration: CGFloat) {
+        handNameNode.text = name
+        handNameNode.run(SKAction.fadeIn(withDuration: duration))
+    }
+    
+    func actionFadeOutName(duration: CGFloat) {
+        handNameNode.run(SKAction.fadeOut(withDuration: duration))
     }
 }

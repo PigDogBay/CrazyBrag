@@ -14,6 +14,8 @@ protocol StartView : AnyObject{
     func actionTurnCard(card : PlayingCard, duration : CGFloat, completion block: @escaping () -> Void)
     func actionSpread(hand : [PlayingCard], byX : CGFloat, completion block: @escaping () -> Void)
     func actionWait(duration : CGFloat, completion block: @escaping () -> Void)
+    func actionFadeInName(name : String, duration : CGFloat)
+    func actionFadeOutName(duration : CGFloat)
 }
 
 enum StartDemoStates {
@@ -48,7 +50,7 @@ class StartPresenter {
             next()
             return
         }
-        let x = 450.0 + 25.0 * CGFloat(index)
+        let x = 500.0 + 25.0 * CGFloat(index)
         view?.setZ(card: A23Run[index], z: Layer.card1.rawValue + CGFloat(index))
         view?.actionMove(card: A23Run[index], pos: CGPoint(x: x, y: 400), duration: 0.25) { [weak self] in
             //Use recursion instead of nesting completion blocks (Pyramid of Doom)
@@ -91,9 +93,11 @@ class StartPresenter {
                 self?.next()
             }
         case .wait:
+            view?.actionFadeInName(name: "1 2 3 UP A TREE", duration: 2.0)
             self.view?.actionWait(duration: 3.0){ [weak self] in
                 self?.state = .gather
                 self?.next()
+                self?.view?.actionFadeOutName(duration: 0.5)
             }
             break
         case .gather:
