@@ -10,38 +10,27 @@ import SpriteKit
 import AVFoundation
 
 class StartScene: SKScene {
-    let cardQH = CardSpriteNode(card: PlayingCard(suit: .hearts, rank: .queen), cardSize: CGSize(width: 100, height: 152))
     let musicAudioNode = SKAudioNode(fileNamed: "honky-tonk.wav")
     private var audioPlayer : AVAudioPlayer? = nil
-
+    private var cardNodes = [CardSpriteNode]()
+    private let presenter : StartPresenter
+    
+    override init(){
+        let isPhone = UIDevice.current.userInterfaceIdiom == .phone
+        self.presenter = StartPresenter(isPhone: isPhone)
+        super.init(size: presenter.tableLayout.size)
+        self.scaleMode = .fill
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func didMove(to view: SKView) {
-        audioEngine.mainMixerNode.outputVolume = 0.0
-        musicAudioNode.autoplayLooped = true
-        musicAudioNode.isPositional = false
-        addChild(musicAudioNode)
-        //Mute then fade in music
-        musicAudioNode.run(SKAction.changeVolume(to: 0.0, duration: 0.0))
-        run(SKAction.wait(forDuration: 1.0)){[unowned self] in
-            self.audioEngine.mainMixerNode.outputVolume = 0.50
-            self.musicAudioNode.run(SKAction.changeVolume(to: 0.1, duration: 5.0))
-        }
-
+        addMusic()
         addBackground(imageNamed: "treestump")
-        let topLabel = SKLabelNode(fontNamed: "QuentinCaps")
-        topLabel.text = "Crazy Brag"
-        topLabel.fontColor = SKColor.black
-        topLabel.fontSize = 48
-        topLabel.position = CGPoint(x: frame.midX, y: frame.midY * 1.5)
-        topLabel.zPosition = Layer.messages.rawValue
-        addChild(topLabel)
-
-        cardQH.position = CGPoint(x: frame.midX, y: 0)
-        cardQH.zPosition = Layer.card1.rawValue
-        addChild(cardQH)
-        
-        let action = SKAction.move(by: CGVector(dx: 0, dy: frame.midY), duration: 1)
-        cardQH.run(action)
-        
+        addTitle()
+        createCardNodes()
         addStartButton()
 #if DEBUG
         autoPlay()
@@ -62,6 +51,43 @@ class StartScene: SKScene {
         }
     }
 #endif
+    
+    private func createCardNodes() {
+        cardNodes = presenter.deck.deck.map {
+            CardSpriteNode(card: $0, cardSize: presenter.tableLayout.cardSize)
+        }
+        var z = Layer.deck.rawValue
+        for card in cardNodes {
+            card.position = presenter.tableLayout.deckPosition
+            card.zPosition = z
+            z += 1
+            addChild(card)
+        }
+    }
+    
+    private func addMusic(){
+        audioEngine.mainMixerNode.outputVolume = 0.0
+        musicAudioNode.autoplayLooped = true
+        musicAudioNode.isPositional = false
+        addChild(musicAudioNode)
+        //Mute then fade in music
+        musicAudioNode.run(SKAction.changeVolume(to: 0.0, duration: 0.0))
+        run(SKAction.wait(forDuration: 1.0)){[unowned self] in
+            self.audioEngine.mainMixerNode.outputVolume = 0.50
+            self.musicAudioNode.run(SKAction.changeVolume(to: 0.1, duration: 5.0))
+        }
+    }
+    
+    private func addTitle(){
+        let topLabel = SKLabelNode(fontNamed: "QuentinCaps")
+        topLabel.text = "Crazy Brag"
+        topLabel.fontColor = SKColor.black
+        topLabel.fontSize = 48
+        topLabel.position = CGPoint(x: frame.midX, y: frame.midY * 1.5)
+        topLabel.zPosition = Layer.messages.rawValue
+        addChild(topLabel)
+    }
+    
     private func playSound(named: String, volume : Float){
         let path = Bundle.main.path(forResource: named, ofType: nil)!
         let url = URL(fileURLWithPath: path)

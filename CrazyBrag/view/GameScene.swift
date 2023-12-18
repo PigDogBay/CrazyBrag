@@ -55,7 +55,7 @@ class GameScene: SKScene, GameView {
     func quit(){
         removeAllActions()
         let transition = SKTransition.doorway(withDuration: 1)
-        view?.presentScene(StartScene(size: frame.size), transition: transition)
+        view?.presentScene(StartScene(), transition: transition)
     }
 
     func setZPosition(on card: PlayingCard, z: CGFloat) {

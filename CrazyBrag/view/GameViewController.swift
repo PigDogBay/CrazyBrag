@@ -26,8 +26,7 @@ class GameViewController: UIViewController {
             //iPad Pro 6 12.9" - 1024 x 1336, 0.75
             //iPad Air 5 - 820 x 1180, 0.69
             //iPad Mini 6 - 744 x 1133, 0.66
-            let scene = StartScene(size: view.frame.size)
-            scene.scaleMode = .resizeFill
+            let scene = StartScene()
             
             // Present the scene
             view.presentScene(scene)
