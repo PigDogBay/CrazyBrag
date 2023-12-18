@@ -119,7 +119,7 @@ class StartScene: SKScene, StartView {
 
     private func addBackground(imageNamed image : String){
         let background = SKSpriteNode(imageNamed: image)
-        background.anchorPoint = CGPoint(x: 1.0, y: 1.0)
+        background.anchorPoint = CGPoint(x: 0.85, y: 0.9)
         background.position = CGPoint(x: frame.maxX, y: frame.maxY)
         background.zPosition = Layer.background.rawValue
         addChild(background)
