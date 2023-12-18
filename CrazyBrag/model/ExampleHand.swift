@@ -1,12 +1,20 @@
 //
-//  ExampleHands.swift
-//  CardGamesTests
+//  ExampleHand.swift
+//  CrazyBrag
 //
-//  Created by Mark Bailey on 26/09/2022.
+//  Created by Mark Bailey on 18/12/2023.
 //
 
 import Foundation
-@testable import CrazyBrag
+
+struct ExampleHand {
+    let hand : [PlayingCard]
+    let name : String
+    let type : BragHandTypes
+}
+
+
+let Example333 = ExampleHand(hand: PrialOfThrees, name: "Prial of threes", type: .prial)
 
 let PrialOfAces = [PlayingCard(suit: .clubs, rank: .ace),
             PlayingCard(suit: .hearts, rank: .ace),
@@ -82,4 +90,3 @@ let KQ3High = [PlayingCard(suit: .clubs, rank: .queen),
 let A42High = [PlayingCard(suit: .clubs, rank: .two),
             PlayingCard(suit: .diamonds, rank: .ace),
             PlayingCard(suit: .diamonds, rank: .four)]
-
