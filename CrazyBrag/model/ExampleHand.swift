@@ -11,57 +11,55 @@ struct ExampleHand {
     
     let hand : [PlayingCard]
     let name : String
-    let type : BragHandTypes
     
     private static let flattened = [
-        "2s,3h,5d,5 Stinking High,high",
-        "7h,tc,jd,Jack High,high",
-        "2d,qh,ks,King High,high",
-        "2s,4h,Ah,Ace High,high",
-        "jc,kd,As,Ace High,high",
-        "2c,2d,jh,Dogs,pair",
-        "3c,3h,2h,Pair of Threes,pair",
-        "ts,th,4c,Blankets,pair",
-        "kh,Ks,jd,Pair of Kings,pair",
-        "Ah,Ad,ks,Bullets,pair",
-        "jd,kd,ad,Ace Flush,flush",
-        "2d,3d,5d,5 Flush,flush",
-        "3h,5h,9h,9 Flush,flush",
-        "6c,7c,jc,Jack Flush,flush",
-        "4s,8s,ks,King Flush,flush",
-        "2d,3d,4s,2-3-4,run",
-        "3s,4s,5d,3-4-5 Beehive,run",
-        "4c,5d,6h,4-5-6 Weetabix,run",
-        "4c,5d,6h,4-5-6 Tom Mix,run",
-        "7h,8d,9h,7-8-9 Woodbine,run",
-        "9h,tc,jd,9-10-Jack Burt Bacharach,run",
-        "th,js,qc,10-Joe-Green,run",
-        "jh,qd,kc,Jack-Queen-King,run",
-        "qd,kc,ah,Acker-Boo,run",
-        "as,2d,3c,Up a Tree,run",
-        "2s,3s,4s,2-3-4 Trotting,trotter",
-        "7c,8c,9c,7-8-9 Trotter,trotter",
-        "th,jh,qh,10-Jack-Queen Trotter,trotter",
-        "qd,kd,ad,Acker Trotter,trotter",
-        "as,2s,3s,1-2-3 Trotter,trotter",
-        "2c,2h,2s,Prial of Dogs,prial",
-        "tc,th,td,Prial of Blankets,prial",
-        "kh,ks,kd,Prial of Kings,prial",
-        "as,ad,ah,Prial of Bullets,prial",
-        "3c,3d,3s,Yippee Ki-Yay,prial",
+        "2s,3h,5d,5 Stinking High",
+        "7h,tc,jd,Jack High",
+        "2d,qh,ks,King High",
+        "2s,4h,Ah,Ace High",
+        "jc,kd,As,Ace High",
+        "2c,2d,jh,Dogs",
+        "3c,3h,2h,Pair of Threes",
+        "ts,th,4c,Blankets",
+        "kh,Ks,jd,Pair of Kings",
+        "Ah,Ad,ks,Bullets",
+        "jd,kd,ad,Ace Flush",
+        "2d,3d,5d,5 Flush",
+        "3h,5h,9h,9 Flush",
+        "6c,7c,jc,Jack Flush",
+        "4s,8s,ks,King Flush",
+        "2d,3d,4s,2-3-4",
+        "3s,4s,5d,3-4-5 Beehive",
+        "4c,5d,6h,4-5-6 Weetabix",
+        "4c,5d,6h,4-5-6 Tom Mix",
+        "7h,8d,9h,7-8-9 Woodbine",
+        "9h,tc,jd,9-10-Jack Burt Bacharach",
+        "th,js,qc,10-Joe-Green",
+        "jh,qd,kc,Jack-Queen-King",
+        "qd,kc,ah,Acker-Boo",
+        "as,2d,3c,Up a Tree",
+        "2s,3s,4s,2-3-4 Trotting",
+        "7c,8c,9c,7-8-9 Trotter",
+        "th,jh,qh,10-Jack-Queen Trotter",
+        "qd,kd,ad,Acker Trotter",
+        "as,2s,3s,1-2-3 Trotter",
+        "2c,2h,2s,Prial of Dogs",
+        "tc,th,td,Prial of Blankets",
+        "kh,ks,kd,Prial of Kings",
+        "as,ad,ah,Prial of Bullets",
+        "3c,3d,3s,Yippee Ki-Yay",
     ]
     
     static func unflatten(flattened : String) -> ExampleHand?{
         let parts = flattened.split(separator: ",").map{String($0)}
-        guard parts.count == 5,
+        guard parts.count == 4,
               let card1 = PlayingCard.unflatten(flattened: parts[0]),
               let card2 = PlayingCard.unflatten(flattened: parts[1]),
-              let card3 = PlayingCard.unflatten(flattened: parts[2]),
-              let bragType = BragHandTypes.unflatten(flattened: parts[4])
+              let card3 = PlayingCard.unflatten(flattened: parts[2])
         else {
             return nil
         }
-        return ExampleHand(hand: [card1,card2,card3], name: parts[3], type: bragType)
+        return ExampleHand(hand: [card1,card2,card3], name: parts[3])
     }
     
     static func examples() -> [ExampleHand]{

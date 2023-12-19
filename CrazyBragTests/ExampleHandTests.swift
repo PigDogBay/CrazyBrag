@@ -11,9 +11,8 @@ import XCTest
 final class ExampleHandTests: XCTestCase {
 
     func testFlattened1() throws {
-        let actual = ExampleHand.unflatten(flattened: "2h,2c,jd,Dogs,pair")
+        let actual = ExampleHand.unflatten(flattened: "2h,2c,jd,Dogs")
         XCTAssertEqual(actual?.name, "Dogs")
-        XCTAssertEqual(actual?.type, .pair)
         XCTAssertEqual(actual?.hand[0], PlayingCard(suit: .hearts, rank: .two))
         XCTAssertEqual(actual?.hand[1], PlayingCard(suit: .clubs, rank: .two))
         XCTAssertEqual(actual?.hand[2], PlayingCard(suit: .diamonds, rank: .jack))
@@ -21,8 +20,9 @@ final class ExampleHandTests: XCTestCase {
     
     func testFlattened2() throws {
         XCTAssertNil(ExampleHand.unflatten(flattened: ""))
-        XCTAssertNil(ExampleHand.unflatten(flattened: "2h,2c,jd,Dogs"))
-        XCTAssertNil(ExampleHand.unflatten(flattened: "2x,2c,jd,Dogs,pair"))
+        XCTAssertNil(ExampleHand.unflatten(flattened: "2h,2c,jd"))
+        XCTAssertNil(ExampleHand.unflatten(flattened: "2x,2c,jd,Dogs"))
+        XCTAssertNil(ExampleHand.unflatten(flattened: "2h,2c,jd,Dogs,pair"))
     }
     
     func testExamples1() throws {

@@ -30,18 +30,6 @@ enum BragHandTypes : Equatable, Comparable {
             return "Prial"
         }
     }
-    
-    static func unflatten(flattened : String) -> BragHandTypes? {
-        switch flattened.lowercased() {
-        case "high": return .high
-        case "pair": return .pair
-        case "flush": return .flush
-        case "run": return .run
-        case "trotter": return .trotter
-        case "prial": return .prial
-        default: return nil
-        }
-    }
 }
 
 struct BragHandScore : Comparable, Equatable {
