@@ -24,7 +24,6 @@
 		009313842A4C334B007194D9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 009313822A4C334B007194D9 /* Main.storyboard */; };
 		009313862A4C334D007194D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 009313852A4C334D007194D9 /* Assets.xcassets */; };
 		009313892A4C334D007194D9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 009313872A4C334D007194D9 /* LaunchScreen.storyboard */; };
-		009313932A4C334D007194D9 /* CrazyBragTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313922A4C334D007194D9 /* CrazyBragTests.swift */; };
 		0093139D2A4C334D007194D9 /* CrazyBragUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0093139C2A4C334D007194D9 /* CrazyBragUITests.swift */; };
 		0093139F2A4C334D007194D9 /* CrazyBragUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0093139E2A4C334D007194D9 /* CrazyBragUITestsLaunchTests.swift */; };
 		009313AC2A4C3463007194D9 /* StartScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313AB2A4C3463007194D9 /* StartScene.swift */; };
@@ -98,7 +97,6 @@
 		009313852A4C334D007194D9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		009313882A4C334D007194D9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0093138E2A4C334D007194D9 /* CrazyBragTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CrazyBragTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		009313922A4C334D007194D9 /* CrazyBragTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrazyBragTests.swift; sourceTree = "<group>"; };
 		009313982A4C334D007194D9 /* CrazyBragUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CrazyBragUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0093139C2A4C334D007194D9 /* CrazyBragUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrazyBragUITests.swift; sourceTree = "<group>"; };
 		0093139E2A4C334D007194D9 /* CrazyBragUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrazyBragUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -211,7 +209,6 @@
 		009313912A4C334D007194D9 /* CrazyBragTests */ = {
 			isa = PBXGroup;
 			children = (
-				009313922A4C334D007194D9 /* CrazyBragTests.swift */,
 				009313E32A4F142D007194D9 /* DeckTests.swift */,
 				00662C5C2B319E1600C5DEE9 /* ExampleHandTests.swift */,
 				009313DE2A4F142D007194D9 /* HandGeneratorTests.swift */,
@@ -480,7 +477,6 @@
 				009313EE2A4F142D007194D9 /* HandResolverTests.swift in Sources */,
 				00662C632B31A18800C5DEE9 /* SuitTests.swift in Sources */,
 				00662C662B31C16000C5DEE9 /* Hands.swift in Sources */,
-				009313932A4C334D007194D9 /* CrazyBragTests.swift in Sources */,
 				009313EC2A4F142D007194D9 /* SchoolTests.swift in Sources */,
 				009313EA2A4F142D007194D9 /* PossibleHandResolverTests.swift in Sources */,
 				009313E62A4F142D007194D9 /* PlayerTests.swift in Sources */,
