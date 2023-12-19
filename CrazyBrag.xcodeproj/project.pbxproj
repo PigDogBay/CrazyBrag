@@ -160,6 +160,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		00662C672B31F62C00C5DEE9 /* view model */ = {
+			isa = PBXGroup;
+			children = (
+				002081AE2B16024800CF4AFF /* GamePresenter.swift */,
+				009313AF2A4C3493007194D9 /* IPadLayout.swift */,
+				007BAB6B2B287DA400FE7658 /* IPhoneLayout.swift */,
+				0084E24E2B304FEA00FA15EE /* StartPresenter.swift */,
+			);
+			name = "view model";
+			sourceTree = "<group>";
+		};
 		0093136C2A4C334B007194D9 = {
 			isa = PBXGroup;
 			children = (
@@ -189,6 +200,7 @@
 				00C029A22B2B25F20062B26A /* sounds */,
 				00C0299F2B2A25F60062B26A /* utils */,
 				009313D32A4ECAA2007194D9 /* view */,
+				00662C672B31F62C00C5DEE9 /* view model */,
 			);
 			path = CrazyBrag;
 			sourceTree = "<group>";
@@ -230,12 +242,9 @@
 				009313B92A4C369B007194D9 /* Defines.swift */,
 				0084E2502B3100CD00FA15EE /* ExampleHand.swift */,
 				009313B62A4C369B007194D9 /* GameListener.swift */,
-				002081AE2B16024800CF4AFF /* GamePresenter.swift */,
 				009313B22A4C369B007194D9 /* GameUpdateLogger.swift */,
 				009313BE2A4C369B007194D9 /* HandGenerator.swift */,
 				009313BA2A4C369B007194D9 /* HandResolver.swift */,
-				009313AF2A4C3493007194D9 /* IPadLayout.swift */,
-				007BAB6B2B287DA400FE7658 /* IPhoneLayout.swift */,
 				009313BB2A4C369B007194D9 /* Model.swift */,
 				009313BD2A4C369B007194D9 /* OneDownAI.swift */,
 				009313B52A4C369B007194D9 /* Player.swift */,
@@ -243,7 +252,6 @@
 				009313B82A4C369B007194D9 /* PlayingCard.swift */,
 				009313B42A4C369B007194D9 /* PossibleHandResolver.swift */,
 				009313B32A4C369B007194D9 /* School.swift */,
-				0084E24E2B304FEA00FA15EE /* StartPresenter.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
