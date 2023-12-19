@@ -20,7 +20,7 @@ class StartScene: SKScene, StartView {
     override init(){
         let isPhone = UIDevice.current.userInterfaceIdiom == .phone
         self.presenter = StartPresenter(isPhone: isPhone)
-        super.init(size: presenter.tableLayout.size)
+        super.init(size: presenter.startLayout.size)
         self.presenter.view = self
         self.scaleMode = .fill
     }
@@ -59,11 +59,11 @@ class StartScene: SKScene, StartView {
     
     private func createCardNodes() {
         cardNodes = presenter.deck.deck.map {
-            CardSpriteNode(card: $0, cardSize: presenter.tableLayout.cardSize)
+            CardSpriteNode(card: $0, cardSize: presenter.startLayout.cardSize)
         }
         var z = Layer.deck.rawValue
         for card in cardNodes {
-            card.position = presenter.tableLayout.deckPosition
+            card.position = presenter.startLayout.deckPos
             card.zPosition = z
             z += 1
             addChild(card)
@@ -87,8 +87,8 @@ class StartScene: SKScene, StartView {
         let topLabel = SKLabelNode(fontNamed: "QuentinCaps")
         topLabel.text = "Crazy Brag"
         topLabel.fontColor = SKColor.black
-        topLabel.fontSize = 48
-        topLabel.position = CGPoint(x: frame.midX, y: frame.midY * 1.5)
+        topLabel.fontSize = presenter.startLayout.titleFontSize
+        topLabel.position = presenter.startLayout.titlePos
         topLabel.zPosition = Layer.messages.rawValue
         addChild(topLabel)
     }
@@ -96,8 +96,8 @@ class StartScene: SKScene, StartView {
     private func addHandName(){
         handNameNode.text = ""
         handNameNode.fontColor = SKColor.black
-        handNameNode.fontSize = 22
-        handNameNode.position = CGPoint(x: frame.midX + 16.0, y: 280.0)
+        handNameNode.fontSize = presenter.startLayout.nameFontSize
+        handNameNode.position = presenter.startLayout.namePos
         handNameNode.zPosition = Layer.messages.rawValue
         handNameNode.alpha = 0.0
         addChild(handNameNode)
@@ -119,17 +119,17 @@ class StartScene: SKScene, StartView {
 
     private func addBackground(imageNamed image : String){
         let background = SKSpriteNode(imageNamed: image)
-        background.anchorPoint = CGPoint(x: 0.85, y: 0.9)
+        background.anchorPoint = presenter.startLayout.backgroundAnchor
         background.position = CGPoint(x: frame.maxX, y: frame.maxY)
         background.zPosition = Layer.background.rawValue
         addChild(background)
     }
     
     private func addStartButton(){
-        let button = ButtonNode(label: "DEAL", fontSize: 36.0){ [weak self] in
+        let button = ButtonNode(label: "DEAL", fontSize: presenter.startLayout.buttonFontSize){ [weak self] in
             self?.startGame()
         }
-        button.position = CGPoint(x: frame.midX, y: frame.height * 0.2 )
+        button.position = presenter.startLayout.dealButtonPos
         button.zPosition = Layer.ui.rawValue
         addChild(button)
     }

@@ -25,7 +25,7 @@ enum StartDemoStates {
 class StartPresenter {
     
     let deck = Deck()
-    let tableLayout : TableLayout
+    let startLayout : StartLayout
     weak var view : StartView? = nil
     
     private var state : StartDemoStates = .deal
@@ -38,11 +38,7 @@ class StartPresenter {
 
     
     init(isPhone : Bool){
-        if isPhone {
-            tableLayout = IPhoneLayout()
-        } else {
-            tableLayout = IPadLayout()
-        }
+        startLayout = StartLayout(isPhone: isPhone)
         deck.createDeck()
     }
     
@@ -52,9 +48,8 @@ class StartPresenter {
             next()
             return
         }
-        let x = 500.0 + 25.0 * CGFloat(index)
         view?.setZ(card: hand[index], z: Layer.card1.rawValue + CGFloat(index))
-        view?.actionMove(card: hand[index], pos: CGPoint(x: x, y: 400), duration: 0.25) { [weak self] in
+        view?.actionMove(card: hand[index], pos: startLayout.cardPosition(index: index), duration: 0.25) { [weak self] in
             //Use recursion instead of nesting completion blocks (Pyramid of Doom)
             self?.deal(index: index + 1)
         }
@@ -76,7 +71,7 @@ class StartPresenter {
             state = .next
             next()
         } else {
-            view?.actionGather(card: hand[index], pos: tableLayout.deckPosition, duration: 0.1) { [weak self] in
+            view?.actionGather(card: hand[index], pos: startLayout.deckPos, duration: 0.1) { [weak self] in
                 self?.gather(index: index + 1)
             }
         }
@@ -89,7 +84,7 @@ class StartPresenter {
         case .show:
             turn(index: 0)
         case .spread:
-            self.view?.actionSpread(hand: hand, byX: 50.0){[weak self] in
+            self.view?.actionSpread(hand: hand, byX: startLayout.spreadOffset){[weak self] in
                 self?.state = .wait
                 self?.next()
             }
