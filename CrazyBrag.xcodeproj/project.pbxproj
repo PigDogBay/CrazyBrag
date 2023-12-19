@@ -13,6 +13,7 @@
 		00662C5F2B31A01C00C5DEE9 /* PlayingCardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00662C5E2B31A01C00C5DEE9 /* PlayingCardTests.swift */; };
 		00662C612B31A17900C5DEE9 /* RankTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00662C602B31A17900C5DEE9 /* RankTests.swift */; };
 		00662C632B31A18800C5DEE9 /* SuitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00662C622B31A18800C5DEE9 /* SuitTests.swift */; };
+		00662C662B31C16000C5DEE9 /* Hands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00662C652B31C16000C5DEE9 /* Hands.swift */; };
 		007BAB6C2B287DA400FE7658 /* IPhoneLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007BAB6B2B287DA400FE7658 /* IPhoneLayout.swift */; };
 		0084E24F2B304FEA00FA15EE /* StartPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0084E24E2B304FEA00FA15EE /* StartPresenter.swift */; };
 		0084E2512B3100CD00FA15EE /* ExampleHand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0084E2502B3100CD00FA15EE /* ExampleHand.swift */; };
@@ -83,6 +84,7 @@
 		00662C5E2B31A01C00C5DEE9 /* PlayingCardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingCardTests.swift; sourceTree = "<group>"; };
 		00662C602B31A17900C5DEE9 /* RankTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankTests.swift; sourceTree = "<group>"; };
 		00662C622B31A18800C5DEE9 /* SuitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuitTests.swift; sourceTree = "<group>"; };
+		00662C652B31C16000C5DEE9 /* Hands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hands.swift; sourceTree = "<group>"; };
 		007BAB6B2B287DA400FE7658 /* IPhoneLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPhoneLayout.swift; sourceTree = "<group>"; };
 		0084E24E2B304FEA00FA15EE /* StartPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartPresenter.swift; sourceTree = "<group>"; };
 		0084E2502B3100CD00FA15EE /* ExampleHand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleHand.swift; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 				00662C5E2B31A01C00C5DEE9 /* PlayingCardTests.swift */,
 				00662C602B31A17900C5DEE9 /* RankTests.swift */,
 				00662C622B31A18800C5DEE9 /* SuitTests.swift */,
+				00662C652B31C16000C5DEE9 /* Hands.swift */,
 			);
 			path = CrazyBragTests;
 			sourceTree = "<group>";
@@ -464,6 +467,7 @@
 				009313ED2A4F142D007194D9 /* DeckTests.swift in Sources */,
 				009313EE2A4F142D007194D9 /* HandResolverTests.swift in Sources */,
 				00662C632B31A18800C5DEE9 /* SuitTests.swift in Sources */,
+				00662C662B31C16000C5DEE9 /* Hands.swift in Sources */,
 				009313932A4C334D007194D9 /* CrazyBragTests.swift in Sources */,
 				009313EC2A4F142D007194D9 /* SchoolTests.swift in Sources */,
 				009313EA2A4F142D007194D9 /* PossibleHandResolverTests.swift in Sources */,
