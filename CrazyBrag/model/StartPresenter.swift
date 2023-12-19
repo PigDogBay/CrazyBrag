@@ -30,9 +30,10 @@ class StartPresenter {
     
     private var state : StartDemoStates = .deal
     private var exampleIndex = 0
+    private let examples = ExampleHand.examples()
 
     private var hand : [PlayingCard] {
-        return ExampleHands[exampleIndex].hand
+        return examples[exampleIndex].hand
     }
 
     
@@ -93,7 +94,7 @@ class StartPresenter {
                 self?.next()
             }
         case .wait:
-            view?.actionFadeInName(name: ExampleHands[exampleIndex].name, duration: 2.0)
+            view?.actionFadeInName(name: examples[exampleIndex].name, duration: 2.0)
             self.view?.actionWait(duration: 3.0){ [weak self] in
                 self?.state = .gather
                 self?.next()
@@ -104,7 +105,7 @@ class StartPresenter {
             gather(index: 0)
         case .next:
             exampleIndex += 1
-            if exampleIndex == ExampleHands.count {
+            if exampleIndex == examples.count {
                 exampleIndex = 0
             }
             state = .deal

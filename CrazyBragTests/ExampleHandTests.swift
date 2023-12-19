@@ -27,7 +27,7 @@ final class ExampleHandTests: XCTestCase {
     
     func testExamples1() throws {
         let examples = ExampleHand.examples()
-        XCTAssertGreaterThan(examples.count,10)
+        XCTAssertEqual(examples.count,35)
         for example in examples {
             XCTAssertFalse(example.name.isEmpty)
             XCTAssertEqual(example.hand.count, 3)

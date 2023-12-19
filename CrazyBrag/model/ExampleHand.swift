@@ -15,37 +15,37 @@ struct ExampleHand {
     
     private static let flattened = [
         "2s,3h,5d,5 Stinking High,high",
-        "7h,10c,jd,Jack High,high",
+        "7h,tc,jd,Jack High,high",
         "2d,qh,ks,King High,high",
         "2s,4h,Ah,Ace High,high",
         "jc,kd,As,Ace High,high",
         "2c,2d,jh,Dogs,pair",
         "3c,3h,2h,Pair of Threes,pair",
-        "10s,10h,4c,Blankets,pair",
+        "ts,th,4c,Blankets,pair",
         "kh,Ks,jd,Pair of Kings,pair",
         "Ah,Ad,ks,Bullets,pair",
         "jd,kd,ad,Ace Flush,flush",
         "2d,3d,5d,5 Flush,flush",
-        "4s,8s,ks,King Flush,flush",
-        "6c,7c,jc,Jack Flush,flush",
         "3h,5h,9h,9 Flush,flush",
-        "as,2d,3c,Up a Tree,run",
+        "6c,7c,jc,Jack Flush,flush",
+        "4s,8s,ks,King Flush,flush",
         "2d,3d,4s,2-3-4,run",
         "3s,4s,5d,3-4-5 Beehive,run",
         "4c,5d,6h,4-5-6 Weetabix,run",
         "4c,5d,6h,4-5-6 Tom Mix,run",
         "7h,8d,9h,7-8-9 Woodbine,run",
         "9h,tc,jd,9-10-Jack Burt Bacharach,run",
-        "10h,js,qc,10-Joe-Green,run",
+        "th,js,qc,10-Joe-Green,run",
         "jh,qd,kc,Jack-Queen-King,run",
         "qd,kc,ah,Acker-Boo,run",
-        "as,2s,3s,1-2-3 Trotter,trotter",
-        "qd,kd,ad,Acker Trotter,trotter",
+        "as,2d,3c,Up a Tree,run",
         "2s,3s,4s,2-3-4 Trotting,trotter",
-        "th,jh,qh,10-Jack-Queen Trotter,trotter",
         "7c,8c,9c,7-8-9 Trotter,trotter",
+        "th,jh,qh,10-Jack-Queen Trotter,trotter",
+        "qd,kd,ad,Acker Trotter,trotter",
+        "as,2s,3s,1-2-3 Trotter,trotter",
         "2c,2h,2s,Prial of Dogs,prial",
-        "10c,10h,10d,Prial of Blankets,prial",
+        "tc,th,td,Prial of Blankets,prial",
         "kh,ks,kd,Prial of Kings,prial",
         "as,ad,ah,Prial of Bullets,prial",
         "3c,3d,3s,Yippee Ki-Yay,prial",
@@ -68,22 +68,6 @@ struct ExampleHand {
         return flattened.compactMap{unflatten(flattened: $0)}
     }
 }
-
-let ExampleHands = [
-    ExampleKingHigh,
-    ExamplePairAces,
-    ExampleKingFlush,
-    Example345,
-    ExampleJQKTrotter,
-    Example333
-]
-
-let ExampleKingHigh = ExampleHand(hand: KQ3High, name: "King High", type: .high)
-let ExamplePairAces = ExampleHand(hand: AAQPair, name: "Pair of Bullets", type: .pair)
-let ExampleKingFlush = ExampleHand(hand: KJ9Flush, name: "King Flush", type: .flush)
-let Example345 = ExampleHand(hand: Beehive345Run, name: "3 4 5 Beehive", type: .run)
-let ExampleJQKTrotter = ExampleHand(hand: JQKTrotter, name: "Jack Queen King Trotter", type: .trotter)
-let Example333 = ExampleHand(hand: PrialOfThrees, name: "Prial of 3's", type: .prial)
 
 let PrialOfAces = [PlayingCard(suit: .clubs, rank: .ace),
             PlayingCard(suit: .hearts, rank: .ace),
