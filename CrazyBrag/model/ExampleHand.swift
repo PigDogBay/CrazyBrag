@@ -33,7 +33,7 @@ struct ExampleHand {
         "4c,5d,6h,4-5-6 Tom Mix",
         "7h,8d,9h,7-8-9 Woodbine",
         "9h,tc,jd,9-10-Jack Burt Bacharach",
-        "th,js,qc,10-Joe-Green",
+        "th,js,qc,Ten-Joe-Green",
         "jh,qd,kc,Jack-Queen-King",
         "qd,kc,ah,Acker-Boo",
         "as,2d,3c,Up a Tree",
