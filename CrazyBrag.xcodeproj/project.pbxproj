@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		002081AF2B16024800CF4AFF /* GamePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002081AE2B16024800CF4AFF /* GamePresenter.swift */; };
 		003EF97D2B208D9100E9B21A /* MessageNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003EF97C2B208D9100E9B21A /* MessageNode.swift */; };
+		00662C5D2B319E1600C5DEE9 /* ExampleHandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00662C5C2B319E1600C5DEE9 /* ExampleHandTests.swift */; };
+		00662C5F2B31A01C00C5DEE9 /* PlayingCardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00662C5E2B31A01C00C5DEE9 /* PlayingCardTests.swift */; };
+		00662C612B31A17900C5DEE9 /* RankTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00662C602B31A17900C5DEE9 /* RankTests.swift */; };
+		00662C632B31A18800C5DEE9 /* SuitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00662C622B31A18800C5DEE9 /* SuitTests.swift */; };
 		007BAB6C2B287DA400FE7658 /* IPhoneLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007BAB6B2B287DA400FE7658 /* IPhoneLayout.swift */; };
 		0084E24F2B304FEA00FA15EE /* StartPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0084E24E2B304FEA00FA15EE /* StartPresenter.swift */; };
 		0084E2512B3100CD00FA15EE /* ExampleHand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0084E2502B3100CD00FA15EE /* ExampleHand.swift */; };
@@ -75,6 +79,10 @@
 /* Begin PBXFileReference section */
 		002081AE2B16024800CF4AFF /* GamePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePresenter.swift; sourceTree = "<group>"; };
 		003EF97C2B208D9100E9B21A /* MessageNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageNode.swift; sourceTree = "<group>"; };
+		00662C5C2B319E1600C5DEE9 /* ExampleHandTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleHandTests.swift; sourceTree = "<group>"; };
+		00662C5E2B31A01C00C5DEE9 /* PlayingCardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingCardTests.swift; sourceTree = "<group>"; };
+		00662C602B31A17900C5DEE9 /* RankTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankTests.swift; sourceTree = "<group>"; };
+		00662C622B31A18800C5DEE9 /* SuitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuitTests.swift; sourceTree = "<group>"; };
 		007BAB6B2B287DA400FE7658 /* IPhoneLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPhoneLayout.swift; sourceTree = "<group>"; };
 		0084E24E2B304FEA00FA15EE /* StartPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartPresenter.swift; sourceTree = "<group>"; };
 		0084E2502B3100CD00FA15EE /* ExampleHand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleHand.swift; sourceTree = "<group>"; };
@@ -186,14 +194,18 @@
 		009313912A4C334D007194D9 /* CrazyBragTests */ = {
 			isa = PBXGroup;
 			children = (
+				009313922A4C334D007194D9 /* CrazyBragTests.swift */,
 				009313E32A4F142D007194D9 /* DeckTests.swift */,
+				00662C5C2B319E1600C5DEE9 /* ExampleHandTests.swift */,
 				009313DE2A4F142D007194D9 /* HandGeneratorTests.swift */,
 				009313E42A4F142D007194D9 /* HandResolverTests.swift */,
 				009313DD2A4F142D007194D9 /* ModelTests.swift */,
 				009313DC2A4F142D007194D9 /* PlayerTests.swift */,
 				009313E02A4F142D007194D9 /* PossibleHandResolverTests.swift */,
 				009313E22A4F142D007194D9 /* SchoolTests.swift */,
-				009313922A4C334D007194D9 /* CrazyBragTests.swift */,
+				00662C5E2B31A01C00C5DEE9 /* PlayingCardTests.swift */,
+				00662C602B31A17900C5DEE9 /* RankTests.swift */,
+				00662C622B31A18800C5DEE9 /* SuitTests.swift */,
 			);
 			path = CrazyBragTests;
 			sourceTree = "<group>";
@@ -451,12 +463,16 @@
 			files = (
 				009313ED2A4F142D007194D9 /* DeckTests.swift in Sources */,
 				009313EE2A4F142D007194D9 /* HandResolverTests.swift in Sources */,
+				00662C632B31A18800C5DEE9 /* SuitTests.swift in Sources */,
 				009313932A4C334D007194D9 /* CrazyBragTests.swift in Sources */,
 				009313EC2A4F142D007194D9 /* SchoolTests.swift in Sources */,
 				009313EA2A4F142D007194D9 /* PossibleHandResolverTests.swift in Sources */,
 				009313E62A4F142D007194D9 /* PlayerTests.swift in Sources */,
 				009313E82A4F142D007194D9 /* HandGeneratorTests.swift in Sources */,
 				009313E72A4F142D007194D9 /* ModelTests.swift in Sources */,
+				00662C5F2B31A01C00C5DEE9 /* PlayingCardTests.swift in Sources */,
+				00662C612B31A17900C5DEE9 /* RankTests.swift in Sources */,
+				00662C5D2B319E1600C5DEE9 /* ExampleHandTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

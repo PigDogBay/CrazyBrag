@@ -8,9 +8,40 @@
 import Foundation
 
 struct ExampleHand {
+    
     let hand : [PlayingCard]
     let name : String
     let type : BragHandTypes
+    
+    private static let flattened = [
+        "2s,3h,5d,5 High,high",
+        "2s,4h,Ah,Ace High,high",
+        "jc,kd,As,Ace High,high",
+        "2d,qh,ks,King High,high",
+        "7h,10c,jd,Jack High,high",
+        "2c,2d,jh,Pair of Dogs,pair",
+        "Ah,Ad,ks,Pair of Bullets,pair",
+        "kh,Ks,jd,Pair of Kings,pair",
+        "3c,3h,2h,Pair of Threes,pair",
+        "10s,10h,4c,Pair of Blankets,pair",
+    ]
+    
+    static func unflatten(flattened : String) -> ExampleHand?{
+        let parts = flattened.split(separator: ",").map{String($0)}
+        guard parts.count == 5,
+              let card1 = PlayingCard.unflatten(flattened: parts[0]),
+              let card2 = PlayingCard.unflatten(flattened: parts[1]),
+              let card3 = PlayingCard.unflatten(flattened: parts[2]),
+              let bragType = BragHandTypes.unflatten(flattened: parts[4])
+        else {
+            return nil
+        }
+        return ExampleHand(hand: [card1,card2,card3], name: parts[3], type: bragType)
+    }
+    
+    static func examples() -> [ExampleHand]{
+        return flattened.compactMap{unflatten(flattened: $0)}
+    }
 }
 
 let ExampleHands = [

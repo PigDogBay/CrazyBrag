@@ -22,11 +22,21 @@ enum Suit : Int, CaseIterable {
             return "♠️"
         }
     }
+    
+    static func unflatten(flattened: String) -> Suit? {
+        switch flattened.lowercased() {
+        case "h": return .hearts
+        case "c": return .clubs
+        case "d": return .diamonds
+        case "s": return .spades
+        default: return nil
+        }
+    }
 }
 
 enum Rank : Int, CaseIterable {
     case ace, two, three, four, five, six, seven, eight, nine, ten, jack, queen, king
-
+    
     func display() -> String  {
         switch self {
         case .ace:
@@ -89,6 +99,25 @@ enum Rank : Int, CaseIterable {
             return 13
         }
     }
+    
+    static func unflatten(flattened: String) -> Rank? {
+        switch flattened.lowercased() {
+        case "a": return .ace
+        case "2": return .two
+        case "3": return .three
+        case "4": return .four
+        case "5": return .five
+        case "6": return .six
+        case "7": return .seven
+        case "8": return .eight
+        case "9": return .nine
+        case "t": return .ten
+        case "j": return .jack
+        case "q": return .queen
+        case "k": return .king
+        default: return nil
+        }
+    }
 }
 
 struct PlayingCard : Equatable{
@@ -105,6 +134,16 @@ struct PlayingCard : Equatable{
     
     static func ==(lhs: PlayingCard, rhs: PlayingCard) -> Bool {
         return lhs.rank == rhs.rank && lhs.suit == rhs.suit
+    }
+
+    static func unflatten(flattened : String) -> PlayingCard? {
+        guard flattened.count == 2,
+              let rank = Rank.unflatten(flattened: String(flattened[flattened.startIndex])),
+              let suit = Suit.unflatten(flattened: String(flattened[flattened.index(before: flattened.endIndex)]))
+        else {
+            return nil
+        }
+        return PlayingCard(suit: suit, rank: rank)
     }
 }
 
