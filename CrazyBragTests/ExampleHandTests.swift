@@ -24,4 +24,13 @@ final class ExampleHandTests: XCTestCase {
         XCTAssertNil(ExampleHand.unflatten(flattened: "2h,2c,jd,Dogs"))
         XCTAssertNil(ExampleHand.unflatten(flattened: "2x,2c,jd,Dogs,pair"))
     }
+    
+    func testExamples1() throws {
+        let examples = ExampleHand.examples()
+        XCTAssertGreaterThan(examples.count,10)
+        for example in examples {
+            XCTAssertFalse(example.name.isEmpty)
+            XCTAssertEqual(example.hand.count, 3)
+        }
+    }
 }
