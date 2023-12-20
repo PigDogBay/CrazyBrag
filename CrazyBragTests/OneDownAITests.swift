@@ -136,4 +136,22 @@ final class OneDownAITests: XCTestCase {
                     middleCards: ["ah","ac","ks"],
                     expected: createTurn(player: "qc", middle: "ks"))
     }
+    
+    func testPotential1() throws {
+        checkAITurn(playerCards: ["qc","kc","ad"],
+                    middleCards: ["2s","3s","4s"],
+                    expected: createTurn(player: "ad", middle: "2s"))
+    }
+
+    func testPotential2() throws {
+        checkAITurn(playerCards: ["2s","3s","4s"],
+                    middleCards: ["7d","kc","qc"],
+                    expected: .all(downIndex: 0))
+    }
+
+    func testPotential3() throws {
+        checkAITurn(playerCards: ["7d","ks","qd"],
+                    middleCards: ["2s","3c","8c"],
+                    expected: createTurn(player: "7d", middle: "2s"))
+    }
 }

@@ -24,10 +24,30 @@ class OneDownAI : AI {
         if let turn = tryForPrial(middle: middle, bestScoreFaceUp: scoredTurn){
             return turn
         }
+        if let turn = tryForAGoodHand(middle: middle, bestScoreFaceUp: scoredTurn){
+            return turn
+        }
         return scoredTurn.turn
     }
     
+    private func tryForAGoodHand(middle: PlayerHand, bestScoreFaceUp : ScoredTurn) -> Turn? {
+        if bestScoreFaceUp.score.type != .high {
+            return nil
+        }
+        
+        let generator = HandGenerator(playerHand: player!.hand)
+        let potentialTurn = generator
+            .generatePotentialHands(middle: middle)
+            .max(by: {$0.score < $1.score})!
+        
+        if potentialTurn.score.type >= BragHandTypes.flush {
+            return potentialTurn.turn
+        }
+        return nil
+    }
+    
     private func createTakeAllTurn() -> Turn{
+        //TODO consider baiting, or hiding the highest card, or showing two cards with same suit
         return Turn.all(downIndex: 0)
 
     }
