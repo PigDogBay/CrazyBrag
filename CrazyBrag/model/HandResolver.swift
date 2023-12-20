@@ -26,6 +26,8 @@ struct HandResolver {
         return BragHandScore(type: type, score: score)
     }
     
+    var pairRank : Rank {return hand[1].rank}
+    
     private var isPrial : Bool {
         return hand[0].rank==hand[1].rank && hand[1].rank==hand[2].rank
     }
@@ -113,5 +115,9 @@ struct HandResolver {
         //First or Last card is the high, add both together
         let highScore = hand[0].rank.score() + hand[2].rank.score()
         return pairScore<<16 + highScore
+    }
+    
+    static func removeHighScoreFromPair(score : Int) -> Int {
+        return score & 0xffffff00
     }
 }
