@@ -71,11 +71,7 @@ class OneDownAI : AI {
         if c2.suit == c3.suit {
             return Turn.all(downIndex: 0)
         }
-
-        
-        //TODO consider baiting, or hiding the highest card, or showing two cards with same suit
         return Turn.all(downIndex: 0)
-
     }
     
     //The player has a prial in their hand, unless the same rank is showing
