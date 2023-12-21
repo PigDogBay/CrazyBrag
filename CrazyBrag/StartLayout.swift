@@ -25,7 +25,8 @@ struct StartLayout {
     let titlePos : CGPoint
     let namePos : CGPoint
     let dealButtonPos : CGPoint
-    
+    let rulesButtonPos : CGPoint
+
     func cardPosition(index : Int) -> CGPoint{
         let x = cardX + index * stepOffset
         return CGPoint(x: x, y: cardY)
@@ -48,6 +49,7 @@ struct StartLayout {
             titlePos = CGPoint(x: 466.0, y: 340.0)
             namePos = CGPoint(x: 466.0, y: 70.0)
             dealButtonPos = CGPoint(x: 800.0, y: 70.0)
+            rulesButtonPos = CGPoint(x: 800.0, y: 190.0)
         } else {
             //iPad 6th Gen logical screen size
             size = CGSize(width: 1024.0, height: 768.0)
@@ -64,6 +66,7 @@ struct StartLayout {
             titlePos = CGPoint(x: 512.0, y: 576.0)
             namePos = CGPoint(x: 512.0, y: 220.0)
             dealButtonPos = CGPoint(x: 512.0, y: 130.0)
+            rulesButtonPos = CGPoint(x: 700.0, y: 130.0)
         }
     }
 }

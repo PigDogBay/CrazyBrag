@@ -37,7 +37,7 @@ class StartScene: SKScene, StartView {
         createCardNodes()
         addStartButton()
         presenter.next()
-        showInstructions()
+        addRulesButton()
 #if DEBUG
         autoPlay()
 #endif
@@ -126,6 +126,17 @@ class StartScene: SKScene, StartView {
         addChild(background)
     }
     
+    private func addRulesButton(){
+        let button = ButtonNode(label: "HELP", fontSize: presenter.startLayout.buttonFontSize){ [weak self] in
+            if self?.childNode(withName: "instructions") == nil {
+                self?.showInstructions()
+            }
+        }
+        button.position = presenter.startLayout.rulesButtonPos
+        button.zPosition = Layer.ui.rawValue
+        addChild(button)
+    }
+
     private func addStartButton(){
         let button = ButtonNode(label: "DEAL", fontSize: presenter.startLayout.buttonFontSize){ [weak self] in
             self?.startGame()
