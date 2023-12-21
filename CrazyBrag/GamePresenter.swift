@@ -312,7 +312,11 @@ class GamePresenter: GameListener {
     
     func gameOver(winner: Player) {
         logger.gameOver(winner: winner)
-        view?.show(message: "\(winner.name) is the Winner!")
+        if winner.seat == 0 {
+            view?.show(message: "You are the Winner!")
+        } else {
+            view?.show(message: "\(winner.name) is the Winner!")
+        }
 #if DEBUG
                 if DEBUG_AUTO_PLAY{
                     quit()

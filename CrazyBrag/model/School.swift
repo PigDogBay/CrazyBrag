@@ -19,7 +19,7 @@ class School {
         return player
     }()
     lazy var playerChris : Player = {
-        let ai = ChancerAI()
+        let ai = OneDownAI()
         let player = Player(name: "Chris", ai: ai)
         ai.player = player
         return player
@@ -31,7 +31,7 @@ class School {
         return player
     }()
     lazy var playerHowie : Player = {
-        let ai = ChancerAI()
+        let ai = OneDownAI()
         let player = Player(name: "Howie", ai: ai)
         ai.player = player
         return player
@@ -44,7 +44,7 @@ class School {
         return player
     }()
     lazy var playerGeordie : Player = {
-        let ai = OneDownAI()
+        let ai = ChancerAI()
         let player = Player(name: "Geordie", ai: ai)
         ai.player = player
         return player
