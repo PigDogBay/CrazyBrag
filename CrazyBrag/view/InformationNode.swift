@@ -35,6 +35,7 @@ class InformationNode : SKShapeNode {
         addTitle()
         addBodyTextNode()
         addPageControl()
+        addCloseButton()
         show(message: "Mary had a little lamb\nits fleece was white as snow\nevery where where mary went\nthat lamb was surely to go")
     }
     
@@ -107,6 +108,17 @@ class InformationNode : SKShapeNode {
         addChild(pageNumberNode)
     }
     
+    func addCloseButton(){
+        let label = SKLabelNode(fontNamed: "AmericanTypewriter")
+        label.fontSize = 24.0
+        label.name = "close"
+        label.text = "X"
+        label.color = .white
+        label.zPosition = 1003
+        label.position = CGPoint(x: 698, y: 388)
+        addChild(label)
+    }
+    
     func updatePage(){
         pageNumberNode.text = "\(index) of \(maxIndex)"
     }
@@ -126,6 +138,10 @@ class InformationNode : SKShapeNode {
         }
         updatePage()
     }
+    
+    func close(){
+        removeFromParent()
+    }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
@@ -135,6 +151,8 @@ class InformationNode : SKShapeNode {
                 previous()
             } else if node.name == "next" {
                 next()
+            } else if node.name == "close"{
+                close()
             }
         }
     }

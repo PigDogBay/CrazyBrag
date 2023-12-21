@@ -137,6 +137,7 @@ class StartScene: SKScene, StartView {
     
     private func showInstructions(){
         let infoNode = InformationNode()
+        infoNode.name = "instructions"
         infoNode.zPosition = 1000
         addChild(infoNode)
     }
