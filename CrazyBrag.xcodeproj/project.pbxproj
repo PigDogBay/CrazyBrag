@@ -16,6 +16,7 @@
 		00662C662B31C16000C5DEE9 /* Hands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00662C652B31C16000C5DEE9 /* Hands.swift */; };
 		00662C692B31F6D500C5DEE9 /* StartLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00662C682B31F6D500C5DEE9 /* StartLayout.swift */; };
 		00662C6B2B32082E00C5DEE9 /* OneDownAITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00662C6A2B32082E00C5DEE9 /* OneDownAITests.swift */; };
+		00767A772B34563C000B0C44 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 00767A762B34563C000B0C44 /* Settings.bundle */; };
 		007BAB6C2B287DA400FE7658 /* IPhoneLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007BAB6B2B287DA400FE7658 /* IPhoneLayout.swift */; };
 		0084E24F2B304FEA00FA15EE /* StartPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0084E24E2B304FEA00FA15EE /* StartPresenter.swift */; };
 		0084E2512B3100CD00FA15EE /* ExampleHand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0084E2502B3100CD00FA15EE /* ExampleHand.swift */; };
@@ -88,6 +89,7 @@
 		00662C652B31C16000C5DEE9 /* Hands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hands.swift; sourceTree = "<group>"; };
 		00662C682B31F6D500C5DEE9 /* StartLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartLayout.swift; sourceTree = "<group>"; };
 		00662C6A2B32082E00C5DEE9 /* OneDownAITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneDownAITests.swift; sourceTree = "<group>"; };
+		00767A762B34563C000B0C44 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		007BAB6B2B287DA400FE7658 /* IPhoneLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPhoneLayout.swift; sourceTree = "<group>"; };
 		0084E24E2B304FEA00FA15EE /* StartPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartPresenter.swift; sourceTree = "<group>"; };
 		0084E2502B3100CD00FA15EE /* ExampleHand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleHand.swift; sourceTree = "<group>"; };
@@ -204,6 +206,7 @@
 				00C0299F2B2A25F60062B26A /* utils */,
 				009313D32A4ECAA2007194D9 /* view */,
 				00662C672B31F62C00C5DEE9 /* view model */,
+				00767A762B34563C000B0C44 /* Settings.bundle */,
 			);
 			path = CrazyBrag;
 			sourceTree = "<group>";
@@ -410,6 +413,7 @@
 			files = (
 				009313842A4C334B007194D9 /* Main.storyboard in Resources */,
 				00FF03CA2B2B971600ADA2ED /* sad_whistle.wav in Resources */,
+				00767A772B34563C000B0C44 /* Settings.bundle in Resources */,
 				00A68AE02B19FE7D006EC10C /* Explosion.sks in Resources */,
 				009313862A4C334D007194D9 /* Assets.xcassets in Resources */,
 				00A220CD2B20D33500B16292 /* Quentincaps-owxKz.ttf in Resources */,

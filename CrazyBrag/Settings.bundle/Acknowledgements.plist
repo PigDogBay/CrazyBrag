@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>FooterText</key>
+			<string>
+https://github.com/scgursel/Swift-WorkoutGame
+
+https://unsplash.com/s/photos/wooden-background
+
+Saloon piano, honky tonk by Dublin
+https://freesound.org/people/vdublin/sounds/428149/
+
+pistol_riccochet.ogg
+Diboz
+https://freesound.org/people/Diboz/sounds/213925/
+
+Contact1.wav
+BMacZero
+https://freesound.org/people/BMacZero/sounds/96127/
+
+Whistle Project 3.wav
+MacSounds1
+https://freesound.org/people/MacSounds1/sounds/197973/
+
+Copyright © MPD Bailey Technology 2023
+
+Contact
+Email: mpdbailey.technology@gmail.com
+Web: www.mpdbailey.co.uk
+            </string>
+		</dict>
+	</array>
+</dict>
+</plist>

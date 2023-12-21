@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>FooterText</key>
+			<string>
+Key points
+- The app does not store or request any personal information
+- The app does not send any data to MPD Bailey Technology or to a third party
+- The app contains no advertisements.
+- The app does not contain any analytics or tracking.
+
+You can view the full privacy policy here:
+https://pigdogbay.blogspot.com/2023/12/privacy-policy.html
+
+For further information contact mpdbailey.technology@gmail.com
+			</string>
+		</dict>
+	</array>
+</dict>
+</plist>
