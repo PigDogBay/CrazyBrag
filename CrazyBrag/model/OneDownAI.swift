@@ -47,6 +47,19 @@ class OneDownAI : AI {
     }
     
     private func createTakeAllTurn() -> Turn{
+        let c1 = player!.hand.hand[0]
+        let c2 = player!.hand.hand[1]
+        let c3 = player!.hand.hand[2]
+        //Bait: if the player is throwing a pair in, show them
+        if c1.rank == c2.rank {
+            return Turn.all(downIndex: 2)
+        }
+        if c1.rank == c3.rank {
+            return Turn.all(downIndex: 1)
+        }
+        if c2.rank == c3.rank {
+            return Turn.all(downIndex: 0)
+        }
         //TODO consider baiting, or hiding the highest card, or showing two cards with same suit
         return Turn.all(downIndex: 0)
 
@@ -71,7 +84,7 @@ class OneDownAI : AI {
         //is there a chance of a better prial in the middle?
         if middle.hand[1].rank == middle.hand[2].rank &&
             middle.hand[1].rank.score() > player!.hand.hand[0].rank.score(){
-            return .all(downIndex: 0)
+            return createTakeAllTurn()
         }
         //TODO consider playing a card with the same suit as one of the middle cards
         return .swap(hand: player!.hand.hand[0], middle: middle.hand[0])

@@ -77,9 +77,20 @@ final class OneDownAITests: XCTestCase {
     func testBetterPair2() throws {
         checkAITurn(playerCards: ["qs","3d","qh"],
                     middleCards: ["5h","ad","ac"],
+                    expected: .all(downIndex: 1))
+    }
+
+    func testBait1() throws {
+        checkAITurn(playerCards: ["qs","qh","3d"],
+                    middleCards: ["5h","ad","ac"],
+                    expected: .all(downIndex: 2))
+    }
+    func testBait2() throws {
+        checkAITurn(playerCards: ["3d","qs","qh"],
+                    middleCards: ["5h","ad","ac"],
                     expected: .all(downIndex: 0))
     }
-    
+
     func testWorsePairInMiddle1() throws {
         checkAITurn(playerCards: ["qs","qh","6d"],
                     middleCards: ["5h","jd","jc"],
@@ -97,7 +108,7 @@ final class OneDownAITests: XCTestCase {
     func testPrialInHand2() throws {
         checkAITurn(playerCards: ["qc","qd","qh"],
                     middleCards: ["5h","ad","ac"],
-                    expected: .all(downIndex: 0))
+                    expected: .all(downIndex: 2))
     }
     
     //Player should take the queen
