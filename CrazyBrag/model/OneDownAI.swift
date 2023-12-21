@@ -60,6 +60,19 @@ class OneDownAI : AI {
         if c2.rank == c3.rank {
             return Turn.all(downIndex: 0)
         }
+        //if player has cards with same suit, show them to lesser chance of other
+        //players getting a flush
+        if c1.suit == c2.suit {
+            return Turn.all(downIndex: 2)
+        }
+        if c1.suit == c3.suit {
+            return Turn.all(downIndex: 1)
+        }
+        if c2.suit == c3.suit {
+            return Turn.all(downIndex: 0)
+        }
+
+        
         //TODO consider baiting, or hiding the highest card, or showing two cards with same suit
         return Turn.all(downIndex: 0)
 

@@ -90,6 +90,21 @@ final class OneDownAITests: XCTestCase {
                     middleCards: ["5h","ad","ac"],
                     expected: .all(downIndex: 0))
     }
+    func testOneSuit1() throws {
+        checkAITurn(playerCards: ["3s","4s","qh"],
+                    middleCards: ["5h","ad","ac"],
+                    expected: .all(downIndex: 2))
+    }
+    func testOneSuit2() throws {
+        checkAITurn(playerCards: ["3s","qh","4s"],
+                    middleCards: ["5h","ad","ac"],
+                    expected: .all(downIndex: 1))
+    }
+    func testOneSuit3() throws {
+        checkAITurn(playerCards: ["qh","7s","4s"],
+                    middleCards: ["5h","ad","ac"],
+                    expected: .all(downIndex: 0))
+    }
 
     func testWorsePairInMiddle1() throws {
         checkAITurn(playerCards: ["qs","qh","6d"],
