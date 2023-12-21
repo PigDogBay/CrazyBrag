@@ -12,7 +12,18 @@ class InformationNode : SKShapeNode {
     let bodyTextNode = SKLabelNode(fontNamed: "QuentinCaps")
     let pageNumberNode = SKLabelNode(fontNamed: "AmericanTypewriter")
     var index = 1
-    let maxIndex = 4
+    let maxIndex = 10
+    
+    let page1 = "Each player has 3 lives and takes turns\nto swap cards with the middle 3 cards.\n\nAt the end of the round the player with\nthe lowest scoring hand loses a life."
+    let page2 = "If a player loses all their lives,\nthey are out of the game.\n\nPlay continues until there is only one player left."
+    let page3 = "On your turn you must swap\n1 or 3 cards with the middle\n\nTouch a card in your hand to select it\nThen touch a middle card to swap"
+    let page4 = "To swap all three cards\nTouch all 3 cards in your hand\n\nThe first card selected will be\nplaced face down in the middle"
+    let page5 = "HANDS: HIGH\nThe highest card in your hand\nA♣️J♦️2❤️ - This is Ace high\n5♦️3❤️2♣️ is the lowest possible hand"
+    let page6 = "PAIR\nTwo cards with the same rank\nJ♦️J♠️9❤️ - Pair of Jacks\nAces are high, 2's lowest"
+    let page7 = "FLUSH\nAll cards are the same suit\nK❤️9❤️8❤️ - King Flush\nIf two king flushes are losing,\nthe next card will be compared."
+    let page8 = "RUN\nSequential Ranks\n7♦️8♠️9♣️ - Seven, eight, nine\nA♠️2♣️3♦️ is the highest run\nThen QKA, JQK, TJQ, 9TJ...234"
+    let page9 = "TROTTER\nRun and all the same suit\nJ♦️Q♦️K♦️ - Jack Queen King Trotter"
+    let page10 = "PRIAL\nAll cards are the same rank\nQ♠️Q❤️Q♦️ - Prial of Queens\n333's are the highest prial\nThen AAA, KKK...222\nAll losing hands will lose a life!"
 
     override init(){
         let paragraph = NSMutableParagraphStyle()
@@ -36,7 +47,7 @@ class InformationNode : SKShapeNode {
         addBodyTextNode()
         addPageControl()
         addCloseButton()
-        show(message: "Mary had a little lamb\nits fleece was white as snow\nevery where where mary went\nthat lamb was surely to go")
+        updatePage()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -57,9 +68,10 @@ class InformationNode : SKShapeNode {
     func addBodyTextNode() {
         bodyTextNode.name = "body text"
         bodyTextNode.fontSize = 18.0
-        bodyTextNode.numberOfLines = 4
+        bodyTextNode.numberOfLines = 8
         bodyTextNode.zPosition = 1002
-        bodyTextNode.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
+        bodyTextNode.verticalAlignmentMode = .center
+        bodyTextNode.position = CGPoint(x: self.frame.midX, y: 225)
         addChild(bodyTextNode)
 
     }
@@ -120,6 +132,28 @@ class InformationNode : SKShapeNode {
     }
     
     func updatePage(){
+        switch(index) {
+        case 2:
+            show(message: page2)
+        case 3:
+            show(message: page3)
+        case 4:
+            show(message: page4)
+        case 5:
+            show(message: page5)
+        case 6:
+            show(message: page6)
+        case 7:
+            show(message: page7)
+        case 8:
+            show(message: page8)
+        case 9:
+            show(message: page9)
+        case 10:
+            show(message: page10)
+        default:
+            show(message: page1)
+        }
         pageNumberNode.text = "\(index) of \(maxIndex)"
     }
     
