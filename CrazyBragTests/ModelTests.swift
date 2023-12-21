@@ -107,7 +107,7 @@ class ModelTests: XCTestCase, GameListener {
         let model = Model()
         let listener = GameUpdateLogger()
         model.gameListener = listener
-        computerMakeGame(model: model, numberOfGames: 1)
+        computerMakeGame(model: model, numberOfGames: 100)
         XCTAssertEqual(model.gameState, .gameOver)
         XCTAssertEqual(model.school.players.count, 1)
     }
