@@ -17,6 +17,8 @@
 		00662C692B31F6D500C5DEE9 /* StartLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00662C682B31F6D500C5DEE9 /* StartLayout.swift */; };
 		00662C6B2B32082E00C5DEE9 /* OneDownAITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00662C6A2B32082E00C5DEE9 /* OneDownAITests.swift */; };
 		00767A772B34563C000B0C44 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 00767A762B34563C000B0C44 /* Settings.bundle */; };
+		00767A7A2B345BFE000B0C44 /* InformationNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00767A792B345BFE000B0C44 /* InformationNode.swift */; };
+		00767A7D2B346380000B0C44 /* Colours.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00767A7C2B346380000B0C44 /* Colours.xcassets */; };
 		007BAB6C2B287DA400FE7658 /* IPhoneLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007BAB6B2B287DA400FE7658 /* IPhoneLayout.swift */; };
 		0084E24F2B304FEA00FA15EE /* StartPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0084E24E2B304FEA00FA15EE /* StartPresenter.swift */; };
 		0084E2512B3100CD00FA15EE /* ExampleHand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0084E2502B3100CD00FA15EE /* ExampleHand.swift */; };
@@ -90,6 +92,8 @@
 		00662C682B31F6D500C5DEE9 /* StartLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartLayout.swift; sourceTree = "<group>"; };
 		00662C6A2B32082E00C5DEE9 /* OneDownAITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneDownAITests.swift; sourceTree = "<group>"; };
 		00767A762B34563C000B0C44 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		00767A792B345BFE000B0C44 /* InformationNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationNode.swift; sourceTree = "<group>"; };
+		00767A7C2B346380000B0C44 /* Colours.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colours.xcassets; sourceTree = "<group>"; };
 		007BAB6B2B287DA400FE7658 /* IPhoneLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPhoneLayout.swift; sourceTree = "<group>"; };
 		0084E24E2B304FEA00FA15EE /* StartPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartPresenter.swift; sourceTree = "<group>"; };
 		0084E2502B3100CD00FA15EE /* ExampleHand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleHand.swift; sourceTree = "<group>"; };
@@ -270,6 +274,7 @@
 				009313AD2A4C3489007194D9 /* CardSprite.swift */,
 				0093137E2A4C334B007194D9 /* GameScene.swift */,
 				009313802A4C334B007194D9 /* GameViewController.swift */,
+				00767A792B345BFE000B0C44 /* InformationNode.swift */,
 				003EF97C2B208D9100E9B21A /* MessageNode.swift */,
 				009313AB2A4C3463007194D9 /* StartScene.swift */,
 			);
@@ -280,6 +285,7 @@
 			isa = PBXGroup;
 			children = (
 				009313852A4C334D007194D9 /* Assets.xcassets */,
+				00767A7C2B346380000B0C44 /* Colours.xcassets */,
 				00A68ADF2B19FE7D006EC10C /* Explosion.sks */,
 				009313872A4C334D007194D9 /* LaunchScreen.storyboard */,
 				009313822A4C334B007194D9 /* Main.storyboard */,
@@ -414,6 +420,7 @@
 				009313842A4C334B007194D9 /* Main.storyboard in Resources */,
 				00FF03CA2B2B971600ADA2ED /* sad_whistle.wav in Resources */,
 				00767A772B34563C000B0C44 /* Settings.bundle in Resources */,
+				00767A7D2B346380000B0C44 /* Colours.xcassets in Resources */,
 				00A68AE02B19FE7D006EC10C /* Explosion.sks in Resources */,
 				009313862A4C334D007194D9 /* Assets.xcassets in Resources */,
 				00A220CD2B20D33500B16292 /* Quentincaps-owxKz.ttf in Resources */,
@@ -452,6 +459,7 @@
 				0093137F2A4C334B007194D9 /* GameScene.swift in Sources */,
 				00C029A12B2A26140062B26A /* DebugUtils.swift in Sources */,
 				009313C12A4C369B007194D9 /* GameUpdateLogger.swift in Sources */,
+				00767A7A2B345BFE000B0C44 /* InformationNode.swift in Sources */,
 				002081AF2B16024800CF4AFF /* GamePresenter.swift in Sources */,
 				009313812A4C334B007194D9 /* GameViewController.swift in Sources */,
 				009313CD2A4C369B007194D9 /* HandGenerator.swift in Sources */,

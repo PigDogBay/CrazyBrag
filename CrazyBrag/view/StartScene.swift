@@ -37,6 +37,7 @@ class StartScene: SKScene, StartView {
         createCardNodes()
         addStartButton()
         presenter.next()
+        showInstructions()
 #if DEBUG
         autoPlay()
 #endif
@@ -132,6 +133,12 @@ class StartScene: SKScene, StartView {
         button.position = presenter.startLayout.dealButtonPos
         button.zPosition = Layer.ui.rawValue
         addChild(button)
+    }
+    
+    private func showInstructions(){
+        let infoNode = InformationNode()
+        infoNode.zPosition = 1000
+        addChild(infoNode)
     }
     
     ///MARK: - StartView
