@@ -19,6 +19,7 @@
 		00767A772B34563C000B0C44 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 00767A762B34563C000B0C44 /* Settings.bundle */; };
 		00767A7A2B345BFE000B0C44 /* InformationNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00767A792B345BFE000B0C44 /* InformationNode.swift */; };
 		00767A7D2B346380000B0C44 /* Colours.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00767A7C2B346380000B0C44 /* Colours.xcassets */; };
+		00767A812B3596AA000B0C44 /* InformationLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00767A802B3596AA000B0C44 /* InformationLayout.swift */; };
 		007BAB6C2B287DA400FE7658 /* IPhoneLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007BAB6B2B287DA400FE7658 /* IPhoneLayout.swift */; };
 		0084E24F2B304FEA00FA15EE /* StartPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0084E24E2B304FEA00FA15EE /* StartPresenter.swift */; };
 		0084E2512B3100CD00FA15EE /* ExampleHand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0084E2502B3100CD00FA15EE /* ExampleHand.swift */; };
@@ -94,6 +95,7 @@
 		00767A762B34563C000B0C44 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		00767A792B345BFE000B0C44 /* InformationNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationNode.swift; sourceTree = "<group>"; };
 		00767A7C2B346380000B0C44 /* Colours.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colours.xcassets; sourceTree = "<group>"; };
+		00767A802B3596AA000B0C44 /* InformationLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationLayout.swift; sourceTree = "<group>"; };
 		007BAB6B2B287DA400FE7658 /* IPhoneLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPhoneLayout.swift; sourceTree = "<group>"; };
 		0084E24E2B304FEA00FA15EE /* StartPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartPresenter.swift; sourceTree = "<group>"; };
 		0084E2502B3100CD00FA15EE /* ExampleHand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleHand.swift; sourceTree = "<group>"; };
@@ -172,10 +174,11 @@
 			isa = PBXGroup;
 			children = (
 				002081AE2B16024800CF4AFF /* GamePresenter.swift */,
+				00767A802B3596AA000B0C44 /* InformationLayout.swift */,
 				009313AF2A4C3493007194D9 /* IPadLayout.swift */,
 				007BAB6B2B287DA400FE7658 /* IPhoneLayout.swift */,
-				0084E24E2B304FEA00FA15EE /* StartPresenter.swift */,
 				00662C682B31F6D500C5DEE9 /* StartLayout.swift */,
+				0084E24E2B304FEA00FA15EE /* StartPresenter.swift */,
 			);
 			name = "view model";
 			sourceTree = "<group>";
@@ -474,6 +477,7 @@
 				009313C72A4C369B007194D9 /* PlayingCard.swift in Sources */,
 				009313792A4C334B007194D9 /* AppDelegate.swift in Sources */,
 				009313AC2A4C3463007194D9 /* StartScene.swift in Sources */,
+				00767A812B3596AA000B0C44 /* InformationLayout.swift in Sources */,
 				009313AE2A4C3489007194D9 /* CardSprite.swift in Sources */,
 				009313C42A4C369B007194D9 /* Player.swift in Sources */,
 				0084E2512B3100CD00FA15EE /* ExampleHand.swift in Sources */,
