@@ -100,7 +100,7 @@ class InformationNode : SKShapeNode {
         prevNode.text = "<"
         prevNode.color = .white
         prevNode.zPosition = 1003
-        prevNode.position = CGPoint(x: 406.0, y: 40.0)
+        prevNode.position = layout.previousPosition
 
         let nextNode = SKLabelNode(fontNamed: "AmericanTypewriter")
         nextNode.fontSize = layout.controlFontSize
@@ -108,14 +108,14 @@ class InformationNode : SKShapeNode {
         nextNode.text = ">"
         nextNode.color = .white
         nextNode.zPosition = 1003
-        nextNode.position = CGPoint(x: 526, y: 40.0)
+        nextNode.position = layout.nextPosition
 
         pageNumberNode.fontSize = layout.pageFontSize
         pageNumberNode.name = "page number"
         pageNumberNode.text = "1 of 4"
         pageNumberNode.color = .white
         pageNumberNode.zPosition = 1003
-        pageNumberNode.position = CGPoint(x: 466, y: 45.0)
+        pageNumberNode.position = layout.pagePosition
         
         addChild(prevNode)
         addChild(nextNode)
