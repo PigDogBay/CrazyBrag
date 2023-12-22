@@ -65,8 +65,8 @@ struct StartLayout {
             deckPos = CGPoint(x: 100.0, y: 100.0)
             titlePos = CGPoint(x: 512.0, y: 576.0)
             namePos = CGPoint(x: 512.0, y: 220.0)
-            dealButtonPos = CGPoint(x: 512.0, y: 130.0)
-            rulesButtonPos = CGPoint(x: 700.0, y: 130.0)
+            dealButtonPos = CGPoint(x: 512.0, y: 120.0)
+            rulesButtonPos = CGPoint(x: 910.0, y: 120.0)
         }
     }
 }
