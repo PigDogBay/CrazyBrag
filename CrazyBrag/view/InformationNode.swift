@@ -17,7 +17,7 @@ class InformationNode : SKShapeNode {
     
     let page1 = "Each player has 3 lives and takes turns\nto swap cards with the middle 3 cards.\n\nAt the end of the round the player with\nthe lowest scoring hand loses a life."
     let page2 = "If a player loses all their lives,\nthey are out of the game.\n\nPlay continues until there\nis only one player left."
-    let page3 = "On your turn you must swap\n1 or 3 cards with the middle\n\nTouch a card in your hand to select it\nThen touch a middle card to swap"
+    let page3 = "On your turn you must swap\n1 or 3 cards with the middle\n\nTouch a card in your hand to select it\nthen touch a middle card to swap"
     let page4 = "To swap all three cards\nTouch all 3 cards in your hand\n\nThe first card selected will be\nplaced face down in the middle"
     let page5 = "HANDS: HIGH\nThe highest card in your hand\nA♣️J♦️2❤️ - This is Ace high\n\n5♦️3❤️2♣️ is the lowest possible hand"
     let page6 = "PAIR\nTwo cards with the same rank\nJ♦️J♠️9❤️ - Pair of Jacks\n\nAces are high, 2's lowest"
