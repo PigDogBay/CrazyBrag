@@ -173,6 +173,20 @@ class GameScene: SKScene, GameView {
     func play(soundNamed : String) {
         run(SKAction.playSoundFileNamed(soundNamed, waitForCompletion: false))
     }
+    
+    func continueButton(show : Bool) {
+        if !show {
+            childNode(withName: "continue")?.removeFromParent()
+            return
+        }
+        let button = ButtonNode(label: "Continue", fontSize: presenter.tableLayout.fonts.buttonFontSize){ [weak self] in
+            self?.presenter.continueGame()
+        }
+        button.name = "continue"
+        button.position = CGPoint(x: 465.0, y: 90.0)
+        button.zPosition = Layer.deck.rawValue
+        addChild(button)
+    }
 
     //MARK: - Misc
 

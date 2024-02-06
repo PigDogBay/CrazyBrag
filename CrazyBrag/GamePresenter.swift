@@ -21,6 +21,7 @@ protocol GameView {
     func highlight(player : Player, status : PlayerStatus)
     func show(message : String)
     func play(soundNamed : String)
+    func continueButton(show : Bool)
 }
 
 enum PlayerStatus {
@@ -64,6 +65,11 @@ class GamePresenter: GameListener {
             view.addLives(name: player.name, pos: tableLayout.getLivesPosition(seat: player.seat))
         }
 
+    }
+    
+    func continueGame(){
+        view?.continueButton(show: false)
+        canUpdateGame = true
     }
     
     func quit(){
@@ -284,6 +290,9 @@ class GamePresenter: GameListener {
         for player in losingPlayers {
             view?.updateScore(player: player)
         }
+        //Player needs to press continue
+        canUpdateGame = false
+        view?.continueButton(show: true)
     }
     
     func pullThePeg(outPlayers: [Player]) {
