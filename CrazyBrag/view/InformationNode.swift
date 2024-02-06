@@ -24,7 +24,7 @@ class InformationNode : SKShapeNode {
     let page7 = "FLUSH\nAll cards are the same suit\nK❤️9❤️8❤️ - King Flush\n\nIf two king flushes are losing,\nthe next card will be compared."
     let page8 = "RUN\nSequential Ranks\n7♦️8♠️9♣️ - Seven, eight, nine\n\nA♠️2♣️3♦️ is the highest run\nThen QKA, JQK, TJQ, 9TJ...234"
     let page9 = "TROTTER\nRun and all the same suit\nJ♦️Q♦️K♦️ - Jack Queen King Trotter\n\nCards can be in any order"
-    let page10 = "PRIAL\nAll cards are the same rank\nQ♠️Q❤️Q♦️ - Prial of Queens\n\n333's are the highest prial\nThen AAA, KKK...222\nAll losing hands will lose a life!"
+    let page10 = "PRIAL\nAll cards are the same rank\nQ♠️Q❤️Q♦️ - Prial of Queens\n\n333's are the highest prial\nThen AAA, KKK...222\nAll lesser hands will lose a life!"
 
     override init(){
         let isPhone = UIDevice.current.userInterfaceIdiom == .phone
