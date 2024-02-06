@@ -272,6 +272,9 @@ class GamePresenter: GameListener {
         gameUpdateFrequency = 2.5
         logger.showHands(players: players)
         showAllHands()
+        if let hiddenCard = model.middle.hand.first{
+            view?.turn(card: hiddenCard, isFaceUp: true)
+        }
     }
     
     func roundEnded(losingPlayers: [Player]) {
