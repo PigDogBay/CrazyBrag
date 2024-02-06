@@ -121,6 +121,9 @@ class GameScene: SKScene, GameView {
             node.fillColor = .green
             node.glowWidth = 5.0
             node.alpha = 0.55
+            let bigger = SKAction.scale(to: 1.2, duration: 0.25)
+            let smaller = SKAction.scale(to: 1.0, duration: 0.25)
+            node.run(SKAction.sequence([bigger,smaller]))
         case .played:
             node.strokeColor = .clear
             node.fillColor = .red
@@ -157,7 +160,9 @@ class GameScene: SKScene, GameView {
     
     func addTableMat(seat : Int){
         let frame = presenter.tableLayout.getFrame(seat: seat).insetBy(dx: -8.0, dy: -8.0)
-        let node = SKShapeNode(rect: frame, cornerRadius: 20.0)
+        //Center on the middle of the frame so that scale animation will be centred
+        let node = SKShapeNode(rectOf: frame.size, cornerRadius: 20.0)
+        node.position = CGPoint(x: frame.midX, y: frame.midY)
         node.name = "table mat \(seat)"
         node.fillColor = .gray
         node.strokeColor = .clear
