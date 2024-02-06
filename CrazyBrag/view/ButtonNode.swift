@@ -41,6 +41,15 @@ class ButtonNode : SKShapeNode {
         glowWidth = 1
         isButtonPressed = false
     }
+    
+    //Animate the button to catch the user's attention
+    func attract(){
+        let fadeIn = SKAction.fadeAlpha(to: 1.00, duration: 2.0)
+        let fadeOut = SKAction.fadeAlpha(to: 0.5, duration: 2.0)
+        let sequence = SKAction.sequence([fadeOut,fadeIn])
+        run(SKAction.repeatForever(sequence))
+    }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         buttonPressed()
     }

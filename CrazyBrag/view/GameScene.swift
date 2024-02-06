@@ -183,8 +183,10 @@ class GameScene: SKScene, GameView {
             self?.presenter.continueGame()
         }
         button.name = "continue"
-        button.position = CGPoint(x: 465.0, y: 90.0)
-        button.zPosition = Layer.deck.rawValue
+        button.position = presenter.tableLayout.continueButton
+        button.zPosition = Layer.continueButton.rawValue
+        button.attract()
+        button.fillColor = UIColor(named: "ContinueButton")!
         addChild(button)
     }
 

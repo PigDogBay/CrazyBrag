@@ -23,6 +23,7 @@ struct IPhoneLayout : TableLayout {
     
     let deckPosition = CGPoint(x: 100, y: -70.0)
     let backButton = CGPoint(x: 870.0, y: 30.0)
+    let continueButton = CGPoint(x: 467.0, y: 97.0)
 
     private let box = CGRect(x: 330.0, y: 280.0, width: 3.0 * (CARD_WIDTH + 6.0), height: CARD_HEIGHT)
     private let player = CGRect(x: 330.0, y: 32.0, width: 3.0 * (CARD_WIDTH + 6.0), height: CARD_HEIGHT)

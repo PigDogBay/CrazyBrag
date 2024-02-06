@@ -69,6 +69,7 @@ class GamePresenter: GameListener {
     
     func continueGame(){
         view?.continueButton(show: false)
+        view?.play(soundNamed: "card")
         canUpdateGame = true
     }
     
