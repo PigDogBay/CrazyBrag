@@ -7,23 +7,6 @@
 
 import Foundation
 
-protocol GameView {
-    func quit()
-    func setZPosition(on card: PlayingCard, z : CGFloat)
-    func setPosition(on card: PlayingCard, pos: CGPoint, duration : TimeInterval, delay : TimeInterval)
-    func addName(name : String, pos : CGPoint)
-    func turn(card: PlayingCard, isFaceUp : Bool)
-    func addLives(name : String, pos : CGPoint)
-    func addTableMat(seat : Int)
-    func updateScore(player : Player)
-    func updateDealer(player : Player)
-    func removePlayer(player : Player)
-    func highlight(player : Player, status : PlayerStatus)
-    func show(message : String)
-    func play(soundNamed : String)
-    func continueButton(show : Bool)
-}
-
 enum PlayerStatus {
     case ready, turn, played
 }
@@ -70,7 +53,6 @@ class GamePresenter: GameListener {
             view.addName(name: player.name, pos: tableLayout.getNamePosition(seat: player.seat))
             view.addLives(name: player.name, pos: tableLayout.getLivesPosition(seat: player.seat))
         }
-
     }
     
     func continueGame(){
@@ -163,6 +145,7 @@ class GamePresenter: GameListener {
         view?.play(soundNamed: "card")
         moveCard(dealt: card, yOffset: offset)
     }
+    
     private func deselectCard(_ card : DealtCard){
         model.selectedCards.removeAll(where: {$0.card == card.card})
         moveCard(dealt: card, yOffset: 0)

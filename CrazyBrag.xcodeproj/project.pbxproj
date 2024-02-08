@@ -20,6 +20,7 @@
 		003170AF2B74F50600928617 /* EveryoneOutSoReplayRoundState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003170AE2B74F50600928617 /* EveryoneOutSoReplayRoundState.swift */; };
 		003170B12B74F53500928617 /* GameOverState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003170B02B74F53500928617 /* GameOverState.swift */; };
 		003170B32B74FA6500928617 /* HumanTurnStartedState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003170B22B74FA6500928617 /* HumanTurnStartedState.swift */; };
+		003170B52B75024C00928617 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003170B42B75024C00928617 /* GameView.swift */; };
 		003EF97D2B208D9100E9B21A /* MessageNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003EF97C2B208D9100E9B21A /* MessageNode.swift */; };
 		00662C5D2B319E1600C5DEE9 /* ExampleHandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00662C5C2B319E1600C5DEE9 /* ExampleHandTests.swift */; };
 		00662C5F2B31A01C00C5DEE9 /* PlayingCardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00662C5E2B31A01C00C5DEE9 /* PlayingCardTests.swift */; };
@@ -108,6 +109,7 @@
 		003170AE2B74F50600928617 /* EveryoneOutSoReplayRoundState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EveryoneOutSoReplayRoundState.swift; sourceTree = "<group>"; };
 		003170B02B74F53500928617 /* GameOverState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverState.swift; sourceTree = "<group>"; };
 		003170B22B74FA6500928617 /* HumanTurnStartedState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HumanTurnStartedState.swift; sourceTree = "<group>"; };
+		003170B42B75024C00928617 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		003EF97C2B208D9100E9B21A /* MessageNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageNode.swift; sourceTree = "<group>"; };
 		00662C5C2B319E1600C5DEE9 /* ExampleHandTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleHandTests.swift; sourceTree = "<group>"; };
 		00662C5E2B31A01C00C5DEE9 /* PlayingCardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingCardTests.swift; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 			children = (
 				0031709D2B74EEC400928617 /* states */,
 				002081AE2B16024800CF4AFF /* GamePresenter.swift */,
+				003170B42B75024C00928617 /* GameView.swift */,
 				00767A802B3596AA000B0C44 /* InformationLayout.swift */,
 				009313AF2A4C3493007194D9 /* IPadLayout.swift */,
 				007BAB6B2B287DA400FE7658 /* IPhoneLayout.swift */,
@@ -519,6 +522,7 @@
 				009313812A4C334B007194D9 /* GameViewController.swift in Sources */,
 				009313CD2A4C369B007194D9 /* HandGenerator.swift in Sources */,
 				009313CA2A4C369B007194D9 /* Model.swift in Sources */,
+				003170B52B75024C00928617 /* GameView.swift in Sources */,
 				003170A72B74F48400928617 /* RevealState.swift in Sources */,
 				009313CC2A4C369B007194D9 /* OneDownAI.swift in Sources */,
 				003170B12B74F53500928617 /* GameOverState.swift in Sources */,
