@@ -10,6 +10,7 @@ import Foundation
 class HumanTurnStartedState : BasePlayState {
     let player: Player
     let middle: PlayerHand
+    var counter = 0
     
     init(_ presenter: GamePresenter, player: Player, middle: PlayerHand) {
         self.player = player
@@ -26,6 +27,19 @@ class HumanTurnStartedState : BasePlayState {
     }
     
     override func update() {
-        //Don't update the model
+        counter = counter + 1
+        switch (counter) {
+        case 5:
+            presenter.view?.show(message: "Select 1 Card\nFrom Your Hand")
+        case 9:
+            presenter.view?.show(message: "Then 1 Card\nFrom The Middle")
+        case 13:
+            presenter.view?.show(message: "Or Select 3 Cards\nTo swap them all")
+        case 17:
+            counter = 0
+            presenter.view?.show(message: "Your Turn")
+        default:
+            break
+        }
     }
 }
