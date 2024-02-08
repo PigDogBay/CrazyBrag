@@ -16,7 +16,7 @@ class ShowHandsState : BasePlayState {
     }
     
     override func enter() {
-        presenter.view?.show(message: "End of Round")
+        presenter.view?.show(message: "End of Round\nWorst Hand Loses")
         presenter.gameUpdateFrequency = 2.5
         for player in presenter.model.school.players{
             presenter.showCards(in: player.hand)

@@ -9,7 +9,7 @@ import Foundation
 
 
 enum GameState {
-    case setUp, selectDealer, deal, reveal, turnStart, turnEnd, scoreRound, updateLives, gameOver
+    case setUp, selectDealer, deal, reveal, turnStart, turnEnd, showHands, scoreRound, updateLives, gameOver
 }
 
 class Model {
@@ -43,6 +43,8 @@ class Model {
             turnStart()
         case .turnEnd:
             turnEnd()
+        case .showHands:
+            showHands()
         case .scoreRound:
             scoreRound()
             stashAll()
@@ -106,13 +108,17 @@ class Model {
         let turn = nextPlayer?.play(middle: middle)
         gameListener?.turnEnded(player: nextPlayer!, middle: middle, turn: turn!)
         //Dealer is last player
-        gameState = nextPlayer == school.dealer ? .scoreRound : .turnStart
+        gameState = nextPlayer == school.dealer ? .showHands : .turnStart
     }
-    
-    /// Find losing hand and lose player a life
-    private func scoreRound(){
+
+    private func showHands(){
         school.showAllHands()
         gameListener?.showHands(players: school.players)
+        gameState = .scoreRound
+    }
+
+    /// Find losing hand and lose player a life
+    private func scoreRound(){
         school.resolveHands()
         gameState = .updateLives
         if let losingPlayers = school.determineLosingHands(){
