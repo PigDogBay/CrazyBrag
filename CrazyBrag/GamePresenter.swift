@@ -59,7 +59,7 @@ class GamePresenter: GameListener {
         let numberOfPlayers = isPhone ? 4 : 5
         model.setUpGame(numberOfAIPlayers: numberOfPlayers)
         model.gameListener = self
-        change(state: AutoPlay(self))
+        model.updateState()
 
         if !isPhone {
             view.addName(name: "Middle", pos: tableLayout.getNamePosition(seat: -1))
@@ -74,7 +74,7 @@ class GamePresenter: GameListener {
     }
     
     func continueGame(){
-        change(state: CollectCards(self))
+        model.updateState()
     }
     
     func quit(){
@@ -152,7 +152,7 @@ class GamePresenter: GameListener {
         }
         if turn != nil {
             model.school.humanAI.turn = turn
-            change(state: AutoPlay(self))
+            model.updateState()
             model.selectedCards.removeAll()
         }
     }

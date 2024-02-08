@@ -12,6 +12,7 @@ protocol PlayState {
     func update()
     func exit()
 }
+
 class BasePlayState : PlayState {
     let presenter : GamePresenter
     init(_ presenter: GamePresenter) {
@@ -27,31 +28,3 @@ class NullState : PlayState{
     func update() {}
     func exit(){}
 }
-
-class AutoPlay : BasePlayState {
-    override func enter() {
-        presenter.gameUpdateFrequency = 2.5
-    }
-    
-    override func update() {
-        presenter.model.updateState()
-    }
-}
-
-///Wait for human player to take their turn
-class HumanPlayersTurnState : PlayState{
-    func enter() {}
-    func update() {}
-    func exit(){}
-}
-
-
-class CollectCards : BasePlayState{
-    override func enter() {
-        presenter.gameUpdateFrequency = 0.5
-    }
-    override func update() {
-        presenter.change(state: AutoPlay(presenter))
-    }
-}
-
