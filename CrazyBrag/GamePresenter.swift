@@ -275,23 +275,8 @@ class GamePresenter: GameListener {
     
     func roundEnded(losingPlayers: [Player]) {
         logger.roundEnded(losingPlayers: losingPlayers)
-        switch losingPlayers.count {
-        case 0:
-            view?.show(message: "")
-        case 1:
-            if losingPlayers[0].seat == 0{
-                view?.show(message: "You lose a life")
-            } else{
-                view?.show(message: "\(losingPlayers.first?.name ?? "")\nLoses a life")
-            }
-        default:
-            view?.show(message: "\(losingPlayers.count) Players\nLose a life")
-        }
-        for player in losingPlayers {
-            view?.updateScore(player: player)
-        }
         //Player needs to press continue
-        change(state: EndOfRound(self))
+        change(state: EndOfRound(self, losingPlayers: losingPlayers))
     }
     
     func pullThePeg(outPlayers: [Player]) {
