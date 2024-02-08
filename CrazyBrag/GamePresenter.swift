@@ -36,7 +36,7 @@ class GamePresenter: GameListener {
     let isPhone : Bool
     var view : GameView? = nil
     private var lastGameUpdateTime = TimeInterval()
-    private var gameUpdateFrequency : Double = 0.5
+    var gameUpdateFrequency : Double = 0.5
     private var playState : PlayState = NullPlay()
 
     init(size : CGSize, isPhone : Bool){
@@ -58,7 +58,7 @@ class GamePresenter: GameListener {
         let numberOfPlayers = isPhone ? 4 : 5
         model.setUpGame(numberOfAIPlayers: numberOfPlayers)
         model.gameListener = self
-        change(state: AutoPlay(model: model))
+        change(state: AutoPlay(self))
 
         if !isPhone {
             view.addName(name: "Middle", pos: tableLayout.getNamePosition(seat: -1))
@@ -73,9 +73,7 @@ class GamePresenter: GameListener {
     }
     
     func continueGame(){
-        view?.continueButton(show: false)
-        view?.play(soundNamed: "card")
-        change(state: AutoPlay(model: model))
+        change(state: CollectCards(self))
     }
     
     func quit(){
@@ -165,7 +163,7 @@ class GamePresenter: GameListener {
         }
         if turn != nil {
             model.school.humanAI.turn = turn
-            change(state: AutoPlay(model: model))
+            change(state: AutoPlay(self))
             model.selectedCards.removeAll()
         }
     }
@@ -292,8 +290,7 @@ class GamePresenter: GameListener {
             view?.updateScore(player: player)
         }
         //Player needs to press continue
-        change(state: EndOfRound())
-        view?.continueButton(show: true)
+        change(state: EndOfRound(self))
     }
     
     func pullThePeg(outPlayers: [Player]) {

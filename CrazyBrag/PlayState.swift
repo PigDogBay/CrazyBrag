@@ -18,16 +18,16 @@ class NullPlay : PlayState{
 }
 
 class AutoPlay : PlayState {
-    let model : Model
-    init(model: Model) {
-        self.model = model
+    let presenter : GamePresenter
+    init(_ presenter: GamePresenter) {
+        self.presenter = presenter
     }
     func enter() {
-        //Do nothing
+        presenter.gameUpdateFrequency = 2.5
     }
     
     func update() {
-        model.updateState()
+        presenter.model.updateState()
     }
 }
 
@@ -39,6 +39,29 @@ class HumanPlay : PlayState{
 
 ///Wait for human player to press the continue button
 class EndOfRound : PlayState{
-    func enter() {}
+    let presenter : GamePresenter
+    init(_ presenter: GamePresenter) {
+        self.presenter = presenter
+    }
+    func enter() {
+        presenter.view?.continueButton(show: true)
+        presenter.gameUpdateFrequency = 0.5
+    }
     func update() {}
 }
+
+class CollectCards : PlayState{
+    let presenter : GamePresenter
+    init(_ presenter: GamePresenter) {
+        self.presenter = presenter
+    }
+    func enter() {
+        presenter.view?.play(soundNamed: "card")
+        presenter.view?.continueButton(show: false)
+        presenter.gameUpdateFrequency = 0.5
+    }
+    func update() {
+        presenter.change(state: AutoPlay(presenter))
+    }
+}
+
