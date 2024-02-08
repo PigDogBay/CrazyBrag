@@ -8,7 +8,7 @@
 import Foundation
 
 
-class TurnEnded : BasePlayState {
+class TurnEndedState : BasePlayState {
     let player : Player
     let middle : PlayerHand
     let turn : Turn

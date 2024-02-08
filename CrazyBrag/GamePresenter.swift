@@ -37,7 +37,7 @@ class GamePresenter: GameListener {
     var view : GameView? = nil
     private var lastGameUpdateTime = TimeInterval()
     var gameUpdateFrequency : Double = 0.5
-    private var playState : PlayState = NullPlay()
+    private var playState : PlayState = NullState()
 
     init(size : CGSize, isPhone : Bool){
         self.isPhone = isPhone
@@ -120,18 +120,6 @@ class GamePresenter: GameListener {
         }
     }
     
-    func showAllHands(){
-        for player in model.school.players{
-            showCards(in: player.hand)
-        }
-    }
-    
-    private func hideDeck(){
-        for card in model.deck.deck{
-            view?.setZPosition(on: card, z: -1.0)
-        }
-    }
-    
     func allCardsToDeck(){
         let pos = tableLayout.deckPosition
         var z = Layer.deck.rawValue
@@ -191,99 +179,55 @@ class GamePresenter: GameListener {
     
     func dealerSelected(dealer: Player) {
         logger.dealerSelected(dealer: dealer)
-        view?.show(message: "\(dealer.name)\nDealing")
-        gameUpdateFrequency = 0.5
-        view?.updateDealer(player: dealer)
-        allCardsToDeck()
-        for player in model.school.players {
-            view?.highlight(player: player, status: .ready)
-        }
+        change(state: DealerSelectedState(self, dealer: dealer))
     }
     
     func dealingDone(dealtCards: [DealtCard]) {
         logger.dealingDone(dealtCards: dealtCards)
-        gameUpdateFrequency = 2.5
-        positionCard(cards: dealtCards, duration: 0.1)
+        change(state: DealingDoneState(self, dealtCards: dealtCards))
     }
     
     func reveal() {
         logger.reveal()
-        showCards(in: model.school.playerHuman.hand)
-        hideDeck()
+        change(state: RevealState(self))
     }
 
     func turnStarted(player: Player, middle: PlayerHand) {
         logger.turnStarted(player: player, middle: middle)
-        gameUpdateFrequency = 1
-        view?.highlight(player: player, status: .turn)
-        //Auto play for human
         if player.seat == 0 {
-            //Stop updating until player has taken their turn
-            change(state: HumanPlay())
-            //Player can now interact with the cards
-            model.isPlayersTurn = true
-            view?.show(message: "Your Turn")
+            change(state: HumanTurnStartedState(self, player: player, middle: middle))
         } else {
-            view?.show(message: "\(player.name)'s\nTurn")
+            change(state: TurnStartedState(self, player: player, middle: middle))
         }
     }
     
     func turnEnded(player: Player, middle: PlayerHand, turn: Turn) {
         logger.turnEnded(player: player, middle: middle, turn: turn)
-        change(state: TurnEnded(self, player: player, middle: middle, turn: turn))
+        change(state: TurnEndedState(self, player: player, middle: middle, turn: turn))
     }
     
     func showHands(players: [Player]) {
-        view?.show(message: "End of Round")
-        gameUpdateFrequency = 2.5
         logger.showHands(players: players)
-        showAllHands()
-        if let hiddenCard = model.middle.hand.first{
-            view?.turn(card: hiddenCard, isFaceUp: true)
-        }
+        change(state: ShowHandsState(self, players: players))
     }
     
     func roundEnded(losingPlayers: [Player]) {
         logger.roundEnded(losingPlayers: losingPlayers)
-        //Player needs to press continue
-        change(state: EndOfRound(self, losingPlayers: losingPlayers))
+        change(state: EndOfRoundState(self, losingPlayers: losingPlayers))
     }
     
     func pullThePeg(outPlayers: [Player]) {
         logger.pullThePeg(outPlayers: outPlayers)
-        switch outPlayers.count {
-        case 0:
-            view?.show(message: "")
-        case 1:
-            if outPlayers[0].seat == 0{
-                view?.show(message: "You are out")
-            } else{
-                view?.show(message: "\(outPlayers.first?.name ?? "")\nIs Out")
-            }
-        default:
-            view?.show(message: "\(outPlayers.count) Players\nAre Out")
-        }
-        for player in outPlayers {
-            view?.removePlayer(player: player)
-        }
+        change(state: PullThePegState(self, outPlayers: outPlayers))
     }
     
     func everyoneOutSoReplayRound() {
         logger.everyoneOutSoReplayRound()
-        view?.show(message: "A Draw\nDeal Again")
+        change(state: EveryoneOutSoReplayRoundState(self))
     }
     
     func gameOver(winner: Player) {
         logger.gameOver(winner: winner)
-        if winner.seat == 0 {
-            view?.show(message: "You are the Winner!")
-        } else {
-            view?.show(message: "\(winner.name) is the Winner!")
-        }
-#if DEBUG
-                if DEBUG_AUTO_PLAY{
-                    quit()
-                }
-#endif
+        change(state: GameOverState(self, winner: winner))
     }
 }

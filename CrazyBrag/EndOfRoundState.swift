@@ -8,7 +8,7 @@
 import Foundation
 
 ///Wait for human player to press the continue button
-class EndOfRound : BasePlayState {
+class EndOfRoundState : BasePlayState {
     let losingPlayers: [Player]
     init(_ presenter : GamePresenter, losingPlayers: [Player]){
         self.losingPlayers = losingPlayers

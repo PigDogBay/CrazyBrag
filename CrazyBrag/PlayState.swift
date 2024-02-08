@@ -22,7 +22,7 @@ class BasePlayState : PlayState {
     func exit(){}
 }
 
-class NullPlay : PlayState{
+class NullState : PlayState{
     func enter() {}
     func update() {}
     func exit(){}
@@ -39,7 +39,7 @@ class AutoPlay : BasePlayState {
 }
 
 ///Wait for human player to take their turn
-class HumanPlay : PlayState{
+class HumanPlayersTurnState : PlayState{
     func enter() {}
     func update() {}
     func exit(){}
