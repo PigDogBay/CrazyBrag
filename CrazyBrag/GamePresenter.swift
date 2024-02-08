@@ -37,8 +37,7 @@ class GamePresenter: GameListener {
     var view : GameView? = nil
     private var lastGameUpdateTime = TimeInterval()
     private var gameUpdateFrequency : Double = 0.5
-    ///Set to false if require player input
-    private var canUpdateGame = true
+    private var playState : PlayState = NullPlay()
 
     init(size : CGSize, isPhone : Bool){
         self.isPhone = isPhone
@@ -49,11 +48,17 @@ class GamePresenter: GameListener {
         }
     }
     
+    func change(state : PlayState){
+        state.enter()
+        self.playState = state
+    }
+    
     func setUpGame(view : GameView){
         self.view = view
         let numberOfPlayers = isPhone ? 4 : 5
         model.setUpGame(numberOfAIPlayers: numberOfPlayers)
         model.gameListener = self
+        change(state: AutoPlay(model: model))
 
         if !isPhone {
             view.addName(name: "Middle", pos: tableLayout.getNamePosition(seat: -1))
@@ -70,7 +75,7 @@ class GamePresenter: GameListener {
     func continueGame(){
         view?.continueButton(show: false)
         view?.play(soundNamed: "card")
-        canUpdateGame = true
+        change(state: AutoPlay(model: model))
     }
     
     func quit(){
@@ -83,15 +88,7 @@ class GamePresenter: GameListener {
     
     func update(_ currentTime: TimeInterval){
         if (currentTime - lastGameUpdateTime) > gameUpdateFrequency {
-            if canUpdateGame {
-                model.updateState()
-            } else {
-#if DEBUG
-                if DEBUG_AUTO_PLAY{
-                    autoPlay()
-                }
-#endif
-            }
+            playState.update()
             lastGameUpdateTime = currentTime
         }
     }
@@ -168,7 +165,7 @@ class GamePresenter: GameListener {
         }
         if turn != nil {
             model.school.humanAI.turn = turn
-            canUpdateGame = true
+            change(state: AutoPlay(model: model))
             model.selectedCards.removeAll()
         }
     }
@@ -223,7 +220,7 @@ class GamePresenter: GameListener {
         //Auto play for human
         if player.seat == 0 {
             //Stop updating until player has taken their turn
-            canUpdateGame = false
+            change(state: HumanPlay())
             //Player can now interact with the cards
             model.isPlayersTurn = true
             view?.show(message: "Your Turn")
@@ -295,7 +292,7 @@ class GamePresenter: GameListener {
             view?.updateScore(player: player)
         }
         //Player needs to press continue
-        canUpdateGame = false
+        change(state: EndOfRound())
         view?.continueButton(show: true)
     }
     
