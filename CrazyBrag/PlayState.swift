@@ -10,23 +10,30 @@ import Foundation
 protocol PlayState {
     func enter()
     func update()
+    func exit()
+}
+class BasePlayState : PlayState {
+    let presenter : GamePresenter
+    init(_ presenter: GamePresenter) {
+        self.presenter = presenter
+    }
+    func enter() {}
+    func update() {}
+    func exit(){}
 }
 
 class NullPlay : PlayState{
     func enter() {}
     func update() {}
+    func exit(){}
 }
 
-class AutoPlay : PlayState {
-    let presenter : GamePresenter
-    init(_ presenter: GamePresenter) {
-        self.presenter = presenter
-    }
-    func enter() {
+class AutoPlay : BasePlayState {
+    override func enter() {
         presenter.gameUpdateFrequency = 2.5
     }
     
-    func update() {
+    override func update() {
         presenter.model.updateState()
     }
 }
@@ -35,32 +42,27 @@ class AutoPlay : PlayState {
 class HumanPlay : PlayState{
     func enter() {}
     func update() {}
+    func exit(){}
 }
 
 ///Wait for human player to press the continue button
-class EndOfRound : PlayState{
-    let presenter : GamePresenter
-    init(_ presenter: GamePresenter) {
-        self.presenter = presenter
-    }
-    func enter() {
+class EndOfRound : BasePlayState {
+    override func enter() {
         presenter.view?.continueButton(show: true)
         presenter.gameUpdateFrequency = 0.5
     }
-    func update() {}
-}
-
-class CollectCards : PlayState{
-    let presenter : GamePresenter
-    init(_ presenter: GamePresenter) {
-        self.presenter = presenter
-    }
-    func enter() {
+  
+    override func exit(){
         presenter.view?.play(soundNamed: "card")
         presenter.view?.continueButton(show: false)
+    }
+}
+
+class CollectCards : BasePlayState{
+    override func enter() {
         presenter.gameUpdateFrequency = 0.5
     }
-    func update() {
+    override func update() {
         presenter.change(state: AutoPlay(presenter))
     }
 }

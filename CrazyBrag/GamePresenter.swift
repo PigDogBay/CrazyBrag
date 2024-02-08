@@ -49,8 +49,9 @@ class GamePresenter: GameListener {
     }
     
     func change(state : PlayState){
-        state.enter()
+        self.playState.exit()
         self.playState = state
+        state.enter()
     }
     
     func setUpGame(view : GameView){
