@@ -14,12 +14,23 @@ class DealerSelectedState : BasePlayState {
         self.dealer = dealer
         super.init(presenter)
     }
-    
+
+    func allCardsToDeck(){
+        let pos = presenter.tableLayout.deckPosition
+        var z = Layer.deck.rawValue
+        for card in presenter.model.deck.deck{
+            presenter.view?.setZPosition(on: card, z: z)
+            presenter.view?.turn(card: card, isFaceUp: false)
+            z = z + 1
+            presenter.view?.setPosition(on: card, pos: pos, duration: 0.5, delay: 0)
+        }
+    }
+
     override func enter() {
         presenter.view?.show(message: "\(dealer.name)\nDealing")
-        presenter.gameUpdateFrequency = 0.5
+        presenter.gameUpdateFrequency = 1.0
         presenter.view?.updateDealer(player: dealer)
-        presenter.allCardsToDeck()
+        allCardsToDeck()
         for player in presenter.model.school.players {
             presenter.view?.highlight(player: player, status: .ready)
         }

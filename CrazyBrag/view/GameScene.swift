@@ -39,7 +39,6 @@ class GameScene: SKScene, GameView {
         addBackground(imageNamed: "treestump")
         addDealer()
         createCardNodes()
-        presenter.allCardsToDeck()
         messageNode.position = presenter.tableLayout.message
         addChild(messageNode)
         addBackButton()

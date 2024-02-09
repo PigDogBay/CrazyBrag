@@ -102,17 +102,6 @@ class GamePresenter: GameListener {
         }
     }
     
-    func allCardsToDeck(){
-        let pos = tableLayout.deckPosition
-        var z = Layer.deck.rawValue
-        for card in model.deck.deck{
-            view?.setZPosition(on: card, z: z)
-            view?.turn(card: card, isFaceUp: false)
-            z = z + 1
-            view?.setPosition(on: card, pos: pos, duration: 0.1, delay: 0)
-        }
-    }
-    
     //MARK: - Touch handling
     
     func handleTouch(for card : PlayingCard){
