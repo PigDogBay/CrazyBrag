@@ -16,16 +16,20 @@ class PullThePegState : BasePlayState {
     }
     
     override func enter() {
+        presenter.gameUpdateFrequency = 2.5
         switch outPlayers.count {
         case 0:
             presenter.view?.show(message: "")
         case 1:
             if outPlayers[0].seat == 0{
                 presenter.view?.show(message: "You are out")
+                presenter.view?.play(soundNamed: "sad_whistle")
             } else{
                 presenter.view?.show(message: "\(outPlayers.first?.name ?? "")\nIs Out")
+                presenter.view?.play(soundNamed: "ricochet")
             }
         default:
+            presenter.view?.play(soundNamed: "ricochet")
             presenter.view?.show(message: "\(outPlayers.count) Players\nAre Out")
         }
         for player in outPlayers {
