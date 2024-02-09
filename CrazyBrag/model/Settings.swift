@@ -10,7 +10,9 @@ import Foundation
 class Settings
 {
     private let versionKey = "version"
-    
+    private let gamesPlayedKey = "gamesPlayed"
+    private let gamesWonKey = "gamesWon"
+
     func setInformationVersion(){
         version = getBuildVersion()
     }
@@ -24,14 +26,33 @@ class Settings
         get { return UserDefaults.standard.string(forKey: versionKey) ?? ""}
         set(newVersion) {
             if newVersion != version {
-                let defaults = UserDefaults.standard
-                defaults.set(newVersion, forKey: versionKey)
+                UserDefaults.standard.set(newVersion, forKey: versionKey)
             }
         }
     }
-
+    
+    var gamesPlayed : Int {
+        get {return UserDefaults.standard.integer(forKey: gamesPlayedKey)}
+        set(newVal) {
+            if newVal != gamesPlayed {
+                UserDefaults.standard.set(newVal, forKey: gamesPlayedKey)
+            }
+        }
+    }
+    
+    var gamesWon : Int {
+        get {return UserDefaults.standard.integer(forKey: gamesWonKey)}
+        set(newVal) {
+            if newVal != gamesPlayed {
+                UserDefaults.standard.set(newVal, forKey: gamesWonKey)
+            }
+        }
+    }
+    
     func registerDefaultSettings() {
-        let defaultSettings : [ String : Any] = [versionKey : getBuildVersion()]
+        let defaultSettings : [ String : Any] = [versionKey : getBuildVersion(),
+                                             gamesPlayedKey : 0,
+                                                gamesWonKey : 0]
         UserDefaults.standard.register(defaults: defaultSettings)
     }
 
