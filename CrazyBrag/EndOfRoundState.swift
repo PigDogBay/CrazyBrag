@@ -32,6 +32,7 @@ class EndOfRoundState : BasePlayState {
             presenter.view?.updateScore(player: player)
         }
 
+        presenter.view?.play(soundNamed: "LoseLife")
         //Player must press the continue button
         presenter.view?.continueButton(show: true)
         presenter.gameUpdateFrequency = 0.5

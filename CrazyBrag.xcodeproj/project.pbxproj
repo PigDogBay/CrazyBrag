@@ -68,6 +68,7 @@
 		009313EC2A4F142D007194D9 /* SchoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313E22A4F142D007194D9 /* SchoolTests.swift */; };
 		009313ED2A4F142D007194D9 /* DeckTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313E32A4F142D007194D9 /* DeckTests.swift */; };
 		009313EE2A4F142D007194D9 /* HandResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313E42A4F142D007194D9 /* HandResolverTests.swift */; };
+		009B11852B763EDE004A2DD0 /* LoseLife.wav in Resources */ = {isa = PBXBuildFile; fileRef = 009B11842B763EDE004A2DD0 /* LoseLife.wav */; };
 		00A220CD2B20D33500B16292 /* Quentincaps-owxKz.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 00A220CC2B20D31A00B16292 /* Quentincaps-owxKz.ttf */; };
 		00A68AE02B19FE7D006EC10C /* Explosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 00A68ADF2B19FE7D006EC10C /* Explosion.sks */; };
 		00C0299D2B2A09830062B26A /* ButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C0299C2B2A09830062B26A /* ButtonNode.swift */; };
@@ -160,6 +161,7 @@
 		009313E22A4F142D007194D9 /* SchoolTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchoolTests.swift; sourceTree = "<group>"; };
 		009313E32A4F142D007194D9 /* DeckTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeckTests.swift; sourceTree = "<group>"; };
 		009313E42A4F142D007194D9 /* HandResolverTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandResolverTests.swift; sourceTree = "<group>"; };
+		009B11842B763EDE004A2DD0 /* LoseLife.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = LoseLife.wav; sourceTree = "<group>"; };
 		00A220CC2B20D31A00B16292 /* Quentincaps-owxKz.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quentincaps-owxKz.ttf"; sourceTree = "<group>"; };
 		00A220CE2B20D5BD00B16292 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		00A68ADF2B19FE7D006EC10C /* Explosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Explosion.sks; sourceTree = "<group>"; };
@@ -355,6 +357,7 @@
 		00C029A22B2B25F20062B26A /* sounds */ = {
 			isa = PBXGroup;
 			children = (
+				009B11842B763EDE004A2DD0 /* LoseLife.wav */,
 				00FF03C92B2B971600ADA2ED /* sad_whistle.wav */,
 				00C029A62B2B26390062B26A /* card.wav */,
 				00C029AB2B2B2BE00062B26A /* ricochet.mp3 */,
@@ -474,6 +477,7 @@
 				00A68AE02B19FE7D006EC10C /* Explosion.sks in Resources */,
 				009313862A4C334D007194D9 /* Assets.xcassets in Resources */,
 				00A220CD2B20D33500B16292 /* Quentincaps-owxKz.ttf in Resources */,
+				009B11852B763EDE004A2DD0 /* LoseLife.wav in Resources */,
 				009313892A4C334D007194D9 /* LaunchScreen.storyboard in Resources */,
 				00C029AC2B2B2BE00062B26A /* ricochet.mp3 in Resources */,
 				00C029A82B2B26390062B26A /* honky-tonk.wav in Resources */,
