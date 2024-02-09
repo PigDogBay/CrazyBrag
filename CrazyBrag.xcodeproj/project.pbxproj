@@ -69,6 +69,7 @@
 		009313ED2A4F142D007194D9 /* DeckTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313E32A4F142D007194D9 /* DeckTests.swift */; };
 		009313EE2A4F142D007194D9 /* HandResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313E42A4F142D007194D9 /* HandResolverTests.swift */; };
 		009B11852B763EDE004A2DD0 /* LoseLife.wav in Resources */ = {isa = PBXBuildFile; fileRef = 009B11842B763EDE004A2DD0 /* LoseLife.wav */; };
+		009B118D2B764711004A2DD0 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009B118C2B764711004A2DD0 /* Settings.swift */; };
 		00A220CD2B20D33500B16292 /* Quentincaps-owxKz.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 00A220CC2B20D31A00B16292 /* Quentincaps-owxKz.ttf */; };
 		00A68AE02B19FE7D006EC10C /* Explosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 00A68ADF2B19FE7D006EC10C /* Explosion.sks */; };
 		00C0299D2B2A09830062B26A /* ButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C0299C2B2A09830062B26A /* ButtonNode.swift */; };
@@ -162,6 +163,7 @@
 		009313E32A4F142D007194D9 /* DeckTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeckTests.swift; sourceTree = "<group>"; };
 		009313E42A4F142D007194D9 /* HandResolverTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandResolverTests.swift; sourceTree = "<group>"; };
 		009B11842B763EDE004A2DD0 /* LoseLife.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = LoseLife.wav; sourceTree = "<group>"; };
+		009B118C2B764711004A2DD0 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		00A220CC2B20D31A00B16292 /* Quentincaps-owxKz.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quentincaps-owxKz.ttf"; sourceTree = "<group>"; };
 		00A220CE2B20D5BD00B16292 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		00A68ADF2B19FE7D006EC10C /* Explosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Explosion.sks; sourceTree = "<group>"; };
@@ -314,6 +316,7 @@
 				009313B82A4C369B007194D9 /* PlayingCard.swift */,
 				009313B42A4C369B007194D9 /* PossibleHandResolver.swift */,
 				009313B32A4C369B007194D9 /* School.swift */,
+				009B118C2B764711004A2DD0 /* Settings.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -548,6 +551,7 @@
 				009313C92A4C369B007194D9 /* HandResolver.swift in Sources */,
 				009313C22A4C369B007194D9 /* School.swift in Sources */,
 				00C0299D2B2A09830062B26A /* ButtonNode.swift in Sources */,
+				009B118D2B764711004A2DD0 /* Settings.swift in Sources */,
 				0031709F2B74EF0B00928617 /* EndOfRoundState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -740,7 +744,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10003;
+				CURRENT_PROJECT_VERSION = 10004;
 				DEVELOPMENT_TEAM = ZYM8DA54T6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CrazyBrag/Info.plist;
@@ -757,7 +761,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.00.03;
+				MARKETING_VERSION = 1.00.04;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mpdbailey.crazybrag;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -772,7 +776,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10003;
+				CURRENT_PROJECT_VERSION = 10004;
 				DEVELOPMENT_TEAM = ZYM8DA54T6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CrazyBrag/Info.plist;
@@ -789,7 +793,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.00.03;
+				MARKETING_VERSION = 1.00.04;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mpdbailey.crazybrag;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
