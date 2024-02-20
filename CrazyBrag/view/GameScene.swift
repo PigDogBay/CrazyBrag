@@ -268,10 +268,10 @@ class GameScene: SKScene, GameView, DialogView {
     ///DialogView:-
     
     func showMessage(title : String, message: String) {
-        let dialogNode = StatsNode()
+        let dialogNode = DialogNode()
         dialogNode.name = "dialog "+title
         dialogNode.zPosition = 1000
-        dialogNode.display(message: message)
+        dialogNode.display(title: title, message: message)
         addChild(dialogNode)
     }
 

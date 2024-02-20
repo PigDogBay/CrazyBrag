@@ -8,9 +8,10 @@
 
 import SpriteKit
 
-class StatsNode : SKShapeNode {
+class DialogNode : SKShapeNode {
     let attributes: [NSAttributedString.Key : Any]
     let bodyTextNode = SKLabelNode(fontNamed: "QuentinCaps")
+    let titleNode = SKLabelNode(fontNamed: "QuentinCaps")
     let pageNumberNode = SKLabelNode(fontNamed: "AmericanTypewriter")
     let layout : InformationLayout
 
@@ -43,19 +44,18 @@ class StatsNode : SKShapeNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func display(message : String) {
+    func display(title : String, message : String) {
+        titleNode.text = title
         bodyTextNode.attributedText = NSAttributedString(string: message, attributes: attributes)
     }
 
     func addTitle(){
-        let label = SKLabelNode(fontNamed: "QuentinCaps")
-        label.name = "title"
-        label.text = "STATS"
-        label.fontColor = SKColor.white
-        label.fontSize = layout.titleFontSize
-        label.position = layout.titlePosition
-        label.zPosition = 1001
-        addChild(label)
+        titleNode.name = "title"
+        titleNode.fontColor = SKColor.white
+        titleNode.fontSize = layout.titleFontSize
+        titleNode.position = layout.titlePosition
+        titleNode.zPosition = 1001
+        addChild(titleNode)
     }
     
     func addBodyTextNode() {
