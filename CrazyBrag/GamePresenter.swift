@@ -43,6 +43,9 @@ class GamePresenter: GameListener {
         model.setUpGame(numberOfAIPlayers: numberOfPlayers)
         model.gameListener = self
         model.updateState()
+        //increase game count
+        let settings = Settings()
+        settings.gamesPlayed = settings.gamesPlayed + 1
 
         if !isPhone {
             view.addName(name: "Middle", pos: tableLayout.getNamePosition(seat: -1))

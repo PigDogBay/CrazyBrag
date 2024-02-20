@@ -17,6 +17,9 @@ class GameOverState : BasePlayState {
 
     override func enter() {
         if winner.seat == 0 {
+            //increase win count
+            let settings = Settings()
+            settings.gamesWon = settings.gamesWon + 1
             presenter.view?.show(message: "You are the Winner!")
         } else {
             presenter.view?.show(message: "\(winner.name) is the Winner!")
