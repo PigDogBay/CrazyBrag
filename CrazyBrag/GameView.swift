@@ -23,3 +23,7 @@ protocol GameView {
     func play(soundNamed : String)
     func continueButton(show : Bool)
 }
+
+protocol DialogView {
+    func showMessage(title : String, message : String)
+}

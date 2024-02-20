@@ -15,6 +15,11 @@ class GameOverState : BasePlayState {
         super.init(presenter)
     }
 
+    private func showStats(){
+        if let dialogView = presenter.view as? DialogView {
+            dialogView.showMessage(title: "STATS", message: "5 games won\n20 played\nWin Rate 25%\nRank: Horse Wrangler")
+        }
+    }
     override func enter() {
         if winner.seat == 0 {
             //increase win count
@@ -24,6 +29,7 @@ class GameOverState : BasePlayState {
         } else {
             presenter.view?.show(message: "\(winner.name) is the Winner!")
         }
+        showStats()
 #if DEBUG
         if DEBUG_AUTO_PLAY{
             presenter.quit()

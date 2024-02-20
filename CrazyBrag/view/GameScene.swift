@@ -7,7 +7,7 @@
 
 import SpriteKit
 
-class GameScene: SKScene, GameView {
+class GameScene: SKScene, GameView, DialogView {
     
     private let dealerTokenNode =  SKLabelNode(fontNamed: "HelveticaNeue")
     private let messageNode : MessageNode
@@ -264,4 +264,15 @@ class GameScene: SKScene, GameView {
             }
         }
     }
+    
+    ///DialogView:-
+    
+    func showMessage(title : String, message: String) {
+        let dialogNode = StatsNode()
+        dialogNode.name = "dialog "+title
+        dialogNode.zPosition = 1000
+        dialogNode.display(message: message)
+        addChild(dialogNode)
+    }
+
 }
