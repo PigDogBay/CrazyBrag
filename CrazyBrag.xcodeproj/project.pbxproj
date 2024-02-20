@@ -78,6 +78,8 @@
 		00C029AA2B2B26390062B26A /* card.wav in Resources */ = {isa = PBXBuildFile; fileRef = 00C029A62B2B26390062B26A /* card.wav */; };
 		00C029AC2B2B2BE00062B26A /* ricochet.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 00C029AB2B2B2BE00062B26A /* ricochet.mp3 */; };
 		00C76B972B84B2E4005419EF /* DialogNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C76B962B84B2E4005419EF /* DialogNode.swift */; };
+		00C76B992B84BD59005419EF /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C76B982B84BD59005419EF /* Stats.swift */; };
+		00C76B9B2B84BEDB005419EF /* StatsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C76B9A2B84BEDB005419EF /* StatsTests.swift */; };
 		00FF03CA2B2B971600ADA2ED /* sad_whistle.wav in Resources */ = {isa = PBXBuildFile; fileRef = 00FF03C92B2B971600ADA2ED /* sad_whistle.wav */; };
 /* End PBXBuildFile section */
 
@@ -174,6 +176,8 @@
 		00C029A62B2B26390062B26A /* card.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = card.wav; sourceTree = "<group>"; };
 		00C029AB2B2B2BE00062B26A /* ricochet.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ricochet.mp3; sourceTree = "<group>"; };
 		00C76B962B84B2E4005419EF /* DialogNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogNode.swift; sourceTree = "<group>"; };
+		00C76B982B84BD59005419EF /* Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
+		00C76B9A2B84BEDB005419EF /* StatsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsTests.swift; sourceTree = "<group>"; };
 		00FF03C92B2B971600ADA2ED /* sad_whistle.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sad_whistle.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -286,6 +290,7 @@
 				009313E02A4F142D007194D9 /* PossibleHandResolverTests.swift */,
 				00662C602B31A17900C5DEE9 /* RankTests.swift */,
 				009313E22A4F142D007194D9 /* SchoolTests.swift */,
+				00C76B9A2B84BEDB005419EF /* StatsTests.swift */,
 				00662C622B31A18800C5DEE9 /* SuitTests.swift */,
 			);
 			path = CrazyBragTests;
@@ -319,6 +324,7 @@
 				009313B42A4C369B007194D9 /* PossibleHandResolver.swift */,
 				009313B32A4C369B007194D9 /* School.swift */,
 				009B118C2B764711004A2DD0 /* Settings.swift */,
+				00C76B982B84BD59005419EF /* Stats.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -525,6 +531,7 @@
 				009313CE2A4C369B007194D9 /* PlayerHand.swift in Sources */,
 				0093137F2A4C334B007194D9 /* GameScene.swift in Sources */,
 				00C029A12B2A26140062B26A /* DebugUtils.swift in Sources */,
+				00C76B992B84BD59005419EF /* Stats.swift in Sources */,
 				003170AF2B74F50600928617 /* EveryoneOutSoReplayRoundState.swift in Sources */,
 				003170A12B74F0CE00928617 /* TurnEndedState.swift in Sources */,
 				009313C12A4C369B007194D9 /* GameUpdateLogger.swift in Sources */,
@@ -571,6 +578,7 @@
 				00662C662B31C16000C5DEE9 /* Hands.swift in Sources */,
 				009313EC2A4F142D007194D9 /* SchoolTests.swift in Sources */,
 				009313EA2A4F142D007194D9 /* PossibleHandResolverTests.swift in Sources */,
+				00C76B9B2B84BEDB005419EF /* StatsTests.swift in Sources */,
 				009313E62A4F142D007194D9 /* PlayerTests.swift in Sources */,
 				009313E82A4F142D007194D9 /* HandGeneratorTests.swift in Sources */,
 				009313E72A4F142D007194D9 /* ModelTests.swift in Sources */,
