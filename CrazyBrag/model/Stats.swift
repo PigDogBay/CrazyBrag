@@ -100,7 +100,7 @@ struct Stats {
     }
     
     func summary() -> String {
-        return "Games Played \(played)\nGames Won \(won)\nWin Rate \(winRateText)"
+        return "\nGames Won:  \(won)\nGames Played:  \(played)\nWin Rate:  \(winRateText)\n\nRank:\n\(rank)"
     }
     
 }

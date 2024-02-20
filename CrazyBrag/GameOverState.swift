@@ -17,7 +17,9 @@ class GameOverState : BasePlayState {
 
     private func showStats(){
         if let dialogView = presenter.view as? DialogView {
-            dialogView.showMessage(title: "STATS", message: "5 games won\n20 played\nWin Rate 25%\nRank: Horse Wrangler")
+            let settings = Settings()
+            let stats = Stats(played: settings.gamesPlayed, won: settings.gamesWon)
+            dialogView.showMessage(title: "STATS", message: stats.summary())
         }
     }
     override func enter() {
