@@ -27,9 +27,9 @@ class GameOverState : BasePlayState {
             //increase win count
             let settings = Settings()
             settings.gamesWon = settings.gamesWon + 1
-            presenter.view?.show(message: "You are the Winner!")
+            presenter.view?.show(message: "You are the\nWinner")
         } else {
-            presenter.view?.show(message: "\(winner.name) is the Winner!")
+            presenter.view?.show(message: "\(winner.name) is the\nWinner")
         }
         showStats()
 #if DEBUG
