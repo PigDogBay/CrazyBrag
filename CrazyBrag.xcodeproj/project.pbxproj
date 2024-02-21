@@ -80,6 +80,7 @@
 		00C76B972B84B2E4005419EF /* DialogNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C76B962B84B2E4005419EF /* DialogNode.swift */; };
 		00C76B992B84BD59005419EF /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C76B982B84BD59005419EF /* Stats.swift */; };
 		00C76B9B2B84BEDB005419EF /* StatsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C76B9A2B84BEDB005419EF /* StatsTests.swift */; };
+		00C76BB12B867196005419EF /* Fire.sks in Resources */ = {isa = PBXBuildFile; fileRef = 00C76BB02B867196005419EF /* Fire.sks */; };
 		00FF03CA2B2B971600ADA2ED /* sad_whistle.wav in Resources */ = {isa = PBXBuildFile; fileRef = 00FF03C92B2B971600ADA2ED /* sad_whistle.wav */; };
 /* End PBXBuildFile section */
 
@@ -178,6 +179,7 @@
 		00C76B962B84B2E4005419EF /* DialogNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogNode.swift; sourceTree = "<group>"; };
 		00C76B982B84BD59005419EF /* Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
 		00C76B9A2B84BEDB005419EF /* StatsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsTests.swift; sourceTree = "<group>"; };
+		00C76BB02B867196005419EF /* Fire.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Fire.sks; sourceTree = "<group>"; };
 		00FF03C92B2B971600ADA2ED /* sad_whistle.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sad_whistle.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -354,6 +356,7 @@
 				009313872A4C334D007194D9 /* LaunchScreen.storyboard */,
 				009313822A4C334B007194D9 /* Main.storyboard */,
 				00A220CC2B20D31A00B16292 /* Quentincaps-owxKz.ttf */,
+				00C76BB02B867196005419EF /* Fire.sks */,
 			);
 			name = resources;
 			sourceTree = "<group>";
@@ -488,6 +491,7 @@
 				00767A7D2B346380000B0C44 /* Colours.xcassets in Resources */,
 				00A68AE02B19FE7D006EC10C /* Explosion.sks in Resources */,
 				009313862A4C334D007194D9 /* Assets.xcassets in Resources */,
+				00C76BB12B867196005419EF /* Fire.sks in Resources */,
 				00A220CD2B20D33500B16292 /* Quentincaps-owxKz.ttf in Resources */,
 				009B11852B763EDE004A2DD0 /* LoseLife.wav in Resources */,
 				009313892A4C334D007194D9 /* LaunchScreen.storyboard in Resources */,

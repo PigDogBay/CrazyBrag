@@ -104,6 +104,8 @@ class GameScene: SKScene, GameView, DialogView {
     func removePlayer(player : Player) {
         self.childNode(withName: "name \(player.name)")?.removeFromParent()
         self.childNode(withName: "table mat \(player.seat)")?.removeFromParent()
+        let f = presenter.tableLayout.getFrame(seat: player.seat)
+        showFire(pos: CGPoint(x: f.midX, y: f.minY))
     }
     
     func highlight(player: Player, status : PlayerStatus) {
@@ -235,11 +237,24 @@ class GameScene: SKScene, GameView, DialogView {
     }
     
 
+    private func showFire(pos : CGPoint){
+        if let explosion = SKEmitterNode(fileNamed: "Fire")
+        {
+            explosion.numParticlesToEmit = 500
+            explosion.position = pos
+            explosion.zPosition = Layer.particles.rawValue
+            addChild(explosion)
+            let removeAfterDead = SKAction.sequence([SKAction.wait(forDuration: 3), SKAction.removeFromParent()])
+            explosion.run(removeAfterDead)
+        }
+    }
+    
     private func showExplosion(pos : CGPoint){
         if let explosion = SKEmitterNode(fileNamed: "Explosion")
         {
-            explosion.numParticlesToEmit = 100
+            explosion.numParticlesToEmit = 200
             explosion.position = pos
+            explosion.zPosition = Layer.particles.rawValue
             addChild(explosion)
             let removeAfterDead = SKAction.sequence([SKAction.wait(forDuration: 3), SKAction.removeFromParent()])
             explosion.run(removeAfterDead)
