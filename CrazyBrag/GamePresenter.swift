@@ -77,7 +77,7 @@ class GamePresenter: GameListener {
         }
     }
     
-    private func autoPlay(){
+    func autoPlay(){
         if let human = model.school.players.first(where: {$0.seat == 0}) {
             self.handleTouch(for: human.hand.hand[Int.random(in: 0...2)])
             self.handleTouch(for: model.middle.hand[Int.random(in: 0...2)])

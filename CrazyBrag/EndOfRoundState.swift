@@ -37,6 +37,16 @@ class EndOfRoundState : BasePlayState {
         presenter.view?.continueButton(show: true)
         presenter.gameUpdateFrequency = 0.5
     }
+    
+#if DEBUG
+    var counter = 0
+    override func update() {
+        counter = counter + 1
+        if DEBUG_AUTO_PLAY && counter == 5 {
+            presenter.continueGame()
+        }
+    }
+#endif
   
     override func exit(){
         presenter.view?.play(soundNamed: "card")

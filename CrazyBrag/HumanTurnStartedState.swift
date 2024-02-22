@@ -29,6 +29,12 @@ class HumanTurnStartedState : BasePlayState {
     override func update() {
         counter = counter + 1
         switch (counter) {
+#if DEBUG
+        case 1:
+            if DEBUG_AUTO_PLAY {
+                presenter.autoPlay()
+            }
+#endif
         case 5:
             presenter.view?.show(message: "Select 1 Card\nFrom Your Hand")
         case 9:
