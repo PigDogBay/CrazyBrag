@@ -53,6 +53,8 @@ Model–View–Presenter, with the presenter running a state machine that paces 
 - Positions are hard-coded in a fixed logical coordinate space per device family: `IPhoneLayout` (932×430) and `IPadLayout`, both conforming to `TableLayout` (defined in `IPadLayout.swift`, along with the `Layer` z-position enum). Scenes use `scaleMode = .fill` to stretch to the real screen. `StartLayout` and `InformationLayout` do the same for the other screens.
 - Seats: `-1` is the middle, `0` is the human, `1...` are computer players clockwise. iPhone has 4 computer players, iPad 5, so a new seat needs a position in both layouts.
 
+**Background image** — `westerntown.jpg` is generated, not hand-drawn: `sh tools/background/build.sh` (needs Google Chrome and ImageMagick) runs `town.py` and writes `tools/background/out/westerntown.jpg`, which is then copied into the asset catalogue. Both scenes scale it to fill and pin it to the bottom edge, so the iPad shows the whole 4:3 image and the iPhone crops the top.
+
 **Persistence** — `Settings` wraps `UserDefaults` (games played/won); `Stats` turns those into win rate and rank title. `Settings.bundle` provides the iOS Settings app pages.
 
 ## Debug aids
