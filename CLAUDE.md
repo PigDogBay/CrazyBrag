@@ -55,6 +55,8 @@ Model–View–Presenter, with the presenter running a state machine that paces 
 
 **Background image** — `westerntown.jpg` is generated, not hand-drawn: `sh tools/background/build.sh` (needs Google Chrome and ImageMagick) runs `town.py` and writes `tools/background/out/westerntown.jpg`, which is then copied into the asset catalogue. Both scenes scale it to fill and pin it to the bottom edge, so the iPad shows the whole 4:3 image and the iPhone crops the top.
 
+**Card images** — the 52 faces and `CardBack` are also generated: `sh tools/cards/build.sh` runs `cards.py` and writes 691×1056 PNGs to `tools/cards/out/cards`, named like the image sets (`KH.png`, `10D.png`, `CardBack.png`). Court cards are western characters (K sheriff, Q saloon lady, J outlaw) and aces are bullets. `CardSpriteNode` stretches whatever image it is given to the layout's card size, so keep that aspect ratio.
+
 **Persistence** — `Settings` wraps `UserDefaults` (games played/won); `Stats` turns those into win rate and rank title. `Settings.bundle` provides the iOS Settings app pages.
 
 ## Debug aids
