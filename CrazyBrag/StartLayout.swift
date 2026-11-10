@@ -20,7 +20,6 @@ struct StartLayout {
     let cardX : Int
     let cardY : Int
 
-    let backgroundAnchor : CGPoint
     let deckPos : CGPoint
     let titlePos : CGPoint
     let namePos : CGPoint
@@ -44,7 +43,6 @@ struct StartLayout {
             stepOffset = 25
             cardX = 441
             cardY = 210
-            backgroundAnchor = CGPoint(x: 0.85, y: 0.9)
             deckPos = CGPoint(x: 150.0, y: 120.0)
             titlePos = CGPoint(x: 466.0, y: 340.0)
             namePos = CGPoint(x: 466.0, y: 70.0)
@@ -61,7 +59,6 @@ struct StartLayout {
             stepOffset = 25
             cardX = 487
             cardY = 400
-            backgroundAnchor = CGPoint(x: 0.85, y: 0.9)
             deckPos = CGPoint(x: 100.0, y: 100.0)
             titlePos = CGPoint(x: 512.0, y: 576.0)
             namePos = CGPoint(x: 512.0, y: 220.0)

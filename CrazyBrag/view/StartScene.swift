@@ -31,7 +31,7 @@ class StartScene: SKScene, StartView {
     
     override func didMove(to view: SKView) {
         addMusic()
-        addBackground(imageNamed: "treestump")
+        addBackground(imageNamed: "westerntown")
         addTitle()
         addHandName()
         createCardNodes()
@@ -118,10 +118,14 @@ class StartScene: SKScene, StartView {
         self.view?.presentScene(GameScene(size: self.frame.size), transition: transition)
     }
 
+    ///Scales the image to fill the scene and pins it to the bottom edge,
+    ///on the wider iPhone screen the top of the image is cropped
     private func addBackground(imageNamed image : String){
         let background = SKSpriteNode(imageNamed: image)
-        background.anchorPoint = presenter.startLayout.backgroundAnchor
-        background.position = CGPoint(x: frame.maxX, y: frame.maxY)
+        let scale = max(frame.width / background.size.width, frame.height / background.size.height)
+        background.setScale(scale)
+        background.anchorPoint = CGPoint(x: 0.5, y: 0.0)
+        background.position = CGPoint(x: frame.midX, y: frame.minY)
         background.zPosition = Layer.background.rawValue
         addChild(background)
     }
