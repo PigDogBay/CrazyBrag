@@ -12,6 +12,7 @@ class Settings
     private let versionKey = "version"
     private let gamesPlayedKey = "gamesPlayed"
     private let gamesWonKey = "gamesWon"
+    private let markedDeckKey = "markedDeck"
 
     func setInformationVersion(){
         version = getBuildVersion()
@@ -49,10 +50,22 @@ class Settings
         }
     }
     
+    ///Howie's deck: when true the backs of the cards are marked so that an observant player can read them,
+    ///when false every card has the same plain back
+    var markedDeck : Bool {
+        get {return UserDefaults.standard.bool(forKey: markedDeckKey)}
+        set(newVal) {
+            if newVal != markedDeck {
+                UserDefaults.standard.set(newVal, forKey: markedDeckKey)
+            }
+        }
+    }
+
     func registerDefaultSettings() {
         let defaultSettings : [ String : Any] = [versionKey : getBuildVersion(),
                                              gamesPlayedKey : 0,
-                                                gamesWonKey : 0]
+                                                gamesWonKey : 0,
+                                              markedDeckKey : true]
         UserDefaults.standard.register(defaults: defaultSettings)
     }
 

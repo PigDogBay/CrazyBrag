@@ -213,8 +213,28 @@ def revolver():
             '<path d="M216 28L238 30 252 4 264 9 254 36C266 44 270 56 274 72L298 138C302 151 288 159 264 155L247 152C241 122 236 98 222 82L216 74z"/>'
             '<path d="M168 74C166 108 214 108 222 82" fill="none" stroke-width="7"/><path d="M196 76l4 16" fill="none" stroke-width="6"/></g>')
 
-def back():
+# Howie's deck: every card has its own back, marked so that a sharp-eyed player can read it.
+#   Suit  - colour of the left-hand poker chip: hearts red, diamonds gold, spades black, clubs green
+#   Rank  - how full the whiskey glasses are, plus one blemish:
+#             glass empty 2-5, half full 6-9, full 10-K, and no glass at all for an ace
+#             within each group of four: clean, a dot (left edge, above the chips),
+#             a scratch (left edge, below the chips), a dog-eared top-left corner
+# All the marks are in the left half of the card, which stays visible when a hand is fanned.
+MARK_CHIP = {'H': RED, 'D': GOLD, 'S': '#23252b', 'C': '#2e7046'}
+MARK_GROUPS = (('2', '3', '4', '5'), ('6', '7', '8', '9'), ('10', 'J', 'Q', 'K'))
+EAR = 82
+
+def marks(rank):
+    """(glass, blemish): glass is None, 'empty', 'half' or 'full', blemish is 0-3"""
+    for level, group in zip(('empty', 'half', 'full'), MARK_GROUPS):
+        if rank in group:
+            return level, group.index(rank)
+    return None, 0
+
+def back(suit=None, rank=None):
     cream, navy, red = '#f3e6c4', '#22334f', '#a8201a'
+    glass, blemish = marks(rank) if rank else ('half', 0)
+    left_chip = MARK_CHIP[suit] if suit else GOLD
     o = [f'<rect x="3" y="3" width="{W - 6}" height="{H - 6}" rx="44" fill="{cream}" stroke="#8a7a5a" stroke-width="3"/>']
     o.append(f'<defs><pattern id="lat" width="46" height="46" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="46" height="46" fill="{navy}"/><path d="M0 0H46M0 0V46" stroke="#3a5078" stroke-width="5"/><circle cx="23" cy="23" r="4" fill="#3a5078"/></pattern>'
              f'<clipPath id="bk"><rect x="34" y="34" width="{W - 68}" height="{H - 68}" rx="24"/></clipPath></defs>')
@@ -228,9 +248,10 @@ def back():
     half = []
     half.append(f'<ellipse cx="{cx}" cy="292" rx="232" ry="172" fill="{navy}" stroke="{GOLD}" stroke-width="5"/>')
     half.append(f'<ellipse cx="{cx}" cy="292" rx="216" ry="156" fill="none" stroke="{cream}" stroke-width="2.5"/>')
+    whiskey = {'empty': '', 'half': '<path d="M5 36h48l-4 34H9z" fill="#c98a2b" stroke="none"/>', 'full': '<path d="M3 8h52l-6 62H9z" fill="#c98a2b" stroke="none"/>', None: ''}[glass]
     # revolver on the left pointing right, shot glass under the barrel, whiskey bottle on the right
     half.append(f'<g transform="translate({cx + 62},232) scale(-.84,.84)" fill="{cream}" stroke="{cream}">{revolver()}</g>')
-    half.append(f'<g transform="translate({cx - 6},322)" fill="{cream}" stroke="{navy}" stroke-width="4" stroke-linejoin="round"><path d="M0 0h58l-8 72H8z"/><path d="M4 30h50l-5 40H9z" fill="#c98a2b" stroke="none"/></g>')
+    half.append(f'<g transform="translate({cx - 6},322)" fill="{cream}" stroke="{navy}" stroke-width="4" stroke-linejoin="round"><path d="M0 0h58l-8 72H8z"/>{whiskey}</g>' if glass else '')
     half.append(f'<g transform="translate({cx + 92},186) scale(.86)" fill="{cream}" stroke="{navy}" stroke-width="4" stroke-linejoin="round">'
                 '<rect x="28" y="0" width="24" height="16" rx="3" fill="#c9a66b"/><path d="M30 16h20v44c14 8 28 18 28 40v146c0 8-6 12-12 12H14c-6 0-12-4-12-12V100c0-22 14-32 28-40z"/>'
                 f'<rect x="2" y="124" width="76" height="76" fill="{red}"/><text x="40" y="176" text-anchor="middle" {FONT} font-size="36" fill="{cream}" stroke="none">XXX</text></g>')
@@ -240,7 +261,15 @@ def back():
         return (f'<g transform="translate({x},{y})"><circle r="66" fill="{c}" stroke="{navy}" stroke-width="5"/>'
                 f'<circle r="56" fill="none" stroke="{cream}" stroke-width="18" stroke-dasharray="22 21.98"/>'
                 f'<circle r="40" fill="{cream}" stroke="{navy}" stroke-width="4"/>{star(0, 0, 26, c)}</g>')
-    o.append(chip(cx - 92, cy + 14, GOLD) + chip(cx + 92, cy - 14, GOLD) + chip(cx, cy, red))
+    o.append(chip(cx - 92, cy + 14, left_chip) + chip(cx + 92, cy - 14, GOLD) + chip(cx, cy, red))
+    if blemish == 1:    # dot
+        o.append(f'<circle cx="122" cy="404" r="11" fill="{cream}"/>')
+    elif blemish == 2:  # scratch
+        o.append(f'<path d="M100 612l22 20 14 20 26 22 30 34" fill="none" stroke="#d8ccab" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>')
+    elif blemish == 3:  # dog-eared corner: cut the corner off and fold it over
+        o = [f'<defs><clipPath id="ear"><path d="M{EAR} 0H{W}V{H}H0V{EAR}z"/></clipPath></defs><g clip-path="url(#ear)">'] + o + ['</g>']
+        o.append(f'<path d="M{EAR} 0L{EAR} {EAR - 12}Q{EAR} {EAR} {EAR - 12} {EAR}L0 {EAR}z" fill="#e9dcb8" stroke="#8a7a5a" stroke-width="3" stroke-linejoin="round"/>')
+        o.append(f'<path d="M{EAR} 0L0 {EAR}" stroke="#8a7a5a" stroke-width="3"/>')
     return ''.join(o)
 
 # ---------------------------------------------------------------- sheets
@@ -263,4 +292,5 @@ def sheet(cards, cols):
 out = sys.argv[1]
 for suit in SUITS:
     open(f'{out}/sheet_{suit}.html', 'w').write(sheet([card(suit, r) for r in RANKS], 7))
+    open(f'{out}/sheet_back_{suit}.html', 'w').write(sheet([back(suit, r) for r in RANKS], 7))
 open(f'{out}/sheet_back.html', 'w').write(sheet([back()], 1))

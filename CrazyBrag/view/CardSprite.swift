@@ -14,6 +14,11 @@ extension PlayingCard {
         return self.rank.display() + suitLetter
     }
     
+    //Get the image asset's name for the marked back of the card
+    var markedBackImageName : String {
+        return "Back" + imageName
+    }
+
     var suitLetter : String{
         switch self.suit {
         case .clubs:
@@ -33,17 +38,19 @@ extension PlayingCard {
 }
 
 class CardSpriteNode : SKSpriteNode {
-    static let backImageName = "CardBack"
     let playingCard : PlayingCard
     let frontTexture : SKTexture
-    
-    static let backTexture = SKTexture(imageNamed: backImageName)
-    
+    static let plainBackImageName = "CardBack"
+    ///With the marked deck each card has its own back, marked so that a sharp eyed player can read it,
+    ///see tools/cards/cards.py for the key to the marks. Otherwise all the cards share the plain back.
+    let backTexture : SKTexture
+
     init(card : PlayingCard, cardSize : CGSize){
         self.playingCard = card
         self.frontTexture = SKTexture(imageNamed: playingCard.imageName)
-        let texture = CardSpriteNode.backTexture
-        super.init(texture: texture, color: .white, size: cardSize)
+        let backImageName = Settings().markedDeck ? card.markedBackImageName : CardSpriteNode.plainBackImageName
+        self.backTexture = SKTexture(imageNamed: backImageName)
+        super.init(texture: backTexture, color: .white, size: cardSize)
         self.name = card.nodeName
     }
 
@@ -52,7 +59,7 @@ class CardSpriteNode : SKSpriteNode {
     }
     
     func faceDown(){
-        self.texture = CardSpriteNode.backTexture
+        self.texture = backTexture
     }
     func faceUp(){
         self.texture = frontTexture
