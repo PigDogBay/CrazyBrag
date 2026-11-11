@@ -16,6 +16,7 @@ protocol GameView {
     func addLives(name : String, pos : CGPoint)
     func addTableMat(seat : Int)
     func updateScore(player : Player)
+    func extraLife(player : Player)
     func updateDealer(player : Player)
     func removePlayer(player : Player)
     func highlight(player : Player, status : PlayerStatus)

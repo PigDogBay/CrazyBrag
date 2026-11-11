@@ -21,6 +21,8 @@ class Model {
     private var nextPlayer : Player? = nil
     var selectedCards = [DealtCard]()
     var isPlayersTurn = false
+    ///Game mode: play with the extra Looky Looky rules
+    var lookyLooky = false
 
     func updateState(){
         switch gameState {
@@ -121,6 +123,11 @@ class Model {
     private func scoreRound(){
         school.resolveHands()
         gameState = .updateLives
+        if lookyLooky, let extraLifePlayer = school.awardExtraLife() {
+            //Looky Looky: the prial has earned an extra life, so this round nobody loses a life
+            gameListener?.roundEnded(losingPlayers: [], extraLife: extraLifePlayer)
+            return
+        }
         if let losingPlayers = school.determineLosingHands(){
             losingPlayers.forEach{
                 $0.lives = $0.lives - 1
@@ -132,7 +139,7 @@ class Model {
                 gameListener?.everyoneOutSoReplayRound()
                 gameState = .selectDealer
             } else {
-                gameListener?.roundEnded(losingPlayers: losingPlayers)
+                gameListener?.roundEnded(losingPlayers: losingPlayers, extraLife: nil)
             }
         }
     }

@@ -65,6 +65,60 @@ final class SchoolTests: XCTestCase {
         XCTAssertEqual(school.highestScoringPlayer()?.name, school.playerChris.name)
     }
     
+    //Looky Looky: the first winning prial earns an extra life, later ones do not
+    func testAwardExtraLife1() throws {
+        let school = School()
+        school.setUpPlayers(numberOfAIPlayers: 5)
+        school.playerHowie.hand.hand = A23Trotter
+        school.playerBomber.hand.hand = AKQRun
+        school.playerHolly.hand.hand = AKJFlush
+        school.playerChris.hand.hand = PrialOfAces
+        school.playerGeordie.hand.hand = AAQPair
+        school.playerHuman.hand.hand = A23Run
+        school.resolveHands()
+        XCTAssertEqual(school.awardExtraLife()?.name, school.playerChris.name)
+        XCTAssertEqual(school.playerChris.lives, 4)
+        XCTAssertEqual(school.playerHowie.lives, 3)
+        //Second winning prial
+        XCTAssertNil(school.awardExtraLife())
+        XCTAssertEqual(school.playerChris.lives, 4)
+    }
+
+    //Looky Looky: two prials out, only the winning prial earns the extra life
+    func testAwardExtraLife2() throws {
+        let school = School()
+        school.setUpPlayers(numberOfAIPlayers: 5)
+        school.playerHowie.hand.hand = PrialOfThrees
+        school.playerBomber.hand.hand = AKQRun
+        school.playerHolly.hand.hand = AKJFlush
+        school.playerChris.hand.hand = PrialOfAces
+        school.playerGeordie.hand.hand = AAQPair
+        school.playerHuman.hand.hand = A23Run
+        school.resolveHands()
+        XCTAssertEqual(school.awardExtraLife()?.name, school.playerHowie.name)
+        XCTAssertEqual(school.playerHowie.lives, 4)
+        XCTAssertEqual(school.playerChris.lives, 3)
+        //Chris has not won with a prial yet, so can still earn the extra life
+        XCTAssertFalse(school.playerChris.hasHadExtraLife)
+    }
+
+    //Looky Looky: no prial, no extra life, and the flag is cleared for a new game
+    func testAwardExtraLife3() throws {
+        let school = School()
+        school.setUpPlayers(numberOfAIPlayers: 5)
+        school.playerHowie.hand.hand = A23Trotter
+        school.playerBomber.hand.hand = AKQRun
+        school.playerHolly.hand.hand = AKJFlush
+        school.playerChris.hand.hand = QQKPair
+        school.playerGeordie.hand.hand = AAQPair
+        school.playerHuman.hand.hand = A23Run
+        school.resolveHands()
+        XCTAssertNil(school.awardExtraLife())
+        school.playerChris.hasHadExtraLife = true
+        school.setUpPlayers(numberOfAIPlayers: 5)
+        XCTAssertFalse(school.playerChris.hasHadExtraLife)
+    }
+
     func testareAllPlayersOut1() throws {
         let school = School()
         school.setUpPlayers(numberOfAIPlayers: 5)

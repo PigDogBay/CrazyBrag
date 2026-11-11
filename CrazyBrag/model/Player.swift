@@ -13,6 +13,8 @@ class Player : Equatable {
     let name : String
     let hand = PlayerHand()
     var lives = 3
+    ///Looky Looky rules: true once the player has been given the extra life for their first winning prial
+    var hasHadExtraLife = false
     var score = BragHandScore(type: .high, score: 0)
     var seat = 0
     let ai : AI

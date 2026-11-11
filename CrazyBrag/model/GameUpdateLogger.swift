@@ -36,8 +36,11 @@ class GameUpdateLogger : GameListener {
         }
     }
     
-    func roundEnded(losingPlayers: [Player]) {
+    func roundEnded(losingPlayers: [Player], extraLife: Player?) {
         print("End of Round, losing players: \(concatenatePlayerNames(players: losingPlayers))")
+        if let extraLife = extraLife {
+            print("Extra life for \(extraLife.name)")
+        }
     }
     
     func pullThePeg(outPlayers: [Player]) {
@@ -68,7 +71,7 @@ class NullLogger : GameListener {
     func turnStarted(player: Player, middle: PlayerHand) {}
     func turnEnded(player: Player, middle: PlayerHand, turn: Turn) {}
     func showHands(players: [Player]) {}
-    func roundEnded(losingPlayers: [Player]) {}
+    func roundEnded(losingPlayers: [Player], extraLife: Player?) {}
     func pullThePeg(outPlayers: [Player]) {}
     func everyoneOutSoReplayRound() {}
     func gameOver(winner: Player) {}

@@ -14,7 +14,9 @@ protocol GameListener : AnyObject {
     func turnStarted(player : Player, middle : PlayerHand)
     func turnEnded(player : Player, middle : PlayerHand, turn : Turn)
     func showHands(players : [Player])
-    func roundEnded(losingPlayers : [Player])
+    ///extraLife: Looky Looky rules, the player who has gained a life for their first winning prial,
+    ///in which case nobody loses a life and losingPlayers is empty
+    func roundEnded(losingPlayers : [Player], extraLife : Player?)
     func pullThePeg(outPlayers : [Player])
     func everyoneOutSoReplayRound()
     func gameOver(winner : Player)

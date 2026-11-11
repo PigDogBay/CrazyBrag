@@ -10,8 +10,11 @@ import Foundation
 ///Wait for human player to press the continue button
 class EndOfRoundState : BasePlayState {
     let losingPlayers: [Player]
-    init(_ presenter : GamePresenter, losingPlayers: [Player]){
+    ///Looky Looky rules, the player who has gained a life for their first winning prial
+    let extraLife: Player?
+    init(_ presenter : GamePresenter, losingPlayers: [Player], extraLife: Player?){
         self.losingPlayers = losingPlayers
+        self.extraLife = extraLife
         super.init(presenter)
     }
 
@@ -31,8 +34,18 @@ class EndOfRoundState : BasePlayState {
         for player in losingPlayers {
             presenter.view?.updateScore(player: player)
         }
+        if let extraLife = extraLife {
+            if extraLife.seat == 0 {
+                presenter.view?.show(message: "Prial! You\ngain a life")
+            } else {
+                presenter.view?.show(message: "Prial! \(extraLife.name)\ngains a life")
+            }
+            presenter.view?.extraLife(player: extraLife)
+        }
 
-        presenter.view?.play(soundNamed: "LoseLife")
+        if !losingPlayers.isEmpty {
+            presenter.view?.play(soundNamed: "LoseLife")
+        }
         //Player must press the continue button
         presenter.view?.continueButton(show: true)
         presenter.gameUpdateFrequency = 0.5

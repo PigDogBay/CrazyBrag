@@ -103,21 +103,19 @@ class GameScene: SKScene, GameView, DialogView {
     
     func updateScore(player : Player){
         if let node = scoreNodes.first(where: {$0.name == player.name}) {
-            switch player.lives {
-            case 1:
-                node.text = "💛"
-            case 2:
-                node.text = "💛💛"
-            case 3:
-                node.text = "💛💛💛"
-            default:
-                node.text = ""
-            }
-            
-            if player.lives != 3{
-                showExplosion(pos: node.position)
-                highlightLoser(player: player)
-            }
+            node.text = String(repeating: "💛", count: max(0, player.lives))
+            showExplosion(pos: node.position)
+            highlightLoser(player: player)
+        }
+    }
+
+    ///Looky Looky rules: the player has gained a life
+    func extraLife(player : Player){
+        if let node = scoreNodes.first(where: {$0.name == player.name}) {
+            node.text = String(repeating: "💛", count: max(0, player.lives))
+            let bigger = SKAction.scale(to: 1.6, duration: 0.25)
+            let smaller = SKAction.scale(to: 1.0, duration: 0.25)
+            node.run(SKAction.repeat(SKAction.sequence([bigger, smaller]), count: 4))
         }
     }
     

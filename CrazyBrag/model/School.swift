@@ -66,6 +66,7 @@ class School {
         var seat = 0
         players.forEach{
             $0.lives = 3
+            $0.hasHadExtraLife = false
             $0.seat = seat
             seat = seat + 1
         }
@@ -137,6 +138,21 @@ class School {
         return players.max(by: {$0.score < $1.score})
     }
     
+    ///Looky Looky rules: the first winning prial a player plays earns them an extra life
+    ///instead of costing everyone else a life, after that their prials work as usual.
+    ///Call after resolveHands(), returns the player given the life, or nil if there isn't one.
+    ///If more than one prial is out, only the highest wins.
+    func awardExtraLife() -> Player? {
+        guard isPrialOut(),
+              let winner = highestScoringPlayer(),
+              !winner.hasHadExtraLife else {
+            return nil
+        }
+        winner.hasHadExtraLife = true
+        winner.lives = winner.lives + 1
+        return winner
+    }
+
     func determineLosingHands() -> [Player]? {
         if isPrialOut(){
             let topPlayer = highestScoringPlayer()

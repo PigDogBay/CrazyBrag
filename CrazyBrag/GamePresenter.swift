@@ -40,11 +40,12 @@ class GamePresenter: GameListener {
     func setUpGame(view : GameView){
         self.view = view
         let numberOfPlayers = isPhone ? 4 : 5
+        let settings = Settings()
+        model.lookyLooky = settings.lookyLooky
         model.setUpGame(numberOfAIPlayers: numberOfPlayers)
         model.gameListener = self
         model.updateState()
         //increase game count
-        let settings = Settings()
         settings.gamesPlayed = settings.gamesPlayed + 1
 
         if !isPhone {
@@ -186,9 +187,9 @@ class GamePresenter: GameListener {
         change(state: ShowHandsState(self, players: players))
     }
     
-    func roundEnded(losingPlayers: [Player]) {
-        logger.roundEnded(losingPlayers: losingPlayers)
-        change(state: EndOfRoundState(self, losingPlayers: losingPlayers))
+    func roundEnded(losingPlayers: [Player], extraLife: Player?) {
+        logger.roundEnded(losingPlayers: losingPlayers, extraLife: extraLife)
+        change(state: EndOfRoundState(self, losingPlayers: losingPlayers, extraLife: extraLife))
     }
     
     func pullThePeg(outPlayers: [Player]) {
