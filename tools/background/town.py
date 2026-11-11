@@ -54,7 +54,7 @@ class B:
     def min_top(self):
         return self.H - {'flat': 0, 'step': .8, 'peak': 1.2, 'arch': .9}[self.style]
 
-LEFT = [B(7.5, 19.5, 'HARDWARE', 5.2, 'step', 112, hang='TOOLS'),
+LEFT = [B(7.5, 19.5, 'HARDWARE', 5.2, 'step', 112, hang='GUNS'),
         B(20.7, 31, 'SALOON', 7.6, 'flat', 150, 2, hang='WHISKEY', door='batwing'),
         B(32, 40, 'BANK', 5.6, 'peak', 128),
         B(41, 49, 'LIVERY', 5.0, 'flat', 104, door='barn'),
@@ -228,11 +228,28 @@ def hitching(s, za, zb):
     return ''.join(o)
 
 def figure():
+    # the right half of the gunslinger, 200 units tall: arm held clear of the body, chaps down to the boots,
+    # feet apart and slightly bow legged
     half = [(4, 29), (20, 36), (24, 42), (37, 68), (36, 98), (32, 103), (29, 96), (30, 70), (21, 50), (17, 78),
-            (22, 96), (23, 108), (19, 110), (27, 150), (12, 152), (20, 190), (27, 197), (27, 200), (8, 200), (7, 160), (0, 120)]
-    body = half + [(-x, y) for x, y in reversed(half[:-1])]
+            (22, 96), (23, 108), (27, 126), (32, 150), (31, 183), (24, 185), (25, 191), (33, 196), (33, 200), (12, 200),
+            (11, 184), (13, 158), (9, 138), (0, 122)]
+    # his gun arm is held further out, the hand hovering over the gun
+    arm = {(37, 68): (43, 67), (36, 98): (45, 96), (32, 103): (41, 102), (29, 96): (38, 95), (30, 70): (36, 70)}
+    body = half + [(-arm.get((x, y), (x, y))[0], arm.get((x, y), (x, y))[1]) for x, y in reversed(half[:-1])]
+    # on his right hip (left of the picture): the holster tied down to the thigh, the butt of the gun sticking out above it
+    holster = [(-20, 102), (-30, 100), (-34, 106), (-36, 137), (-30, 143), (-23, 132)]
+    gun = [(-23, 103), (-25, 94), (-29, 87), (-35, 86), (-36, 91), (-31, 94), (-31, 103)]
+    # a short spur on the heel of each boot: his toes point outwards, so the spurs point in between his feet
+    def spur(side):
+        cx, cy = side * 6.2, 193.5
+        rowel = [(cx + (3.6 if i % 2 == 0 else 1.6) * math.cos(i * math.pi / 6), cy + (3.6 if i % 2 == 0 else 1.6) * math.sin(i * math.pi / 6))
+                 for i in range(12)]
+        shank = [(side * 12, 191.5), (side * 7, 192.6), (side * 7, 194.4), (side * 12, 195)]
+        return f'<polygon points="{pts(shank)}"/><polygon points="{pts(rowel)}"/>'
+    spurs = spur(1) + spur(-1)
     d = (f'<polygon points="{pts(body)}"/><ellipse cx="0" cy="21" rx="7.5" ry="9.5"/>'
-         f'<ellipse cx="0" cy="14.5" rx="26" ry="3.6"/><polygon points="-10.5,14 -9.5,3 -5,0 0,2.2 5,0 9.5,3 10.5,14"/>')
+         f'<ellipse cx="0" cy="14.5" rx="26" ry="3.6"/><polygon points="-10.5,14 -9.5,3 -5,0 0,2.2 5,0 9.5,3 10.5,14"/>'
+         f'<polygon points="{pts(holster)}"/><polygon points="{pts(gun)}"/>{spurs}')
     Z = 15.0
     x, y = P(0, 0, Z)
     sc = 1.86 * F / Z / 200
