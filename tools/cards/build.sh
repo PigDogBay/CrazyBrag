@@ -37,4 +37,11 @@ for S in H D S C; do
 done
 shot sheet_back $W $H
 magick "$OUT/sheet_back.png" -strip -define png:exclude-chunks=date,time "$OUT/cards/CardBack.png"
+JOKERS="Good"
+shot sheet_joker $((W * $(echo $JOKERS | wc -w))) $H
+i=0
+for J in $JOKERS; do
+  magick "$OUT/sheet_joker.png" -crop ${W}x${H}+$((i * W))+0 +repage -strip -define png:exclude-chunks=date,time "$OUT/cards/Joker$J.png"
+  i=$((i + 1))
+done
 echo "Wrote $OUT/cards"

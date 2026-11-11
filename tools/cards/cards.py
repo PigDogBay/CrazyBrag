@@ -206,6 +206,76 @@ def court_card(suit, rank):
     o.append(f'<rect x="{fx}" y="{fy}" width="{fw}" height="{fh}" fill="none" stroke="{s["ink"]}" stroke-width="6"/>')
     return ''.join(o)
 
+# ---------------------------------------------------------------- jokers (Looky Looky)
+def mini_card(rank, suit, angle):
+    """a small black-suited card in a fan pivoting at (0, 0)"""
+    return (f'<g transform="rotate({angle})"><rect x="-27" y="-150" width="54" height="150" rx="6" fill="{STOCK}" {ST} stroke-width="4"/>'
+            f'<text x="-19" y="-118" {FONT} font-size="30" fill="{INK}">{rank}</text>'
+            f'<g transform="translate(-9,-100) scale(.2) translate(-50,-50)" fill="{INK}">{PIPS[suit]}</g></g>')
+
+def wild_bill():
+    """The good joker: Wild Bill Hickok, in buckskins, holding aces and eights."""
+    hair, buck, shade, felt = '#8a5425', '#c99b5c', '#a67c43', '#e6d6ae'
+    o = []
+    # hair down the back, buckskin jacket, shirt and neckerchief
+    o.append(f'<path d="M184 116C150 160 160 222 140 258 126 284 136 310 160 322L250 300 340 322C364 310 374 284 360 258 340 222 350 160 316 116z" fill="{hair}" {ST}/>')
+    o.append(f'<path d="M82 425L98 334C106 300 150 286 205 272H295C350 286 394 300 402 334L418 425z" fill="{buck}" {ST}/>')
+    o.append(f'<path d="M212 278H288L250 404z" fill="#f4ecd8" {ST}/>')
+    o.append(f'<path d="M205 272L170 250 190 340 250 404zM295 272L330 250 310 340 250 404z" fill="{shade}" {ST}/>')
+    o.append(f'<rect x="222" y="225" width="56" height="62" fill="{SKIN}" {ST}/>')
+    o.append(f'<path d="M206 276C230 268 270 268 294 276L266 312 280 350 250 336 220 350 234 312z" fill="{RED}" {ST}/>')
+    # fringed yoke
+    for curve in (((100, 328), (130, 356), (165, 362), (196, 346)), ((400, 328), (370, 356), (335, 362), (304, 346))):
+        (x0, y0), c1, c2, (x3, y3) = curve
+        o.append(f'<path d="M{x0} {y0}C{c1[0]} {c1[1]} {c2[0]} {c2[1]} {x3} {y3}" {ST} fill="none"/>')
+        for k in range(9):
+            x, y = bez(*curve, (k + .5) / 9)
+            o.append(f'<path d="M{x:.1f} {y:.1f}v26" {ST} stroke-width="4"/>')
+    # marshal's badge
+    o.append(star(344, 379, 24, GOLD, .5, 5, ST) + f'<circle cx="344" cy="379" r="6" fill="#f6e08a" {ST}/>')
+    # the dead man's hand: black aces and eights
+    o.append(f'<g transform="translate(140,452)">' + ''.join(mini_card(r, s, a) for r, s, a in (('A', 'S', -33), ('A', 'C', -11), ('8', 'S', 11), ('8', 'C', 33))) + '</g>')
+    o.append(f'<path d="M96 425C92 392 112 376 140 380 172 376 190 396 186 425z" fill="{SKIN}" {ST}/><path d="M118 392v22M140 388v26M162 392v22" {ST} fill="none" stroke-width="4"/>')
+    o.append(head(None))
+    # locks falling over the ears to the shoulders
+    o.append(f'<path d="M190 124h13C200 160 204 196 196 226 190 250 178 268 160 282 170 250 170 222 176 196 180 170 182 148 190 124z" fill="{hair}" {ST}/>')
+    o.append(f'<path d="M310 124h-13C300 160 296 196 304 226 310 250 322 268 340 282 330 250 330 222 324 196 320 170 318 148 310 124z" fill="{hair}" {ST}/>')
+    # wide flat-brimmed hat with a low crown
+    o.append(f'<path d="M56 122C98 150 402 150 444 122 428 102 352 96 250 96S72 102 56 122z" fill="{felt}" {ST}/>')
+    o.append(f'<path d="M168 112C162 66 196 44 250 44S338 66 332 112z" fill="{felt}" {ST}/>')
+    o.append(f'<path d="M168 113C200 124 300 124 332 113L333 94C300 105 200 105 167 94z" fill="{NAVY}" {ST}/>')
+    for x in (225, 275):
+        o.append(f'<ellipse cx="{x}" cy="174" rx="12" ry="8" fill="white" {ST}/><circle cx="{x}" cy="174" r="5.5" fill="#4f7fa8"/><circle cx="{x}" cy="174" r="2.5" fill="{INK}"/>')
+    o.append(f'<path d="M208 156Q224 148 240 155M292 156Q276 148 260 155" stroke="{hair}" stroke-width="8" stroke-linecap="round" fill="none"/>')
+    o.append(f'<path d="M250 176L243 206 256 208" {ST} fill="none"/>')
+    # long drooping moustache
+    o.append(f'<path d="M250 213C238 204 216 207 207 222 201 234 201 252 192 268 207 262 218 250 224 238 233 231 244 227 250 226 256 227 267 231 276 238 282 250 293 262 308 268 299 252 299 234 293 222 284 207 262 204 250 213z" fill="{hair}" {ST}/>')
+    o.append(f'<path d="M240 243Q250 249 260 243" {ST} fill="none"/>')
+    return ''.join(o)
+
+# name: (figure, ink colour, band colour); the image is called Joker<name>
+JOKERS = {'Good': (wild_bill, NAVY, GOLD)}
+
+def joker_index(ink):
+    letters = ''.join(f'<text x="56" y="{92 + k * 54}" text-anchor="middle" {FONT} font-size="60" fill="{ink}">{c}</text>' for k, c in enumerate('JOKER'))
+    one = letters + star(56, 352, 30, GOLD, .45, 5, f'stroke="{ink}" stroke-width="4" stroke-linejoin="round"')
+    return one + f'<g transform="rotate(180 {W / 2} {H / 2})">{one}</g>'
+
+def joker(name):
+    figure, ink, band = JOKERS[name]
+    fx, fy, fw, fh = 126, 92, W - 252, H - 184
+    sx, sy = fw / 500, (fh / 2) / 420
+    cid = f'j{name}'
+    one = f'<g clip-path="url(#{cid})"><g transform="translate({fx},{fy}) scale({sx:.4f},{sy:.4f})">{figure()}</g></g>'
+    o = [blank(), joker_index(ink)]
+    o.append(f'<defs><clipPath id="{cid}"><rect x="{fx}" y="{fy}" width="{fw}" height="{fh / 2}"/></clipPath></defs>')
+    o.append(f'<rect x="{fx}" y="{fy}" width="{fw}" height="{fh}" fill="{PANEL}"/>')
+    o.append(one + f'<g transform="rotate(180 {W / 2} {H / 2})">{one}</g>')
+    o.append(f'<rect x="{fx}" y="{H / 2 - 17}" width="{fw}" height="34" fill="{band}" {ST}/>')
+    o.append(''.join(star(fx + fw * k / 8, H / 2, 10, STOCK if band != GOLD else INK) for k in range(1, 8)))
+    o.append(f'<rect x="{fx}" y="{fy}" width="{fw}" height="{fh}" fill="none" stroke="{ink}" stroke-width="6"/>')
+    return ''.join(o)
+
 # ---------------------------------------------------------------- card back
 def revolver():
     return ('<g><path d="M6 30h8l4-9h8l2 9h124v24H6z"/><rect x="34" y="57" width="118" height="10" rx="4"/>'
@@ -294,3 +364,4 @@ for suit in SUITS:
     open(f'{out}/sheet_{suit}.html', 'w').write(sheet([card(suit, r) for r in RANKS], 7))
     open(f'{out}/sheet_back_{suit}.html', 'w').write(sheet([back(suit, r) for r in RANKS], 7))
 open(f'{out}/sheet_back.html', 'w').write(sheet([back()], 1))
+open(f'{out}/sheet_joker.html', 'w').write(sheet([joker(name) for name in JOKERS], len(JOKERS)))
