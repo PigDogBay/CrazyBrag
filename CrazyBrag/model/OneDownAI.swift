@@ -50,6 +50,10 @@ class OneDownAI : AI {
         let c1 = player!.hand.hand[0]
         let c2 = player!.hand.hand[1]
         let c3 = player!.hand.hand[2]
+        //Keep the good joker out of sight
+        if let jokerIndex = player!.hand.hand.firstIndex(of: PlayingCard.goodJoker) {
+            return Turn.all(downIndex: jokerIndex)
+        }
         //Bait: if the player is throwing a pair in, show them
         if c1.rank == c2.rank {
             return Turn.all(downIndex: 2)
@@ -90,18 +94,50 @@ class OneDownAI : AI {
             return nil
         }
         
+        let holdsGoodJoker = player!.hand.hand.contains(PlayingCard.goodJoker)
+        if holdsGoodJoker && bestScoreFaceUp.score.type > .pair {
+            //With the good joker a swap can still leave a flush or a run, better than gambling on the down card
+            return nil
+        }
+
         //is there a chance of a better prial in the middle?
-        if middle.hand[1].rank == middle.hand[2].rank &&
-            middle.hand[1].rank.score() > player!.hand.hand[0].rank.score(){
+        //resolverPlayer.hand is the prial as scored, with the good joker played as the third card
+        if let showing = pairShowing(middle: middle),
+           showing.score() > resolverPlayer.hand[0].rank.score(){
             return createTakeAllTurn()
         }
         //TODO consider playing a card with the same suit as one of the middle cards
-        return .swap(hand: player!.hand.hand[0], middle: middle.hand[0])
+        //Hang on to the good joker
+        let swapCard = player!.hand.hand.first(where: {$0 != PlayingCard.goodJoker})!
+        return .swap(hand: swapCard, middle: middle.hand[0])
     }
     
+    ///The rank of the pair showing in the middle, the good joker pairs up with the card next to it
+    private func pairShowing(middle: PlayerHand) -> Rank? {
+        let c1 = middle.hand[1]
+        let c2 = middle.hand[2]
+        if c1 == PlayingCard.goodJoker {
+            return c2.isJoker ? nil : c2.rank
+        }
+        if c2 == PlayingCard.goodJoker {
+            return c1.isJoker ? nil : c1.rank
+        }
+        return c1.rank == c2.rank && !c1.isJoker ? c1.rank : nil
+    }
+
     private func pairInTheMiddle(middle: PlayerHand, bestScoreFaceUp : ScoredTurn) -> Turn? {
-        if middle.hand[1].rank != middle.hand[2].rank {
+        guard let showing = pairShowing(middle: middle) else {
             //no pair is showing
+            return nil
+        }
+        if player!.hand.hand.contains(PlayingCard.goodJoker) {
+            //Don't throw the good joker in, swapping a card will do just as well
+            return nil
+        }
+        if middle.hand.dropFirst().contains(PlayingCard.goodJoker) &&
+            bestScoreFaceUp.score.type == .pair &&
+            (bestScoreFaceUp.score.score >> 16) & 0xff >= showing.score() {
+            //The good joker is showing, picking it up on its own makes as good a pair as taking all three
             return nil
         }
         if bestScoreFaceUp.score.type > .pair {
@@ -113,7 +149,7 @@ class OneDownAI : AI {
         let resolverPlayer = HandResolver(hand: player!.hand.hand)
         let currentScore = resolverPlayer.createScore()
         if currentScore.type == .pair &&
-            resolverPlayer.hand[1].rank.score() > middle.hand[1].rank.score() {
+            resolverPlayer.hand[1].rank.score() > showing.score() {
             return nil
         }
         return createTakeAllTurn()
@@ -144,7 +180,8 @@ class OneDownAI : AI {
         
         //Ok lets go for a prial, first need to find which card is not in the pair
         let pairRank = resolverPlayer.pairRank
-        if let swapCard = player?.hand.hand.first(where: {$0.rank != pairRank}) {
+        //The good joker is half of the pair, so it stays
+        if let swapCard = player?.hand.hand.first(where: {$0.rank != pairRank && $0 != PlayingCard.goodJoker}) {
             //First card in the middle is down
             return Turn.swap(hand: swapCard, middle: middle.hand[0])
         }

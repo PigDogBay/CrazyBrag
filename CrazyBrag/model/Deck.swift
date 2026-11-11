@@ -19,11 +19,7 @@ class Deck {
     
     func createDeck(){
         deck.removeAll()
-        Suit.standard.forEach{ suit in
-            Rank.standard.forEach {rank in
-                deck.append(PlayingCard(suit: suit, rank: rank))
-            }
-        }
+        deck.append(contentsOf: PlayingCard.standardPack)
         if hasJokers {
             deck.append(PlayingCard.goodJoker)
             deck.append(PlayingCard.badJoker)

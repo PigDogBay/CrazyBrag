@@ -180,4 +180,55 @@ final class OneDownAITests: XCTestCase {
                     middleCards: ["2s","3c","8c"],
                     expected: createTurn(player: "7d", middle: "2s"))
     }
+    //MARK: - Good joker
+
+    ///The joker makes a run with the three, better than gambling on the down card
+    func testGoodJokerRun1() throws {
+        checkAITurn(playerCards: ["gj","qh","2s"],
+                    middleCards: ["5h","3d","7c"],
+                    expected: createTurn(player: "qh", middle: "3d"))
+    }
+
+    ///A higher pair than the joker would make is showing next to the joker, so take all three
+    func testGoodJokerTakeAll1() throws {
+        checkAITurn(playerCards: ["9d","5h","2s"],
+                    middleCards: ["5h","gj","kc"],
+                    expected: Turn.all(downIndex: 0))
+    }
+
+    ///The joker makes a pair of kings, go for the down card with the odd card, not the joker
+    func testGoodJokerGoForMiddle1() throws {
+        checkAITurn(playerCards: ["gj","kh","6s"],
+                    middleCards: ["5h","2d","9c"],
+                    expected: createTurn(player: "6s", middle: "5h"))
+    }
+
+    ///Pick up the good joker when it is showing
+    func testGoodJokerTakeIt1() throws {
+        checkAITurn(playerCards: ["9d","qh","2s"],
+                    middleCards: ["5h","gj","7c"],
+                    expected: createTurn(player: "2s", middle: "gj"))
+    }
+
+    ///A pair is showing, but swapping one card makes the same pair and keeps the joker
+    func testGoodJokerKeepIt1() throws {
+        checkAITurn(playerCards: ["gj","9h","4s"],
+                    middleCards: ["5h","qd","qc"],
+                    expected: createTurn(player: "4s", middle: "qd"))
+    }
+
+    ///Holding a prial made with the joker, a card has to go: not the joker
+    func testGoodJokerPrial1() throws {
+        checkAITurn(playerCards: ["gj","9h","9s"],
+                    middleCards: ["5h","2d","6c"],
+                    expected: createTurn(player: "9h", middle: "5h"))
+    }
+
+    ///Holding a prial made with the joker, swapping for the ten leaves a trotter
+    func testGoodJokerPrial2() throws {
+        checkAITurn(playerCards: ["gj","9h","9s"],
+                    middleCards: ["5h","th","6c"],
+                    expected: createTurn(player: "9s", middle: "th"))
+    }
+
 }

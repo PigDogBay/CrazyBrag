@@ -13,6 +13,8 @@ final class PlayingCardTests: XCTestCase {
     func testFlatten1() throws {
         XCTAssertEqual(PlayingCard.unflatten(flattened: "AH"), PlayingCard(suit: .hearts, rank: .ace))
         XCTAssertEqual(PlayingCard.unflatten(flattened: "jd"), PlayingCard(suit: .diamonds, rank: .jack))
+        XCTAssertEqual(PlayingCard.unflatten(flattened: "GJ"), PlayingCard.goodJoker)
+        XCTAssertEqual(PlayingCard.unflatten(flattened: "bj"), PlayingCard.badJoker)
     }
                        
     func testFlatten2() throws {

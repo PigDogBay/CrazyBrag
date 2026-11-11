@@ -151,8 +151,34 @@ struct PlayingCard : Equatable{
     static let goodJoker = PlayingCard(suit: .joker, rank: .goodJoker)
     static let badJoker = PlayingCard(suit: .joker, rank: .badJoker)
 
+    ///The 52 cards of a standard pack, no jokers
+    static let standardPack : [PlayingCard] = Suit.standard.flatMap{ suit in
+        Rank.standard.map{ rank in PlayingCard(suit: suit, rank: rank)}
+    }
+
     var isJoker : Bool {
         return rank.isJoker
+    }
+
+    ///The good joker is wild, it can stand in for any card of the standard pack that is not already in the hand.
+    ///Returns the hand with the good joker replaced by the card that gives the best score,
+    ///a hand without the good joker is returned unchanged.
+    static func playGoodJoker(hand : [PlayingCard], score : ([PlayingCard]) -> BragHandScore) -> [PlayingCard] {
+        guard let index = hand.firstIndex(of: goodJoker) else {
+            return hand
+        }
+        var bestHand = hand
+        var bestScore : BragHandScore? = nil
+        for card in standardPack where !hand.contains(card) {
+            var candidate = hand
+            candidate[index] = card
+            let candidateScore = score(candidate)
+            if bestScore == nil || candidateScore > bestScore! {
+                bestScore = candidateScore
+                bestHand = candidate
+            }
+        }
+        return bestHand
     }
 
     func display() -> String {
@@ -167,7 +193,13 @@ struct PlayingCard : Equatable{
         return lhs.rank == rhs.rank && lhs.suit == rhs.suit
     }
 
+    ///Jokers are GJ (good) and BJ (bad)
     static func unflatten(flattened : String) -> PlayingCard? {
+        switch flattened.lowercased() {
+        case "gj": return goodJoker
+        case "bj": return badJoker
+        default: break
+        }
         guard flattened.count == 2,
               let rank = Rank.unflatten(flattened: String(flattened[flattened.startIndex])),
               let suit = Suit.unflatten(flattened: String(flattened[flattened.index(before: flattened.endIndex)]))

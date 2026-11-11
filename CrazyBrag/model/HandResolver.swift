@@ -7,6 +7,9 @@
 
 import Foundation
 
+///Scores a three card hand.
+///The good joker is wild: it is played as whichever card makes the best hand, so hand and scoreSortedHand
+///hold that card in place of the joker. The bad joker is never part of a pair, flush, run or prial.
 struct HandResolver {
     let hand : [PlayingCard]
     let scoreSortedHand : [PlayingCard]
@@ -16,6 +19,13 @@ struct HandResolver {
     }
 
     init(hand : [PlayingCard]){
+        self.init(natural: PlayingCard.playGoodJoker(hand: hand){
+            HandResolver(natural: $0).createScore()
+        })
+    }
+    
+    ///Scores the cards as they are, the good joker is not treated as wild
+    private init(natural hand : [PlayingCard]){
         self.hand = hand.sorted{$0.rank.rawValue < $1.rank.rawValue}
         self.scoreSortedHand = hand.sorted{$0.rank.score() < $1.rank.score()}
     }
@@ -46,7 +56,8 @@ struct HandResolver {
     }
 
     private var isRun : Bool {
-        //A joker is not part of a run, nor a flush or prial as each joker is the only card of its kind
+        //A joker left in the hand (the bad joker) is not part of a run,
+        //nor of a pair, flush or prial as nothing else shares its rank or suit
         if hasJoker {
             return false
         }

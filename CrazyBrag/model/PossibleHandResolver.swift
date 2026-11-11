@@ -9,10 +9,18 @@ import Foundation
 
 ///Handles the case when
 ///2 cards up, 1 card down
+///The good joker is wild, it is played as the card that gives the best possible hand
 struct PossibleHandResolver {
     let hand : [PlayingCard]
     let scoreSortedHand : [PlayingCard]
     init(hand : [PlayingCard]){
+        self.init(natural: PlayingCard.playGoodJoker(hand: hand){
+            PossibleHandResolver(natural: $0).createScore()
+        })
+    }
+
+    ///Scores the cards as they are, the good joker is not treated as wild
+    private init(natural hand : [PlayingCard]){
         self.hand = hand.sorted{$0.rank.rawValue < $1.rank.rawValue}
         self.scoreSortedHand = hand.sorted{$0.rank.score() < $1.rank.score()}
     }
@@ -36,7 +44,7 @@ struct PossibleHandResolver {
     }
 
     private func resolveHandType() -> BragHandTypes {
-        //A joker cannot be part of a prial, run or flush
+        //A joker left in the hand (the bad joker) cannot be part of a prial, run or flush
         if hand.contains(where: {$0.isJoker}) {
             return .high
         }
