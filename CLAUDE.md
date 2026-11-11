@@ -68,7 +68,7 @@ Model–View–Presenter, with the presenter running a state machine that paces 
 
 - `DEBUG_AUTO_PLAY` in `view/GameViewController.swift` (DEBUG builds only): when `true`, the human seat plays random moves so a game runs unattended.
 - FPS/node count overlays are on in DEBUG builds only.
-- `DebugRemote` (DEBUG builds only, in `view/GameViewController.swift`) lets you drive the game in a simulator, since `simctl` cannot send touches. Write one command per line to `remote.txt` in the app's Documents folder (`xcrun simctl get_app_container <device> com.mpdbailey.crazybrag data`); the scenes poll for it and delete it. Commands: `deal`, `tap 10H` (card image name), `continue` (only acts while the Continue button is showing), `close` (stats dialog), `quit`, and `action looky` / `action stash` / `action change` (the Looky Looky buttons; follow `action change` with a `tap` on a middle card). Use `xcrun simctl io <device> screenshot` to see the result.
+- `DebugRemote` (DEBUG builds only, in `view/GameViewController.swift`) lets you drive the game in a simulator, since `simctl` cannot send touches. Write one command per line to `remote.txt` in the app's Documents folder (`xcrun simctl get_app_container <device> com.mpdbailey.crazybrag data`); the scenes poll for it and delete it. Commands: `deal`, `tap 10H` (card image name), `continue` (only acts while the Continue button is showing), `close` (stats dialog), `quit`, and `action looky` / `action stash` / `action change` (the Looky Looky buttons; follow `action change` with a `tap` on a middle card). On the start screen: `help`, then `help deadwood` or `help looky`, `help next`, `help previous`, `help close` for the rules pages. Use `xcrun simctl io <device> screenshot` to see the result.
 
 ## Tests
 

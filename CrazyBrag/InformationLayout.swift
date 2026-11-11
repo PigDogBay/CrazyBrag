@@ -24,6 +24,11 @@ struct InformationLayout {
     let pagePosition : CGPoint
     let nextPosition : CGPoint
     let closePosition : CGPoint
+    ///The buttons that choose which rules to read
+    let optionSize : CGSize
+    let optionFontSize : Double
+    let option1Position : CGPoint
+    let option2Position : CGPoint
 
     init(isPhone : Bool){
         if isPhone {
@@ -40,6 +45,10 @@ struct InformationLayout {
             nextPosition = CGPoint(x: 526, y: 40.0)
             pagePosition = CGPoint(x: 466, y: 45.0)
             closePosition = CGPoint(x: 698, y: 388)
+            optionSize = CGSize(width: 300.0, height: 64.0)
+            optionFontSize = 30.0
+            option1Position = CGPoint(x: frame.midX, y: 255.0)
+            option2Position = CGPoint(x: frame.midX, y: 155.0)
         } else {
             frame = CGRect(x: 212, y: 134, width: 600.0, height: 500.0)
             titleFontSize = 48.0
@@ -54,6 +63,10 @@ struct InformationLayout {
             nextPosition = CGPoint(x: frame.midX + 70.0, y: frame.minY + 25.0)
             pagePosition = CGPoint(x: frame.midX, y: frame.minY + 32.0)
             closePosition = CGPoint(x: frame.maxX  - 30.0, y: frame.maxY - 35.0)
+            optionSize = CGSize(width: 380.0, height: 84.0)
+            optionFontSize = 40.0
+            option1Position = CGPoint(x: frame.midX, y: frame.midY + 45.0)
+            option2Position = CGPoint(x: frame.midX, y: frame.midY - 85.0)
         }
     }
 }

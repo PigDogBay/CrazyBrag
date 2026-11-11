@@ -48,8 +48,18 @@ class StartScene: SKScene, StartView {
         print("StartScene DEINIT")
     }
     override func update(_ currentTime: TimeInterval) {
-        if DebugRemote.poll(currentTime).contains("deal") {
-            startGame()
+        for command in DebugRemote.poll(currentTime) {
+            let info = childNode(withName: "instructions") as? InformationNode
+            switch command {
+            case "deal": startGame()
+            case "help": if info == nil { showInstructions() }
+            case "help deadwood": info?.selectDeadwood()
+            case "help looky": info?.selectLookyLooky()
+            case "help next": info?.next()
+            case "help previous": info?.previous()
+            case "help close": info?.close()
+            default: break
+            }
         }
     }
 
