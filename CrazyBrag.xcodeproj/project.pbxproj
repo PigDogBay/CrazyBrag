@@ -38,6 +38,7 @@
 		0084E2512B3100CD00FA15EE /* ExampleHand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0084E2502B3100CD00FA15EE /* ExampleHand.swift */; };
 		009313792A4C334B007194D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313782A4C334B007194D9 /* AppDelegate.swift */; };
 		00C0FFEE2EC2000100000001 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C0FFEE2EC2000100000002 /* SceneDelegate.swift */; };
+		00C0FFEE2EC2000100000003 /* ActionButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C0FFEE2EC2000100000004 /* ActionButtonNode.swift */; };
 		0093137F2A4C334B007194D9 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0093137E2A4C334B007194D9 /* GameScene.swift */; };
 		009313812A4C334B007194D9 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313802A4C334B007194D9 /* GameViewController.swift */; };
 		009313842A4C334B007194D9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 009313822A4C334B007194D9 /* Main.storyboard */; };
@@ -135,6 +136,7 @@
 		009313752A4C334B007194D9 /* CrazyBrag.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CrazyBrag.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		009313782A4C334B007194D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		00C0FFEE2EC2000100000002 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		00C0FFEE2EC2000100000004 /* ActionButtonNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButtonNode.swift; sourceTree = "<group>"; };
 		0093137E2A4C334B007194D9 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		009313802A4C334B007194D9 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		009313832A4C334B007194D9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -338,6 +340,7 @@
 			children = (
 				009313782A4C334B007194D9 /* AppDelegate.swift */,
 				00C0FFEE2EC2000100000002 /* SceneDelegate.swift */,
+				00C0FFEE2EC2000100000004 /* ActionButtonNode.swift */,
 				00C0299C2B2A09830062B26A /* ButtonNode.swift */,
 				009313AD2A4C3489007194D9 /* CardSprite.swift */,
 				00C76B962B84B2E4005419EF /* DialogNode.swift */,
@@ -561,6 +564,7 @@
 				009313C72A4C369B007194D9 /* PlayingCard.swift in Sources */,
 				009313792A4C334B007194D9 /* AppDelegate.swift in Sources */,
 				00C0FFEE2EC2000100000001 /* SceneDelegate.swift in Sources */,
+				00C0FFEE2EC2000100000003 /* ActionButtonNode.swift in Sources */,
 				009313AC2A4C3463007194D9 /* StartScene.swift in Sources */,
 				00767A812B3596AA000B0C44 /* InformationLayout.swift in Sources */,
 				009313AE2A4C3489007194D9 /* CardSprite.swift in Sources */,

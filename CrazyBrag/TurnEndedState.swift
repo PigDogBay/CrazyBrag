@@ -23,6 +23,11 @@ class TurnEndedState : BasePlayState {
     override func enter() {
         presenter.gameUpdateFrequency = 2.5
         presenter.model.isPlayersTurn = false
+        presenter.refreshActionButtons()
+        //Looky Looky rules: the player may have looked at the face down card, which is always first in the middle
+        if let downCard = middle.hand.first {
+            presenter.view?.turn(card: downCard, isFaceUp: false)
+        }
         switch turn {
         case .swap(hand: let handCard, middle: let middleCard):
             //The player and middle hands will already be swapped in the model

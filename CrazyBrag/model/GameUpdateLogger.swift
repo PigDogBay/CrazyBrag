@@ -25,6 +25,17 @@ class GameUpdateLogger : GameListener {
         print("Turn: \(player.name)(\(player.lives)): \t\(player.hand.display()).    Middle: \(middle.display())")
     }
     
+    func actionTaken(player: Player, action: TurnActionResult) {
+        switch action {
+        case .looky(card: let card):
+            print("Actn: \(player.name) looks at \(card.display())")
+        case .stashHand(discarded: let discarded, dealt: _):
+            print("Actn: \(player.name) stashes \(discarded.map{$0.display()}.joined(separator: "_")), now holds \(player.hand.display())")
+        case .changeMiddle(discarded: let discarded, dealt: let dealt):
+            print("Actn: \(player.name) changes \(discarded.display()) in the middle for \(dealt.card.display())")
+        }
+    }
+
     func turnEnded(player: Player, middle: PlayerHand, turn : Turn) {
         print("TEnd: \(player.name)(\(player.lives)): \t\(player.hand.display()).    Middle: \(middle.display()).   \(turn.display())")
     }
@@ -69,6 +80,7 @@ class NullLogger : GameListener {
     func dealingDone(dealtCards: [DealtCard]) {}
     func reveal() {}
     func turnStarted(player: Player, middle: PlayerHand) {}
+    func actionTaken(player: Player, action: TurnActionResult) {}
     func turnEnded(player: Player, middle: PlayerHand, turn: Turn) {}
     func showHands(players: [Player]) {}
     func roundEnded(losingPlayers: [Player], extraLife: Player?) {}

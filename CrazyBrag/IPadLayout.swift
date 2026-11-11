@@ -27,6 +27,9 @@ protocol TableLayout {
     var deckPosition : CGPoint { get }
     var backButton : CGPoint { get }
     var continueButton : CGPoint { get }
+    ///Looky Looky rules: the action buttons, next to the player's hand
+    var actionButtonSize : CGFloat { get }
+    var actionButtons : [CGPoint] { get }
     func getNamePosition(seat : Int) -> CGPoint
     func getLivesPosition(seat : Int) -> CGPoint
     func getDealerPosition(seat : Int) -> CGPoint
@@ -48,6 +51,8 @@ struct IPadLayout : TableLayout {
     let message = CGPoint(x: 872.0, y: 120.0)
     let backButton = CGPoint(x: 950.0, y: 45.0)
     let continueButton = CGPoint(x: 512.0, y: 116.0)
+    let actionButtonSize : CGFloat = 50.0
+    let actionButtons = [CGPoint(x: 716.0, y: 170.0), CGPoint(x: 716.0, y: 114.5), CGPoint(x: 716.0, y: 59.0)]
 
     private let box = CGRect(x: 352.0, y: 307.5, width: 3.0 * (CARD_WIDTH + 7.0), height: CARD_HEIGHT)
     private let player = CGRect(x: 352.0, y: 38.0, width: 3.0 * (CARD_WIDTH + 7.0), height: CARD_HEIGHT)

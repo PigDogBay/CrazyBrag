@@ -23,6 +23,14 @@ class Model {
     var isPlayersTurn = false
     ///Game mode: play with the extra Looky Looky rules
     var lookyLooky = false
+    ///Looky Looky rules: the most actions a player may take before making their move
+    static let maxActionsPerTurn = 2
+    ///The actions the current player has taken this turn
+    private(set) var actionsTaken = [TurnAction]()
+    ///The player whose turn it is
+    var currentPlayer : Player? {
+        return nextPlayer
+    }
 
     func updateState(){
         switch gameState {
@@ -104,8 +112,10 @@ class Model {
     
     private func turnStart(){
         nextPlayer = school.nextPlayer(current: nextPlayer!)
-        gameListener?.turnStarted(player: nextPlayer!, middle: middle)
+        actionsTaken.removeAll()
+        //Set the state first, the listener asks which actions the player can take
         gameState = .turnEnd
+        gameListener?.turnStarted(player: nextPlayer!, middle: middle)
     }
         
     private func turnEnd(){
@@ -119,6 +129,79 @@ class Model {
         school.showAllHands()
         gameListener?.showHands(players: school.players)
         gameState = .scoreRound
+    }
+
+    //MARK: - Looky Looky actions
+
+    ///Can the current player take the action? Only in a Looky Looky game, after their turn has started and
+    ///before they make their move, each action once a turn and no more than two of the three.
+    func canTake(action : TurnAction) -> Bool {
+        return lookyLooky
+            && gameState == .turnEnd
+            && nextPlayer != nil
+            && actionsTaken.count < Model.maxActionsPerTurn
+            && !actionsTaken.contains(action)
+    }
+
+    private func taken(_ result : TurnActionResult){
+        actionsTaken.append(result.action)
+        gameListener?.actionTaken(player: nextPlayer!, action: result)
+    }
+
+    ///Cards that are stashed during a round go to the bottom of the deck
+    private func returnToDeck(cards : [PlayingCard]){
+        do {
+            try deck.receive(cards: cards)
+        } catch {
+            print(error)
+            assertionFailure("Duplicate card")
+        }
+    }
+
+    ///The current player looks at the face down card in the middle.
+    ///Returns the card, or nil if the action is not allowed
+    @discardableResult
+    func takeLooky() -> PlayingCard? {
+        guard canTake(action: .looky), let card = middle.hand.first else {
+            return nil
+        }
+        taken(.looky(card: card))
+        return card
+    }
+
+    ///The current player stashes their hand and is dealt three new cards.
+    ///Returns false if the action is not allowed
+    @discardableResult
+    func takeStashHand() -> Bool {
+        guard canTake(action: .stashHand), let player = nextPlayer else {
+            return false
+        }
+        let discarded = player.hand.stash()
+        var dealt = [DealtCard]()
+        for i in 1...3 {
+            let card = deck.deal()
+            player.hand.receive(card: card)
+            dealt.append(DealtCard(seat: player.seat, card: card, cardCount: i))
+        }
+        returnToDeck(cards: discarded)
+        taken(.stashHand(discarded: discarded, dealt: dealt))
+        return true
+    }
+
+    ///The current player stashes one of the cards in the middle, a new card is dealt in its place.
+    ///The first card of the middle is the face down card, its replacement is also face down.
+    ///Returns false if the action is not allowed or the card is not in the middle
+    @discardableResult
+    func takeChangeMiddle(card : PlayingCard) -> Bool {
+        guard canTake(action: .changeMiddle), middle.hand.contains(card) else {
+            return false
+        }
+        let index = middle.indexOf(card: card)
+        let newCard = deck.deal()
+        middle.replace(cardInHand: card, with: newCard)
+        returnToDeck(cards: [card])
+        taken(.changeMiddle(discarded: card, dealt: DealtCard(card: newCard, cardCount: index + 1)))
+        return true
     }
 
     /// Find losing hand and lose player a life

@@ -24,9 +24,15 @@ class HumanTurnStartedState : BasePlayState {
         //Player can now interact with the cards
         presenter.model.isPlayersTurn = true
         presenter.view?.show(message: "Your Turn")
+        presenter.refreshActionButtons()
     }
     
     override func update() {
+        if presenter.isChoosingMiddleCard {
+            //Leave the prompt to pick a middle card on screen
+            counter = 0
+            return
+        }
         counter = counter + 1
         switch (counter) {
 #if DEBUG

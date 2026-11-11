@@ -61,6 +61,31 @@ enum Turn : Equatable {
     }
 }
 
+///Looky Looky rules: before making their move a player may take up to two of these three actions
+enum TurnAction : CaseIterable {
+    ///Look at the face down card in the middle, it is not shown to the other players
+    case looky
+    ///Discard the whole hand and be dealt three new cards
+    case stashHand
+    ///Discard one card of the middle, which is replaced with a new card
+    case changeMiddle
+}
+
+///What happened when a TurnAction was taken, for the view to show
+enum TurnActionResult {
+    case looky(card : PlayingCard)
+    case stashHand(discarded : [PlayingCard], dealt : [DealtCard])
+    case changeMiddle(discarded : PlayingCard, dealt : DealtCard)
+
+    var action : TurnAction {
+        switch self {
+        case .looky: return .looky
+        case .stashHand: return .stashHand
+        case .changeMiddle: return .changeMiddle
+        }
+    }
+}
+
 struct ScoredTurn {
     let turn : Turn
     let score : BragHandScore

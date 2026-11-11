@@ -14,6 +14,7 @@ class GameScene: SKScene, GameView, DialogView {
     private let presenter  : GamePresenter
     private var cardNodes = [CardSpriteNode]()
     private var scoreNodes = [SKLabelNode]()
+    private var actionButtons = [TurnAction : ActionButtonNode]()
     private var lastGameUpdateTime = TimeInterval()
 
 #if DEBUG
@@ -42,6 +43,9 @@ class GameScene: SKScene, GameView, DialogView {
         messageNode.position = presenter.tableLayout.message
         addChild(messageNode)
         addBackButton()
+        if presenter.model.lookyLooky {
+            addActionButtons()
+        }
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -59,6 +63,14 @@ class GameScene: SKScene, GameView, DialogView {
             let name = String(command.dropFirst(4))
             if let node = cardNodes.first(where: {$0.playingCard.imageName == name}) {
                 presenter.handleTouch(for: node.playingCard)
+            }
+        } else if command.hasPrefix("action ") {
+            //action looky, action stash, action change (then tap a middle card)
+            switch String(command.dropFirst(7)) {
+            case "looky": presenter.handleAction(.looky)
+            case "stash": presenter.handleAction(.stashHand)
+            case "change": presenter.handleAction(.changeMiddle)
+            default: break
             }
         } else if command == "continue" {
             //Only when the continue button is showing, otherwise the game would skip a step
@@ -93,6 +105,20 @@ class GameScene: SKScene, GameView, DialogView {
             let action = SKAction.move(to: pos, duration: duration)
             cardNode.run(SKAction.sequence([SKAction.wait(forDuration: delay), action]))
         }
+    }
+
+    func discard(card: PlayingCard, pos: CGPoint, duration : TimeInterval) {
+        if let cardNode = cardNodes.first(where: {$0.playingCard == card}) {
+            cardNode.removeAllActions()
+            let move = SKAction.move(to: pos, duration: duration)
+            //Hide behind the background, like the rest of the deck
+            let hide = SKAction.run { cardNode.zPosition = -1.0 }
+            cardNode.run(SKAction.sequence([move, hide]))
+        }
+    }
+
+    func setActionButton(action : TurnAction, state : ActionButtonState) {
+        actionButtons[action]?.show(state: state)
     }
 
     func turn(card: PlayingCard, isFaceUp: Bool) {
@@ -316,6 +342,21 @@ class GameScene: SKScene, GameView, DialogView {
         }
     }
     
+    ///Looky Looky rules: the three action buttons next to the player's hand
+    private func addActionButtons(){
+        let images : [(TurnAction, String)] = [(.looky, "ActionLooky"), (.stashHand, "ActionStash"), (.changeMiddle, "ActionChange")]
+        let layout = presenter.tableLayout
+        for (index, (action, imageName)) in images.enumerated() {
+            let button = ActionButtonNode(imageNamed: imageName, size: layout.actionButtonSize){ [weak self] in
+                self?.presenter.handleAction(action)
+            }
+            button.position = layout.actionButtons[index]
+            button.zPosition = Layer.ui.rawValue
+            addChild(button)
+            actionButtons[action] = button
+        }
+    }
+
     private func addBackButton(){
         let button = ButtonNode(label: "QUIT", fontSize: presenter.tableLayout.fonts.buttonFontSize){ [weak self] in
             self?.presenter.quit()

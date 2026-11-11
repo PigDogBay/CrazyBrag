@@ -23,6 +23,10 @@ protocol GameView {
     func show(message : String)
     func play(soundNamed : String)
     func continueButton(show : Bool)
+    ///Move a stashed card back to the deck and out of sight
+    func discard(card: PlayingCard, pos: CGPoint, duration : TimeInterval)
+    ///Looky Looky rules: show whether one of the action buttons can be pressed
+    func setActionButton(action : TurnAction, state : ActionButtonState)
 }
 
 protocol DialogView {

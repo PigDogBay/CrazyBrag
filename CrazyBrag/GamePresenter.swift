@@ -10,6 +10,15 @@ import Foundation
 enum PlayerStatus {
     case ready, turn, played
 }
+
+///How a Looky Looky action button is shown
+enum ActionButtonState {
+    ///The action cannot be taken at the moment
+    case disabled
+    case enabled
+    ///The button has been pressed and is waiting for the player to pick a card
+    case selected
+}
     
 class GamePresenter: GameListener {
     
@@ -21,6 +30,8 @@ class GamePresenter: GameListener {
     private var lastGameUpdateTime = TimeInterval()
     var gameUpdateFrequency : Double = 0.5
     private var playState : PlayState = NullState()
+    ///Looky Looky rules: the player has pressed the change a middle card button and now has to pick the card
+    private(set) var isChoosingMiddleCard = false
 
     init(size : CGSize, isPhone : Bool){
         self.isPhone = isPhone
@@ -110,6 +121,16 @@ class GamePresenter: GameListener {
     
     func handleTouch(for card : PlayingCard){
         print("Node touched: \(card.display())")
+        if isChoosingMiddleCard {
+            //The touch picks the middle card to change
+            if model.middle.hand.contains(card) {
+                isChoosingMiddleCard = false
+                model.takeChangeMiddle(card: card)
+                view?.show(message: "Your Turn")
+                refreshActionButtons()
+            }
+            return
+        }
         if let dealtCard = model.toTouchableCard(card: card){
             if model.selectedCards.contains(where: {$0.card == card}){
                 deselectCard(dealtCard)
@@ -144,6 +165,75 @@ class GamePresenter: GameListener {
         moveCard(dealt: card, yOffset: 0)
     }
     
+    private func deselectAllCards(){
+        for card in model.selectedCards {
+            moveCard(dealt: card, yOffset: 0)
+        }
+        model.selectedCards.removeAll()
+    }
+
+    //MARK: - Looky Looky actions
+
+    ///The player has pressed one of the action buttons
+    func handleAction(_ action : TurnAction){
+        guard model.isPlayersTurn else {
+            return
+        }
+        switch action {
+        case .looky:
+            cancelChoosingMiddleCard()
+            model.takeLooky()
+        case .stashHand:
+            cancelChoosingMiddleCard()
+            if model.canTake(action: .stashHand) {
+                deselectAllCards()
+                model.takeStashHand()
+            }
+        case .changeMiddle:
+            if isChoosingMiddleCard {
+                //Pressing the button again cancels
+                cancelChoosingMiddleCard()
+            } else if model.canTake(action: .changeMiddle) {
+                deselectAllCards()
+                isChoosingMiddleCard = true
+                view?.play(soundNamed: "card")
+                view?.show(message: "Pick a middle\ncard to change")
+            }
+        }
+        refreshActionButtons()
+    }
+
+    private func cancelChoosingMiddleCard(){
+        if isChoosingMiddleCard {
+            isChoosingMiddleCard = false
+            view?.show(message: "Your Turn")
+        }
+    }
+
+    ///Show which of the actions the human player can take right now
+    func refreshActionButtons(){
+        if !model.isPlayersTurn {
+            isChoosingMiddleCard = false
+        }
+        for action in TurnAction.allCases {
+            var state = ActionButtonState.disabled
+            if isChoosingMiddleCard && action == .changeMiddle {
+                state = .selected
+            } else if model.isPlayersTurn && model.canTake(action: action) {
+                state = .enabled
+            }
+            view?.setActionButton(action: action, state: state)
+        }
+    }
+
+    ///Stashed cards go back to the deck, face down
+    private func discard(cards : [PlayingCard]){
+        for card in cards {
+            view?.turn(card: card, isFaceUp: false)
+            view?.discard(card: card, pos: tableLayout.deckPosition, duration: 0.4)
+        }
+    }
+
     private func moveCard(dealt : DealtCard, yOffset: Double){
         let pos = tableLayout.getPosition(dealt: dealt)
         let translation = CGAffineTransform(translationX: 0.0, y: yOffset)
@@ -177,6 +267,36 @@ class GamePresenter: GameListener {
         }
     }
     
+    ///Not a new play state, the turn carries on once the action has been shown
+    func actionTaken(player: Player, action: TurnActionResult) {
+        logger.actionTaken(player: player, action: action)
+        let isHuman = player.seat == 0
+        view?.play(soundNamed: "card")
+        switch action {
+        case .looky(card: let card):
+            if isHuman {
+                //Only the human player gets to see the card, it is turned back over when their turn ends
+                view?.turn(card: card, isFaceUp: true)
+            } else {
+                view?.show(message: "\(player.name)\nLooky Looky")
+            }
+        case .stashHand(discarded: let discarded, dealt: let dealt):
+            discard(cards: discarded)
+            positionCard(cards: dealt, duration: 0.3)
+            if isHuman {
+                showCards(in: player.hand)
+            } else {
+                view?.show(message: "\(player.name)\nStashes hand")
+            }
+        case .changeMiddle(discarded: let discarded, dealt: let dealt):
+            discard(cards: [discarded])
+            positionCard(cards: [dealt], duration: 0.3)
+            if !isHuman {
+                view?.show(message: "\(player.name)\nChanges a card")
+            }
+        }
+    }
+
     func turnEnded(player: Player, middle: PlayerHand, turn: Turn) {
         logger.turnEnded(player: player, middle: middle, turn: turn)
         change(state: TurnEndedState(self, player: player, middle: middle, turn: turn))
