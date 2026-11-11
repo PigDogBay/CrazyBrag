@@ -42,6 +42,7 @@ class EndOfRoundState : BasePlayState {
                 presenter.view?.show(message: "Prial! \(extraLife.name)\ngains a life")
             }
             presenter.view?.extraLife(player: extraLife)
+            presenter.view?.play(soundNamed: "Yahoo")
         }
 
         if !losingPlayers.isEmpty {
