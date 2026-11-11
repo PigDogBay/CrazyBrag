@@ -13,6 +13,7 @@ class Settings
     private let gamesPlayedKey = "gamesPlayed"
     private let gamesWonKey = "gamesWon"
     private let markedDeckKey = "markedDeck"
+    private let lookyLookyKey = "lookyLooky"
 
     func setInformationVersion(){
         version = getBuildVersion()
@@ -61,11 +62,23 @@ class Settings
         }
     }
 
+    ///Game mode: when true the game is played with the extra Looky Looky rules,
+    ///when false with the standard rules
+    var lookyLooky : Bool {
+        get {return UserDefaults.standard.bool(forKey: lookyLookyKey)}
+        set(newVal) {
+            if newVal != lookyLooky {
+                UserDefaults.standard.set(newVal, forKey: lookyLookyKey)
+            }
+        }
+    }
+
     func registerDefaultSettings() {
         let defaultSettings : [ String : Any] = [versionKey : getBuildVersion(),
                                              gamesPlayedKey : 0,
                                                 gamesWonKey : 0,
-                                              markedDeckKey : true]
+                                              markedDeckKey : true,
+                                              lookyLookyKey : true]
         UserDefaults.standard.register(defaults: defaultSettings)
     }
 

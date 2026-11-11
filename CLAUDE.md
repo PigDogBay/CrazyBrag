@@ -59,7 +59,7 @@ Model–View–Presenter, with the presenter running a state machine that paces 
 
 **Marked backs ("Howie's deck")** — deliberately, every card has its own back image (`BackKH`, `Back10D`, …, half the size of the faces) carrying marks that identify the card, so an observant player can read face-down cards. The left poker chip's colour gives the suit, and the whiskey glass level plus one blemish (dot, scratch or dog-eared corner) gives the rank; the full key is in the comment above `MARK_CHIP` in `tools/cards/cards.py`. Both decks are kept: `Settings.markedDeck` (UserDefaults key `markedDeck`, default `true`, exposed as the "Marked Deck" switch in the iOS Settings app via `Settings.bundle/Root.plist`) chooses between the per-card marked backs and the plain `CardBack`; `CardSpriteNode` reads it when a card node is created, so a change applies from the next scene.
 
-**Persistence** — `Settings` wraps `UserDefaults` (games played/won); `Stats` turns those into win rate and rank title. `Settings.bundle` provides the iOS Settings app pages.
+**Persistence** — `Settings` wraps `UserDefaults` (games played/won, plus the `markedDeck` and `lookyLooky` switches, which also appear in `Settings.bundle/Root.plist`). `lookyLooky` (default `true`) selects the Looky Looky game mode, whose extra rules are still to be implemented; `Stats` turns those into win rate and rank title. `Settings.bundle` provides the iOS Settings app pages.
 
 ## Debug aids
 
