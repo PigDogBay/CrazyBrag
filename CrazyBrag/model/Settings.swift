@@ -44,7 +44,7 @@ class Settings
     var gamesWon : Int {
         get {return UserDefaults.standard.integer(forKey: gamesWonKey)}
         set(newVal) {
-            if newVal != gamesPlayed {
+            if newVal != gamesWon {
                 UserDefaults.standard.set(newVal, forKey: gamesWonKey)
             }
         }
