@@ -119,6 +119,10 @@ class Model {
     }
         
     private func turnEnd(){
+        if let player = nextPlayer, takeChosenAction(player: player) {
+            //A computer player has taken an action, stay in this state until they make their move
+            return
+        }
         let turn = nextPlayer?.play(middle: middle)
         gameListener?.turnEnded(player: nextPlayer!, middle: middle, turn: turn!)
         //Dealer is last player
@@ -155,6 +159,29 @@ class Model {
         } catch {
             print(error)
             assertionFailure("Duplicate card")
+        }
+    }
+
+    ///Looky Looky rules: let the player's AI take one action, if it wants to.
+    ///Returns true if an action was taken (the human takes their actions through the take functions)
+    private func takeChosenAction(player : Player) -> Bool {
+        let available = TurnAction.allCases.filter{canTake(action: $0)}
+        guard !available.isEmpty,
+              let choice = player.ai.chooseAction(middle: middle, available: available),
+              available.contains(choice.action) else {
+            return false
+        }
+        switch choice {
+        case .looky:
+            guard let card = takeLooky() else {
+                return false
+            }
+            player.ai.lookedAt(card: card)
+            return true
+        case .stashHand:
+            return takeStashHand()
+        case .changeMiddle(card: let card):
+            return takeChangeMiddle(card: card)
         }
     }
 

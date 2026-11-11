@@ -8,8 +8,114 @@
 import Foundation
 class OneDownAI : AI {
     weak var player: Player?
+    ///Looky Looky rules: does this player take the optional actions before making their move
+    var usesActions = true
+    ///Looky Looky rules: the face down middle card, once the player has looked at it this turn
+    private var lookedAtCard : PlayingCard? = nil
 
     func play(middle: PlayerHand) -> Turn {
+        let turn = decideTurn(middle: middle)
+        lookedAtCard = nil
+        return turn
+    }
+
+    func lookedAt(card: PlayingCard) {
+        lookedAtCard = card
+    }
+
+    ///True if the player has looked at the face down card and it is still the one in the middle
+    private func knowsDownCard(middle: PlayerHand) -> Bool {
+        return lookedAtCard != nil && lookedAtCard == middle.hand.first
+    }
+
+    ///The highest scoring turn from what the player can see: the face up cards,
+    ///and the face down card as well once they have looked at it
+    private func bestVisibleTurn(middle: PlayerHand) -> ScoredTurn {
+        let generator = HandGenerator(playerHand: player!.hand)
+        let turns = knowsDownCard(middle: middle)
+            ? generator.generatePossibleTurns(middle: middle)
+            : generator.generatePossibleTurnsFaceUpOnly(middle: middle)
+        return turns.max(by: {$0.score < $1.score})!
+    }
+
+    ///Two cards that could become a flush, run, trotter or prial with the right third card
+    private func isPromising(_ card1 : PlayingCard, _ card2 : PlayingCard) -> Bool {
+        return PossibleHandResolver(hand: [card1, card2]).createScore().type >= .flush
+    }
+
+    ///Does the hand hold two cards that work together (or the good joker, which works with anything)
+    private func isPromising(hand : [PlayingCard]) -> Bool {
+        return isPromising(hand[0], hand[1]) || isPromising(hand[0], hand[2]) || isPromising(hand[1], hand[2])
+    }
+
+    /**
+     Looky Looky rules, which action to take next, if any:
+     - Stash a hand that is going nowhere straightaway: no two cards work together and the cards showing don't help
+     - Looky if the hand is promising but the cards showing don't complete it (this covers holding a pair
+       and hoping for the prial), or if the two cards showing are promising themselves
+     - Stash the hand if all of the middle is going to be taken anyway, there is nothing to lose
+     - Change a middle card: out of spite if good cards are being left for the next player,
+       or swap a useless card for a new one that might hit a promising hand
+     */
+    func chooseAction(middle: PlayerHand, available: [TurnAction]) -> ActionChoice? {
+        guard usesActions, !available.isEmpty,
+              let hand = player?.hand.hand, hand.count == 3, middle.hand.count == 3 else {
+            return nil
+        }
+        let best = bestVisibleTurn(middle: middle)
+        let promising = isPromising(hand: hand)
+        let showing1 = middle.hand[1]
+        let showing2 = middle.hand[2]
+        let promisingMiddle = isPromising(showing1, showing2)
+
+        if available.contains(.stashHand) && !promising && best.score.type < .pair {
+            return .stashHand
+        }
+        if available.contains(.looky) && !knowsDownCard(middle: middle)
+            && best.score.type < .run && (promising || promisingMiddle) {
+            return .looky
+        }
+        let turn = decideTurn(middle: middle)
+        if case .all = turn {
+            //The hand is going in the middle, a new one might be better and if not the middle is still there
+            return available.contains(.stashHand) ? .stashHand : nil
+        }
+        if available.contains(.changeMiddle) {
+            //The middle card that is wanted, if it makes a hand
+            var taking : PlayingCard? = nil
+            if case .swap(hand: _, middle: let middleCard) = turn, best.score.type >= .pair {
+                taking = middleCard
+            }
+            //The higher card is more use to the other players
+            let highestShowing = showing1.rank.score() >= showing2.rank.score() ? showing1 : showing2
+            if promisingMiddle && taking != showing1 && taking != showing2
+                && PossibleHandResolver(hand: [showing1, showing2]).createScore().type >= .trotter {
+                //Spite: a pair or two cards of a trotter are showing, don't leave them for the next player
+                return .changeMiddle(card: highestShowing)
+            }
+            if promising && best.score.type <= .pair {
+                //Nothing in the middle hits the hand, try a new card in place of one that is no use
+                if taking == showing1 {
+                    return .changeMiddle(card: showing2)
+                }
+                if taking == showing2 {
+                    return .changeMiddle(card: showing1)
+                }
+                return .changeMiddle(card: highestShowing)
+            }
+        }
+        return nil
+    }
+
+    private func decideTurn(middle: PlayerHand) -> Turn {
+        if knowsDownCard(middle: middle) {
+            //Looky Looky rules: all of the middle is known, so take the best hand on offer
+            let best = bestVisibleTurn(middle: middle)
+            if case .all = best.turn {
+                return createTakeAllTurn()
+            }
+            return best.turn
+        }
         let scoredTurn = HandGenerator(playerHand: player!.hand)
             .generatePossibleTurnsFaceUpOnly(middle: middle)
             .max(by: {$0.score < $1.score})!

@@ -10,6 +10,19 @@ import Foundation
 protocol AI : AnyObject {
     var player : Player? { get set }
     func play(middle : PlayerHand) -> Turn
+    ///Looky Looky rules: asked before play(middle:), and again after each action is taken, until it returns nil.
+    ///available: the actions the player is still allowed to take this turn
+    func chooseAction(middle : PlayerHand, available : [TurnAction]) -> ActionChoice?
+    ///Looky Looky rules: the player has taken the looky action and this is the face down middle card
+    func lookedAt(card : PlayingCard)
+}
+
+extension AI {
+    ///By default take no actions
+    func chooseAction(middle : PlayerHand, available : [TurnAction]) -> ActionChoice? {
+        return nil
+    }
+    func lookedAt(card : PlayingCard) {}
 }
 
 class HumanAI : AI {

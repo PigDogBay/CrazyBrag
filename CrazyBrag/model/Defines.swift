@@ -71,6 +71,21 @@ enum TurnAction : CaseIterable {
     case changeMiddle
 }
 
+///The action a computer player has decided to take
+enum ActionChoice : Equatable {
+    case looky
+    case stashHand
+    case changeMiddle(card : PlayingCard)
+
+    var action : TurnAction {
+        switch self {
+        case .looky: return .looky
+        case .stashHand: return .stashHand
+        case .changeMiddle: return .changeMiddle
+        }
+    }
+}
+
 ///What happened when a TurnAction was taken, for the view to show
 enum TurnActionResult {
     case looky(card : PlayingCard)

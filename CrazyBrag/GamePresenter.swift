@@ -272,6 +272,10 @@ class GamePresenter: GameListener {
         logger.actionTaken(player: player, action: action)
         let isHuman = player.seat == 0
         view?.play(soundNamed: "card")
+        if !isHuman {
+            //Leave time to read what the computer player is doing before their next step
+            gameUpdateFrequency = 1.5
+        }
         switch action {
         case .looky(card: let card):
             if isHuman {
