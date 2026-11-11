@@ -10,6 +10,24 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
+			<string>Cards</string>
+			<key>FooterText</key>
+			<string>Howie's deck: the backs of the cards are marked, a sharp-eyed player with a good memory can read them. Turn off to play with a clean deck.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Marked Deck</string>
+			<key>Key</key>
+			<string>markedDeck</string>
+			<key>DefaultValue</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
 			<string>Information</string>
 		</dict>
 		<dict>
