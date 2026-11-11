@@ -253,12 +253,54 @@ def wild_bill():
     o.append(f'<path d="M240 243Q250 249 260 243" {ST} fill="none"/>')
     return ''.join(o)
 
-# name: (figure, ink colour, band colour); the image is called Joker<name>
-JOKERS = {'Good': (wild_bill, NAVY, GOLD)}
+def calamity_jane():
+    """The bad joker: Calamity Jane in a coonskin cap and furs, passed out with an empty whiskey bottle."""
+    hair, buck, fur, dark, glass = '#3a2a1d', '#9a6b3a', '#8c7a66', '#3b302a', '#cfe3d2'
+    o = []
+    o.append(f'<path d="M82 425L98 334C106 300 150 286 205 272H295C350 286 394 300 402 334L418 425z" fill="{buck}" {ST}/>')
+    o.append(f'<path d="M250 330V425" {ST} fill="none"/>')
+    o.append(f'<rect x="222" y="225" width="56" height="62" fill="{SKIN}" {ST}/>')
+    # fur collar
+    collar = 'M128 318C160 268 222 282 250 338 278 282 340 268 372 318'
+    o.append(f'<path d="{collar}" fill="none" stroke="{INK}" stroke-width="56" stroke-linecap="round" stroke-linejoin="round"/>')
+    o.append(f'<path d="{collar}" fill="none" stroke="{fur}" stroke-width="46" stroke-linecap="round" stroke-linejoin="round"/>')
+    o.append(f'<path d="M140 300l8 14M172 284l4 16M206 290l-2 16M232 312l-8 12M360 300l-8 14M328 284l-4 16M294 290l2 16M268 312l8 12" stroke="{dark}" stroke-width="4" stroke-linecap="round"/>')
+    # the empty bottle, upended, and the hand that still has hold of it
+    o.append(f'<g transform="translate(196,376) rotate(-100) scale(.8) translate(-40,0)" {ST} stroke-width="7">'
+             f'<path d="M30 0h20v60c14 8 28 18 28 40v146c0 8-6 12-12 12H14c-6 0-12-4-12-12V100c0-22 14-32 28-40z" fill="{glass}"/>'
+             f'<rect x="2" y="124" width="76" height="76" fill="{RED}"/><text x="40" y="176" text-anchor="middle" {FONT} font-size="36" fill="{STOCK}" stroke="none">XXX</text>'
+             f'<path d="M16 100v-4c0-10 6-16 12-20" fill="none" stroke="white" stroke-width="6"/></g>')
+    o.append(f'<path d="M186 384q-7 12 0 16 7-4 0-16z" fill="#c98a2b" stroke="{INK}" stroke-width="3"/>')
+    o.append(f'<path d="M362 314C382 298 412 310 416 334 418 356 402 372 382 370 360 368 348 334 362 314z" fill="{SKIN}" {ST}/><path d="M372 322l20 28M386 314l18 26" {ST} fill="none" stroke-width="4"/>')
+    # head lolling to one side
+    h = []
+    h.append(f'<path d="M188 128C160 160 158 214 150 250 148 268 166 276 190 270L310 270C334 276 352 268 350 250 342 214 340 160 312 128z" fill="{hair}" {ST}/>')
+    h.append(head(None))
+    # coonskin cap and its ringed tail
+    tail = 'M192 104C150 130 150 190 138 250'
+    h.append(f'<path d="{tail}" fill="none" stroke="{INK}" stroke-width="50" stroke-linecap="round"/>')
+    h.append(f'<path d="{tail}" fill="none" stroke="{fur}" stroke-width="40" stroke-linecap="round"/>')
+    h.append(f'<path d="{tail}" fill="none" stroke="{dark}" stroke-width="40" stroke-dasharray="16 22" stroke-dashoffset="-26"/>')
+    h.append(f'<path d="M178 152C164 84 198 42 250 42S336 84 322 152C306 132 290 142 276 130 262 142 238 142 224 130 210 142 194 132 178 152z" fill="{fur}" {ST}/>')
+    h.append(f'<path d="M206 84l5 16M232 68l3 16M266 68l-3 16M294 84l-5 16M250 96v16M218 112l4 12M282 112l-4 12" stroke="{dark}" stroke-width="4" stroke-linecap="round"/>')
+    h.append(f'<path d="M194 148C192 170 196 186 190 204M306 148C308 170 304 186 310 204" stroke="{hair}" stroke-width="9" stroke-linecap="round" fill="none"/>')
+    # eyes shut, flushed, mouth hanging open
+    h.append(f'<path d="M212 172Q225 182 238 172M262 172Q275 182 288 172M214 176l-5 6M225 179v7M286 176l5 6M275 179v7" stroke="{INK}" stroke-width="5" fill="none" stroke-linecap="round"/>')
+    h.append(f'<path d="M210 154Q224 146 240 152M260 152Q276 146 290 154" stroke="{hair}" stroke-width="6" fill="none" stroke-linecap="round"/>')
+    h.append('<circle cx="212" cy="206" r="15" fill="#d9534f" opacity=".5"/><circle cx="288" cy="206" r="15" fill="#d9534f" opacity=".5"/>')
+    h.append(f'<path d="M250 180L244 204" {ST} fill="none"/><circle cx="248" cy="206" r="9" fill="#d9534f" {ST} stroke-width="4"/>')
+    h.append(f'<ellipse cx="250" cy="233" rx="13" ry="9" fill="#5a1f1a" {ST}/><path d="M260 240q5 14 0 20" stroke="#8fb7d6" stroke-width="5" fill="none" stroke-linecap="round"/>')
+    o.append(f'<g transform="rotate(-11 250 262)">{"".join(h)}</g>')
+    for x, y, size in ((370, 176, 36), (402, 132, 48), (438, 84, 62)):
+        o.append(f'<text x="{x}" y="{y}" text-anchor="middle" {FONT} font-size="{size}" fill="{RED}" stroke="{INK}" stroke-width="2">Z</text>')
+    return ''.join(o)
 
-def joker_index(ink):
+# name: (figure, ink colour, band colour); the image is called Joker<name>
+JOKERS = {'Good': (wild_bill, NAVY, GOLD), 'Bad': (calamity_jane, INK, RED)}
+
+def joker_index(ink, band):
     letters = ''.join(f'<text x="56" y="{92 + k * 54}" text-anchor="middle" {FONT} font-size="60" fill="{ink}">{c}</text>' for k, c in enumerate('JOKER'))
-    one = letters + star(56, 352, 30, GOLD, .45, 5, f'stroke="{ink}" stroke-width="4" stroke-linejoin="round"')
+    one = letters + star(56, 352, 30, band, .45, 5, f'stroke="{ink}" stroke-width="4" stroke-linejoin="round"')
     return one + f'<g transform="rotate(180 {W / 2} {H / 2})">{one}</g>'
 
 def joker(name):
@@ -267,7 +309,7 @@ def joker(name):
     sx, sy = fw / 500, (fh / 2) / 420
     cid = f'j{name}'
     one = f'<g clip-path="url(#{cid})"><g transform="translate({fx},{fy}) scale({sx:.4f},{sy:.4f})">{figure()}</g></g>'
-    o = [blank(), joker_index(ink)]
+    o = [blank(), joker_index(ink, band)]
     o.append(f'<defs><clipPath id="{cid}"><rect x="{fx}" y="{fy}" width="{fw}" height="{fh / 2}"/></clipPath></defs>')
     o.append(f'<rect x="{fx}" y="{fy}" width="{fw}" height="{fh}" fill="{PANEL}"/>')
     o.append(one + f'<g transform="rotate(180 {W / 2} {H / 2})">{one}</g>')
@@ -289,13 +331,16 @@ def revolver():
 #             glass empty 2-5, half full 6-9, full 10-K, and no glass at all for an ace
 #             within each group of four: clean, a dot (left edge, above the chips),
 #             a scratch (left edge, below the chips), a dog-eared top-left corner
+#   Jokers - a purple left-hand chip; the good joker's glass is full, the bad joker's is empty
 # All the marks are in the left half of the card, which stays visible when a hand is fanned.
-MARK_CHIP = {'H': RED, 'D': GOLD, 'S': '#23252b', 'C': '#2e7046'}
+MARK_CHIP = {'H': RED, 'D': GOLD, 'S': '#23252b', 'C': '#2e7046', 'Joker': '#6d3f86'}
 MARK_GROUPS = (('2', '3', '4', '5'), ('6', '7', '8', '9'), ('10', 'J', 'Q', 'K'))
 EAR = 82
 
 def marks(rank):
     """(glass, blemish): glass is None, 'empty', 'half' or 'full', blemish is 0-3"""
+    if rank in JOKERS:
+        return ('full' if rank == 'Good' else 'empty'), 0
     for level, group in zip(('empty', 'half', 'full'), MARK_GROUPS):
         if rank in group:
             return level, group.index(rank)
@@ -364,4 +409,4 @@ for suit in SUITS:
     open(f'{out}/sheet_{suit}.html', 'w').write(sheet([card(suit, r) for r in RANKS], 7))
     open(f'{out}/sheet_back_{suit}.html', 'w').write(sheet([back(suit, r) for r in RANKS], 7))
 open(f'{out}/sheet_back.html', 'w').write(sheet([back()], 1))
-open(f'{out}/sheet_joker.html', 'w').write(sheet([joker(name) for name in JOKERS], len(JOKERS)))
+open(f'{out}/sheet_joker.html', 'w').write(sheet([joker(name) for name in JOKERS] + [back('Joker', name) for name in JOKERS], len(JOKERS)))

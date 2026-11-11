@@ -173,4 +173,26 @@ class ModelTests: XCTestCase, GameListener {
         XCTAssertEqual(model.school.players.count, 1)
     }
 
+    ///Looky Looky rules: the computer players cope with the two jokers in the pack
+    func testPlayAGame2(){
+        let model = Model()
+        model.lookyLooky = true
+        let listener = GameUpdateLogger()
+        model.gameListener = listener
+        computerMakeGame(model: model, numberOfGames: 100)
+        XCTAssertEqual(model.gameState, .gameOver)
+        XCTAssertEqual(model.school.players.count, 1)
+        XCTAssertEqual(model.deck.max, 54)
+    }
+
+    func testLookyLookyJokers1() throws {
+        let model = Model()
+        model.lookyLooky = true
+        model.setUpGame(numberOfAIPlayers: 4)
+        XCTAssertEqual(model.deck.count, 54)
+        model.lookyLooky = false
+        model.setUpGame(numberOfAIPlayers: 4)
+        XCTAssertEqual(model.deck.count, 52)
+    }
+
 }

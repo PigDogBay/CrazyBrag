@@ -9,9 +9,16 @@ import Foundation
 
 enum Suit : Int, CaseIterable {
     case clubs, diamonds, hearts, spades
+    ///The jokers are not in any of the four suits
+    case joker
     
+    ///The four suits of a standard pack
+    static let standard : [Suit] = [.clubs, .diamonds, .hearts, .spades]
+
     func display() -> String  {
         switch self {
+        case .joker:
+            return "🃏"
         case .clubs:
             return "♣️"
         case .diamonds:
@@ -36,9 +43,22 @@ enum Suit : Int, CaseIterable {
 
 enum Rank : Int, CaseIterable {
     case ace, two, three, four, five, six, seven, eight, nine, ten, jack, queen, king
+    ///The jokers, kept after the thirteen standard ranks so their raw values are unchanged
+    case goodJoker, badJoker
     
+    ///The thirteen ranks of a standard pack
+    static let standard : [Rank] = [.ace, .two, .three, .four, .five, .six, .seven, .eight, .nine, .ten, .jack, .queen, .king]
+
+    var isJoker : Bool {
+        return self == .goodJoker || self == .badJoker
+    }
+
     func display() -> String  {
         switch self {
+        case .goodJoker:
+            return "Good"
+        case .badJoker:
+            return "Bad"
         case .ace:
             return "A"
         case .two:
@@ -71,6 +91,9 @@ enum Rank : Int, CaseIterable {
     ///Ace high
     func score() -> Int{
         switch self {
+        case .goodJoker, .badJoker:
+            //A joker counts for nothing, lower than a two
+            return 0
         case .ace:
             return 14
         case .two:
@@ -124,6 +147,14 @@ struct PlayingCard : Equatable{
     let suit : Suit
     let rank : Rank
     
+    ///The jokers are only in the pack for the Looky Looky rules
+    static let goodJoker = PlayingCard(suit: .joker, rank: .goodJoker)
+    static let badJoker = PlayingCard(suit: .joker, rank: .badJoker)
+
+    var isJoker : Bool {
+        return rank.isJoker
+    }
+
     func display() -> String {
         return "\(suit.display())\(rank.display())"
     }

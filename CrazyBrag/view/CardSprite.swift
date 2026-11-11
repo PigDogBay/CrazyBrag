@@ -11,7 +11,14 @@ import SpriteKit
 extension PlayingCard {
     //Get the image asset's name for the card
     var imageName : String {
-        return self.rank.display() + suitLetter
+        switch self.rank {
+        case .goodJoker:
+            return "JokerGood"
+        case .badJoker:
+            return "JokerBad"
+        default:
+            return self.rank.display() + suitLetter
+        }
     }
     
     //Get the image asset's name for the marked back of the card
@@ -29,6 +36,8 @@ extension PlayingCard {
             return "H"
         case .spades:
             return "S"
+        case .joker:
+            return ""
         }
     }
     

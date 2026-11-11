@@ -36,6 +36,10 @@ struct PossibleHandResolver {
     }
 
     private func resolveHandType() -> BragHandTypes {
+        //A joker cannot be part of a prial, run or flush
+        if hand.contains(where: {$0.isJoker}) {
+            return .high
+        }
         if hand[0].rank==hand[1].rank {
             return .prial
         }

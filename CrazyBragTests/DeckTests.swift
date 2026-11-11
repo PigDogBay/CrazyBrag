@@ -16,6 +16,35 @@ class DeckTests: XCTestCase {
         XCTAssertEqual(deck.count, 52)
     }
     
+    func testCreateDeck2() throws {
+        let deck = Deck()
+        XCTAssertEqual(deck.max, 52)
+        deck.createDeck()
+        XCTAssertFalse(deck.deck.contains{$0.isJoker})
+    }
+
+    ///Looky Looky rules add the two jokers
+    func testCreateDeck3() throws {
+        let deck = Deck()
+        deck.hasJokers = true
+        XCTAssertEqual(deck.max, 54)
+        deck.createDeck()
+        XCTAssertEqual(deck.count, 54)
+        XCTAssertTrue(deck.deck.contains(PlayingCard.goodJoker))
+        XCTAssertTrue(deck.deck.contains(PlayingCard.badJoker))
+        XCTAssertEqual(deck.deck.filter{$0.isJoker}.count, 2)
+    }
+
+    ///Switching the jokers off again gives a standard pack
+    func testCreateDeck4() throws {
+        let deck = Deck()
+        deck.hasJokers = true
+        deck.createDeck()
+        deck.hasJokers = false
+        deck.createDeck()
+        XCTAssertEqual(deck.count, 52)
+    }
+
     func testDeal1() throws {
         let deck = Deck()
         deck.createDeck()

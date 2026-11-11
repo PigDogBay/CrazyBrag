@@ -17,6 +17,16 @@ final class PossibleHandResolverTests: XCTestCase {
         XCTAssertEqual(score.type, .prial)
     }
     
+    ///A joker showing cannot become a run, flush or prial
+    func testJoker1() throws {
+        let resolver = PossibleHandResolver(hand: [PlayingCard(suit: .clubs, rank: .queen),
+                                                   PlayingCard.goodJoker])
+        XCTAssertEqual(resolver.createScore().type, .high)
+        let resolver2 = PossibleHandResolver(hand: [PlayingCard.badJoker,
+                                                    PlayingCard.goodJoker])
+        XCTAssertEqual(resolver2.createScore().type, .high)
+    }
+
     func testTrotter1() throws {
         let resolver = PossibleHandResolver(hand: [PlayingCard(suit: .clubs, rank: .nine),
                                                    PlayingCard(suit: .clubs, rank: .seven)])

@@ -58,6 +58,7 @@ class Model {
     }
     
     func setUpGame(numberOfAIPlayers : Int){
+        deck.hasJokers = lookyLooky
         deck.createDeck()
         deck.shuffle()
         school.setUpPlayers(numberOfAIPlayers: numberOfAIPlayers)
@@ -68,7 +69,7 @@ class Model {
         do {
             try school.stashCards(deck: deck)
             try deck.receive(cards: middle.stash())
-            assert(deck.count==52, "Dropped a card")
+            assert(deck.count==deck.max, "Dropped a card")
         } catch CardErrors.CardAlreadyInThePack(let card){
             print("ERROR: Card already in the pack \(card)")
             assertionFailure("Duplicate card")

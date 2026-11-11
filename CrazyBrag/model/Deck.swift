@@ -9,13 +9,24 @@ import Foundation
 
 class Deck {
     var deck = [PlayingCard]()
+    ///Looky Looky rules: the good and bad jokers are added to the pack
+    var hasJokers = false
+    
+    ///The number of cards in a full pack, which depends on the rule set
+    var max : Int {
+        return hasJokers ? 54 : 52
+    }
     
     func createDeck(){
         deck.removeAll()
-        Suit.allCases.forEach{ suit in
-            Rank.allCases.forEach {rank in
+        Suit.standard.forEach{ suit in
+            Rank.standard.forEach {rank in
                 deck.append(PlayingCard(suit: suit, rank: rank))
             }
+        }
+        if hasJokers {
+            deck.append(PlayingCard.goodJoker)
+            deck.append(PlayingCard.badJoker)
         }
     }
     

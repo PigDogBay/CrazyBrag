@@ -23,6 +23,55 @@ class HandResolverTests: XCTestCase {
     }
 
 
+    //MARK: - Jokers
+
+    ///Jokers follow the king in rank order, but do not make a run
+    func testJoker1(){
+        let score = HandResolver(hand: [PlayingCard(suit: .clubs, rank: .queen),
+                                        PlayingCard(suit: .spades, rank: .king),
+                                        PlayingCard.goodJoker]).createScore()
+        XCTAssertEqual(score.type, .high)
+        let score2 = HandResolver(hand: [PlayingCard(suit: .spades, rank: .king),
+                                         PlayingCard.goodJoker,
+                                         PlayingCard.badJoker]).createScore()
+        XCTAssertEqual(score2.type, .high)
+    }
+
+    ///A joker does not complete a flush, and the two jokers are not a pair
+    func testJoker2(){
+        let score = HandResolver(hand: [PlayingCard(suit: .spades, rank: .two),
+                                        PlayingCard(suit: .spades, rank: .king),
+                                        PlayingCard.badJoker]).createScore()
+        XCTAssertEqual(score.type, .high)
+        let score2 = HandResolver(hand: [PlayingCard(suit: .hearts, rank: .seven),
+                                         PlayingCard.goodJoker,
+                                         PlayingCard.badJoker]).createScore()
+        XCTAssertEqual(score2.type, .high)
+    }
+
+    ///A pair still counts alongside a joker, but the joker is the lowest kicker
+    func testJoker3(){
+        let withJoker = HandResolver(hand: [PlayingCard(suit: .hearts, rank: .seven),
+                                            PlayingCard.goodJoker,
+                                            PlayingCard(suit: .clubs, rank: .seven)]).createScore()
+        let withTwo = HandResolver(hand: [PlayingCard(suit: .hearts, rank: .seven),
+                                          PlayingCard(suit: .diamonds, rank: .two),
+                                          PlayingCard(suit: .clubs, rank: .seven)]).createScore()
+        XCTAssertEqual(withJoker.type, .pair)
+        XCTAssertGreaterThan(withTwo, withJoker)
+    }
+
+    ///A joker is the lowest card in a high hand
+    func testJoker4(){
+        let withJoker = HandResolver(hand: [PlayingCard(suit: .hearts, rank: .nine),
+                                            PlayingCard(suit: .clubs, rank: .king),
+                                            PlayingCard.badJoker]).createScore()
+        let withTwo = HandResolver(hand: [PlayingCard(suit: .hearts, rank: .nine),
+                                          PlayingCard(suit: .clubs, rank: .king),
+                                          PlayingCard(suit: .diamonds, rank: .two)]).createScore()
+        XCTAssertGreaterThan(withTwo, withJoker)
+    }
+
     func testScoringTrotter1(){
         XCTAssertGreaterThan(
             HandResolver(hand: A23Trotter).createScore(),

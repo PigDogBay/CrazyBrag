@@ -41,7 +41,15 @@ struct HandResolver {
         return hand[0].rank == .ace && hand[1].rank == .two && hand[2].rank == .three
     }
 
+    private var hasJoker : Bool {
+        return hand.contains{$0.isJoker}
+    }
+
     private var isRun : Bool {
+        //A joker is not part of a run, nor a flush or prial as each joker is the only card of its kind
+        if hasJoker {
+            return false
+        }
         if isAKQ {
             return true
         }

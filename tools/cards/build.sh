@@ -1,6 +1,7 @@
 #!/bin/sh
 # Regenerates the western playing cards: 52 faces and a plain back, each 691x1056 with transparent
 # corners, plus the 52 marked backs (see "Howie's deck" in cards.py) at half that size.
+# Also the two jokers for the Looky Looky rules (JokerGood, JokerBad) and their marked backs.
 #
 #   sh tools/cards/build.sh
 #
@@ -37,11 +38,12 @@ for S in H D S C; do
 done
 shot sheet_back $W $H
 magick "$OUT/sheet_back.png" -strip -define png:exclude-chunks=date,time "$OUT/cards/CardBack.png"
-JOKERS="Good"
-shot sheet_joker $((W * $(echo $JOKERS | wc -w))) $H
+JOKERS="Good Bad"
+shot sheet_joker $((W * $(echo $JOKERS | wc -w))) $((H * 2))
 i=0
 for J in $JOKERS; do
   magick "$OUT/sheet_joker.png" -crop ${W}x${H}+$((i * W))+0 +repage -strip -define png:exclude-chunks=date,time "$OUT/cards/Joker$J.png"
+  magick "$OUT/sheet_joker.png" -crop ${W}x${H}+$((i * W))+$H +repage -resize 50% -strip -define png:exclude-chunks=date,time "$OUT/cards/BackJoker$J.png"
   i=$((i + 1))
 done
 echo "Wrote $OUT/cards"
