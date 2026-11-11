@@ -37,9 +37,6 @@
 		0084E24F2B304FEA00FA15EE /* StartPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0084E24E2B304FEA00FA15EE /* StartPresenter.swift */; };
 		0084E2512B3100CD00FA15EE /* ExampleHand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0084E2502B3100CD00FA15EE /* ExampleHand.swift */; };
 		009313792A4C334B007194D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313782A4C334B007194D9 /* AppDelegate.swift */; };
-		00C0FFEE2EC2000100000001 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C0FFEE2EC2000100000002 /* SceneDelegate.swift */; };
-		00C0FFEE2EC2000100000003 /* ActionButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C0FFEE2EC2000100000004 /* ActionButtonNode.swift */; };
-		00C0FFEE2EC2000100000005 /* SettingsNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C0FFEE2EC2000100000006 /* SettingsNode.swift */; };
 		0093137F2A4C334B007194D9 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0093137E2A4C334B007194D9 /* GameScene.swift */; };
 		009313812A4C334B007194D9 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313802A4C334B007194D9 /* GameViewController.swift */; };
 		009313842A4C334B007194D9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 009313822A4C334B007194D9 /* Main.storyboard */; };
@@ -72,7 +69,6 @@
 		009313ED2A4F142D007194D9 /* DeckTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313E32A4F142D007194D9 /* DeckTests.swift */; };
 		009313EE2A4F142D007194D9 /* HandResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009313E42A4F142D007194D9 /* HandResolverTests.swift */; };
 		009B11852B763EDE004A2DD0 /* LoseLife.wav in Resources */ = {isa = PBXBuildFile; fileRef = 009B11842B763EDE004A2DD0 /* LoseLife.wav */; };
-		00C0FFEE2EC2000100000007 /* Yahoo.wav in Resources */ = {isa = PBXBuildFile; fileRef = 00C0FFEE2EC2000100000008 /* Yahoo.wav */; };
 		009B118D2B764711004A2DD0 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009B118C2B764711004A2DD0 /* Settings.swift */; };
 		00A220CD2B20D33500B16292 /* Quentincaps-owxKz.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 00A220CC2B20D31A00B16292 /* Quentincaps-owxKz.ttf */; };
 		00A68AE02B19FE7D006EC10C /* Explosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 00A68ADF2B19FE7D006EC10C /* Explosion.sks */; };
@@ -81,6 +77,10 @@
 		00C029A82B2B26390062B26A /* honky-tonk.wav in Resources */ = {isa = PBXBuildFile; fileRef = 00C029A42B2B26380062B26A /* honky-tonk.wav */; };
 		00C029AA2B2B26390062B26A /* card.wav in Resources */ = {isa = PBXBuildFile; fileRef = 00C029A62B2B26390062B26A /* card.wav */; };
 		00C029AC2B2B2BE00062B26A /* ricochet.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 00C029AB2B2B2BE00062B26A /* ricochet.mp3 */; };
+		00C0FFEE2EC2000100000001 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C0FFEE2EC2000100000002 /* SceneDelegate.swift */; };
+		00C0FFEE2EC2000100000003 /* ActionButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C0FFEE2EC2000100000004 /* ActionButtonNode.swift */; };
+		00C0FFEE2EC2000100000005 /* SettingsNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C0FFEE2EC2000100000006 /* SettingsNode.swift */; };
+		00C0FFEE2EC2000100000007 /* Yahoo.wav in Resources */ = {isa = PBXBuildFile; fileRef = 00C0FFEE2EC2000100000008 /* Yahoo.wav */; };
 		00C76B972B84B2E4005419EF /* DialogNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C76B962B84B2E4005419EF /* DialogNode.swift */; };
 		00C76B992B84BD59005419EF /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C76B982B84BD59005419EF /* Stats.swift */; };
 		00C76B9B2B84BEDB005419EF /* StatsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C76B9A2B84BEDB005419EF /* StatsTests.swift */; };
@@ -137,9 +137,6 @@
 		0084E2502B3100CD00FA15EE /* ExampleHand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleHand.swift; sourceTree = "<group>"; };
 		009313752A4C334B007194D9 /* CrazyBrag.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CrazyBrag.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		009313782A4C334B007194D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		00C0FFEE2EC2000100000002 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		00C0FFEE2EC2000100000004 /* ActionButtonNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButtonNode.swift; sourceTree = "<group>"; };
-		00C0FFEE2EC2000100000006 /* SettingsNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsNode.swift; sourceTree = "<group>"; };
 		0093137E2A4C334B007194D9 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		009313802A4C334B007194D9 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		009313832A4C334B007194D9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -174,7 +171,6 @@
 		009313E32A4F142D007194D9 /* DeckTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeckTests.swift; sourceTree = "<group>"; };
 		009313E42A4F142D007194D9 /* HandResolverTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandResolverTests.swift; sourceTree = "<group>"; };
 		009B11842B763EDE004A2DD0 /* LoseLife.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = LoseLife.wav; sourceTree = "<group>"; };
-		00C0FFEE2EC2000100000008 /* Yahoo.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Yahoo.wav; sourceTree = "<group>"; };
 		009B118C2B764711004A2DD0 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		00A220CC2B20D31A00B16292 /* Quentincaps-owxKz.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quentincaps-owxKz.ttf"; sourceTree = "<group>"; };
 		00A220CE2B20D5BD00B16292 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -184,6 +180,10 @@
 		00C029A42B2B26380062B26A /* honky-tonk.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "honky-tonk.wav"; sourceTree = "<group>"; };
 		00C029A62B2B26390062B26A /* card.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = card.wav; sourceTree = "<group>"; };
 		00C029AB2B2B2BE00062B26A /* ricochet.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ricochet.mp3; sourceTree = "<group>"; };
+		00C0FFEE2EC2000100000002 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		00C0FFEE2EC2000100000004 /* ActionButtonNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButtonNode.swift; sourceTree = "<group>"; };
+		00C0FFEE2EC2000100000006 /* SettingsNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsNode.swift; sourceTree = "<group>"; };
+		00C0FFEE2EC2000100000008 /* Yahoo.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Yahoo.wav; sourceTree = "<group>"; };
 		00C76B962B84B2E4005419EF /* DialogNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogNode.swift; sourceTree = "<group>"; };
 		00C76B982B84BD59005419EF /* Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
 		00C76B9A2B84BEDB005419EF /* StatsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsTests.swift; sourceTree = "<group>"; };
@@ -776,7 +776,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10006;
+				CURRENT_PROJECT_VERSION = 10100;
 				DEVELOPMENT_TEAM = ZYM8DA54T6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CrazyBrag/Info.plist;
@@ -793,7 +793,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.00.06;
+				MARKETING_VERSION = 1.01.00;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mpdbailey.crazybrag;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -808,7 +808,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10006;
+				CURRENT_PROJECT_VERSION = 10100;
 				DEVELOPMENT_TEAM = ZYM8DA54T6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CrazyBrag/Info.plist;
@@ -825,7 +825,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.00.06;
+				MARKETING_VERSION = 1.01.00;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mpdbailey.crazybrag;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
