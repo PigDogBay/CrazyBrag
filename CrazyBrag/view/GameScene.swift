@@ -101,9 +101,23 @@ class GameScene: SKScene, GameView, DialogView {
         }
     }
     
+    ///Shows the player's lives as yellow hearts. Looky Looky rules: a grey heart to the left of them is
+    ///the extra life the player has yet to win, it goes once they have gained it (or are out of the game)
+    private func showLives(node : SKLabelNode, player : Player){
+        node.text = String(repeating: "💛", count: max(0, player.lives))
+        if let extraLifeNode = node.childNode(withName: GameScene.extraLifeNodeName) {
+            if player.hasHadExtraLife || player.lives <= 0 {
+                extraLifeNode.removeFromParent()
+            } else {
+                //The lives are right aligned, so their left edge moves as lives are lost
+                extraLifeNode.position = CGPoint(x: -node.frame.width, y: 0)
+            }
+        }
+    }
+
     func updateScore(player : Player){
         if let node = scoreNodes.first(where: {$0.name == player.name}) {
-            node.text = String(repeating: "💛", count: max(0, player.lives))
+            showLives(node: node, player: player)
             showExplosion(pos: node.position)
             highlightLoser(player: player)
         }
@@ -112,7 +126,7 @@ class GameScene: SKScene, GameView, DialogView {
     ///Looky Looky rules: the player has gained a life
     func extraLife(player : Player){
         if let node = scoreNodes.first(where: {$0.name == player.name}) {
-            node.text = String(repeating: "💛", count: max(0, player.lives))
+            showLives(node: node, player: player)
             let bigger = SKAction.scale(to: 1.6, duration: 0.25)
             let smaller = SKAction.scale(to: 1.0, duration: 0.25)
             node.run(SKAction.repeat(SKAction.sequence([bigger, smaller]), count: 4))
@@ -180,7 +194,21 @@ class GameScene: SKScene, GameView, DialogView {
         label.zPosition = Layer.ui.rawValue
         addChild(label)
         scoreNodes.append(label)
+        if presenter.model.lookyLooky {
+            //Looky Looky rules: a grey translucent heart for the extra life that can be won with a prial
+            let extraLife = SKLabelNode(fontNamed: "HelveticaNeue")
+            extraLife.name = GameScene.extraLifeNodeName
+            extraLife.text = "🖤"
+            extraLife.alpha = 0.35
+            extraLife.fontSize = label.fontSize
+            extraLife.verticalAlignmentMode = .bottom
+            extraLife.horizontalAlignmentMode = .right
+            extraLife.position = CGPoint(x: -label.frame.width, y: 0)
+            label.addChild(extraLife)
+        }
     }
+    private static let extraLifeNodeName = "extra life"
+
     
     func addTableMat(seat : Int){
         let frame = presenter.tableLayout.getFrame(seat: seat).insetBy(dx: -8.0, dy: -8.0)
