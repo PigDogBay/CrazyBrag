@@ -27,7 +27,7 @@ class SettingsNode : SKShapeNode {
         fillColor = UIColor(named: "RulesBG")!
         strokeColor = .clear
         path = UIBezierPath(roundedRect: layout.frame, cornerRadius: 10).cgPath
-        addLabel(name: "title", text: "SETTINGS", fontNamed: "QuentinCaps", fontSize: layout.titleFontSize, position: layout.titlePosition)
+        addLabel(name: "title", text: "GAME SETTINGS", fontNamed: "QuentinCaps", fontSize: layout.titleFontSize, position: layout.titlePosition)
         addLabel(name: "close", text: "X", fontNamed: "AmericanTypewriter", fontSize: layout.closeFontSize, position: layout.closePosition)
         //Rows are placed in proportion to the panel, which is 400 high on the iPhone
         let unit = layout.frame.height / 400.0
