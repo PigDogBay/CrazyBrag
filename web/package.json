@@ -1,0 +1,10 @@
+{
+  "name": "crazybrag-web",
+  "private": true,
+  "type": "module",
+  "description": "Crazy Brag for the browser, a port of the iOS game",
+  "scripts": {
+    "test": "node --test",
+    "tournament": "node tests/tournament.js"
+  }
+}

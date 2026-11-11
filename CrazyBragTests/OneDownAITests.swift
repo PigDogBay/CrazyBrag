@@ -334,6 +334,74 @@ final class OneDownAITests: XCTestCase {
     }
 
     /**
+     Checks that the JavaScript model of the web game (web/js/model) plays exactly as this one does.
+     The same sums are worked out by web/tests/parity.test.js: every possible hand is scored, and the
+     computer player is asked for its actions and its move in 20,000 made up deals.
+     If a rule or the computer player's strategy changes, change both games and put the new sums in both tests.
+     */
+    func testPortParity() throws {
+        let m = 1000000007
+        let pack = PlayingCard.standardPack + [PlayingCard.goodJoker, PlayingCard.badJoker]
+        var scoresSum = 0
+        for wild in [false, true] {
+            HandRules.deucesWild = wild
+            for i in 0..<54 {
+                for j in (i + 1)..<54 {
+                    for k in (j + 1)..<54 {
+                        scoresSum = (scoresSum * 31 + HandResolver(hand: [pack[i], pack[j], pack[k]]).createScore().score) % m
+                    }
+                }
+            }
+            for i in 0..<54 {
+                for j in 0..<54 where i != j {
+                    scoresSum = (scoresSum * 31 + PossibleHandResolver(hand: [pack[i], pack[j]]).createScore().score) % m
+                }
+            }
+        }
+        func actionCode(_ choice : ActionChoice?) -> Int {
+            switch choice {
+            case nil: return 0
+            case .looky: return 1
+            case .stashHand: return 2
+            case .changeMiddle(card: let card): return 100 + pack.firstIndex(of: card)!
+            }
+        }
+        func turnCode(_ turn : Turn) -> Int {
+            switch turn {
+            case .swap(hand: let hand, middle: let middle):
+                return 1000 + pack.firstIndex(of: hand)! * 54 + pack.firstIndex(of: middle)!
+            case .all(downIndex: let downIndex):
+                return 5000 + downIndex
+            }
+        }
+        var x = 12345
+        var decisionsSum = 0
+        for n in 0..<20000 {
+            var picked = [Int]()
+            while picked.count < 6 {
+                x = (x * 48271) % 2147483647
+                let index = x % 54
+                if !picked.contains(index) {
+                    picked.append(index)
+                }
+            }
+            HandRules.deucesWild = n % 2 == 1
+            let ai = OneDownAI()
+            let player = Player(name: "HAL", ai: ai)
+            picked[0..<3].forEach{ player.hand.receive(card: pack[$0]) }
+            let middle = PlayerHand(hand: picked[3..<6].map{ pack[$0] })
+            decisionsSum = (decisionsSum * 31 + actionCode(ai.chooseAction(middle: middle, available: TurnAction.allCases))) % m
+            if n % 3 == 0 {
+                ai.lookedAt(card: middle.hand[0])
+                decisionsSum = (decisionsSum * 31 + actionCode(ai.chooseAction(middle: middle, available: [.stashHand, .changeMiddle]))) % m
+            }
+            decisionsSum = (decisionsSum * 31 + turnCode(ai.play(middle: middle))) % m
+        }
+        XCTAssertEqual(scoresSum, 304675294)
+        XCTAssertEqual(decisionsSum, 223628548)
+    }
+
+    /**
      Plays Looky Looky games between computer players that take the actions and players that do not,
      to see what the actions are worth. Not a test, rename to testTournament to run it.
      */
