@@ -54,12 +54,12 @@ class B:
     def min_top(self):
         return self.H - {'flat': 0, 'step': .8, 'peak': 1.2, 'arch': .9}[self.style]
 
-LEFT = [B(7.5, 19.5, 'HARDWARE', 5.2, 'step', 112, hang='GUNS'),
+LEFT = [B(7.5, 19.5, 'GUNSMITH', 5.2, 'step', 112, hang='GUNS'),
         B(20.7, 31, 'SALOON', 7.6, 'flat', 150, 2, hang='WHISKEY', door='batwing'),
         B(32, 40, 'BANK', 5.6, 'peak', 128),
         B(41, 49, 'LIVERY', 5.0, 'flat', 104, door='barn'),
         B(50, 60, 'HOTEL', 7.2, 'flat', 140, 2)]
-RIGHT = [B(8, 18.5, 'UNDERTAKER', 5.2, 'arch', 100, hang='COFFINS', extra='coffin'),
+RIGHT = [B(8, 18.5, 'HARDWARE', 5.2, 'arch', 100, hang='TOOLS', extra='coffin'),
          B(19.7, 30, 'GENERAL STORE', 5.6, 'step', 152, hang='DRY GOODS'),
          B(31, 39, 'SHERIFF', 4.8, 'flat', 122, hang='JAIL'),
          B(40, 50, 'BARBER', 7.0, 'flat', 142, 2),
@@ -305,11 +305,11 @@ for side, row in ((-1, LEFT), (1, RIGHT)):
         props = ''
         if b.name == 'SALOON':
             props += barrel(-4.4, 22.2) + barrel(-5.0, 22.9) + hitching(-1, 24, 28)
-        if b.name == 'HARDWARE':
+        if b.name == 'GUNSMITH':
             props += barrel(-4.4, 18.4) + barrel(-5.0, 12.2)
         if b.name == 'GENERAL STORE':
             props += barrel(4.4, 21) + barrel(5.0, 21.6) + barrel(4.4, 28.5) + hitching(1, 23, 27)
-        if b.name == 'UNDERTAKER':
+        if b.name == 'HARDWARE':
             props += barrel(4.5, 17.6)
         if props:
             html.append(layer(props))
