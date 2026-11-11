@@ -12,6 +12,7 @@ class ModelTests: XCTestCase, GameListener {
     private var everyoneOutSoReplayRoundCalled = false
     private var pullThePegCalled = false
     private var extraLifePlayer : CrazyBrag.Player? = nil
+    private var roundLosers : [CrazyBrag.Player]? = nil
     //MARK: - Game Listener Methods
     func dealerSelected(dealer: CrazyBrag.Player) {
         
@@ -39,6 +40,7 @@ class ModelTests: XCTestCase, GameListener {
     
     func roundEnded(losingPlayers: [CrazyBrag.Player], extraLife: CrazyBrag.Player?) {
         extraLifePlayer = extraLife
+        roundLosers = losingPlayers
     }
     
     func pullThePeg(outPlayers: [CrazyBrag.Player]) {
@@ -59,6 +61,7 @@ class ModelTests: XCTestCase, GameListener {
         everyoneOutSoReplayRoundCalled = false
         pullThePegCalled = false
         extraLifePlayer = nil
+        roundLosers = nil
     }
 
     override func tearDownWithError() throws {
@@ -139,6 +142,44 @@ class ModelTests: XCTestCase, GameListener {
         XCTAssertEqual(model.school.players[0].lives, 3)
         XCTAssertEqual(model.school.players[1].lives, 2)
         XCTAssertNil(extraLifePlayer)
+    }
+
+    ///Two players, the first with a prial (not their first) and the second with a trotter
+    private func scorePrialAgainstTrotter(lookyLooky : Bool) -> Model {
+        let model = Model()
+        model.lookyLooky = lookyLooky
+        model.gameListener = self
+        model.setUpGame(numberOfAIPlayers: 1)
+        model.school.players[0].hasHadExtraLife = true
+        PrialOfKings.forEach{ card in
+            model.deck.remove(card: card)
+            model.school.players[0].hand.receive(card: card)
+        }
+        A23Trotter.forEach{ card in
+            model.deck.remove(card: card)
+            model.school.players[1].hand.receive(card: card)
+        }
+        model.gameState = .scoreRound
+        model.updateState()
+        return model
+    }
+
+    ///Bullet Proof: the trotter does not lose a life to the prial, the round ends with no losers
+    func testLookyLookyBulletProof1() throws {
+        let model = scorePrialAgainstTrotter(lookyLooky: true)
+        XCTAssertEqual(model.school.players[0].lives, 3)
+        XCTAssertEqual(model.school.players[1].lives, 3)
+        XCTAssertEqual(roundLosers?.count, 0)
+        XCTAssertNil(extraLifePlayer)
+        XCTAssertEqual(model.gameState, .updateLives)
+        XCTAssertFalse(everyoneOutSoReplayRoundCalled)
+    }
+
+    ///Standard rules, the trotter loses a life to the prial
+    func testLookyLookyBulletProof2() throws {
+        let model = scorePrialAgainstTrotter(lookyLooky: false)
+        XCTAssertEqual(model.school.players[1].lives, 2)
+        XCTAssertEqual(roundLosers?.count, 1)
     }
 
     ///Standard rules, no extra life for a prial

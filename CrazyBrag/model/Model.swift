@@ -130,7 +130,7 @@ class Model {
             gameListener?.roundEnded(losingPlayers: [], extraLife: extraLifePlayer)
             return
         }
-        if let losingPlayers = school.determineLosingHands(){
+        if let losingPlayers = school.determineLosingHands(bulletProof: lookyLooky){
             losingPlayers.forEach{
                 $0.lives = $0.lives - 1
             }

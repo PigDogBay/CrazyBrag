@@ -21,7 +21,8 @@ class EndOfRoundState : BasePlayState {
     override func enter() {
         switch losingPlayers.count {
         case 0:
-            presenter.view?.show(message: "")
+            //Looky Looky rules: a prial won, but everyone else held a trotter or a prial
+            presenter.view?.show(message: extraLife == nil ? "Bullet proof\nNo lives lost" : "")
         case 1:
             if losingPlayers[0].seat == 0{
                 presenter.view?.show(message: "You lose a life")

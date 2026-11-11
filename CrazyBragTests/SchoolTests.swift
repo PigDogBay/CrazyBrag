@@ -65,6 +65,47 @@ final class SchoolTests: XCTestCase {
         XCTAssertEqual(school.highestScoringPlayer()?.name, school.playerChris.name)
     }
     
+    //Looky Looky, Bullet Proof: a trotter or a lower prial does not lose a life to the winning prial
+    func testDetermineLosingHandsBulletProof1() throws {
+        let school = School()
+        school.setUpPlayers(numberOfAIPlayers: 5)
+        school.playerHowie.hand.hand = A23Trotter
+        school.playerBomber.hand.hand = AKQRun
+        school.playerHolly.hand.hand = PrialOfKings
+        school.playerChris.hand.hand = PrialOfAces
+        school.playerGeordie.hand.hand = AAQPair
+        school.playerHuman.hand.hand = AKJFlush
+        school.resolveHands()
+        let losers = school.determineLosingHands(bulletProof: true)
+        XCTAssertEqual(losers?.count, 3)
+        XCTAssertTrue(losers?.contains(where: {$0.name == school.playerBomber.name}) ?? false)
+        XCTAssertTrue(losers?.contains(where: {$0.name == school.playerGeordie.name}) ?? false)
+        XCTAssertTrue(losers?.contains(where: {$0.name == school.playerHuman.name}) ?? false)
+    }
+
+    //Bullet Proof only matters when a prial is out, otherwise the lowest hand loses as usual
+    func testDetermineLosingHandsBulletProof2() throws {
+        let school = School()
+        school.setUpPlayers(numberOfAIPlayers: 1)
+        school.players[0].hand.hand = A23Trotter
+        school.players[1].hand.hand = JQKTrotter
+        school.resolveHands()
+        let losers = school.determineLosingHands(bulletProof: true)
+        XCTAssertEqual(losers?.count, 1)
+        XCTAssertEqual(losers?.first?.name, school.players[1].name)
+    }
+
+    //Everyone else is bullet proof, so nobody loses a life
+    func testDetermineLosingHandsBulletProof3() throws {
+        let school = School()
+        school.setUpPlayers(numberOfAIPlayers: 1)
+        school.players[0].hand.hand = PrialOfAces
+        school.players[1].hand.hand = JQKTrotter
+        school.resolveHands()
+        XCTAssertEqual(school.determineLosingHands(bulletProof: true)?.count, 0)
+        XCTAssertEqual(school.determineLosingHands()?.count, 1)
+    }
+
     //Looky Looky: the first winning prial earns an extra life, later ones do not
     func testAwardExtraLife1() throws {
         let school = School()

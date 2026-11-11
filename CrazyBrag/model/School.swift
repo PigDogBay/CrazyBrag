@@ -153,12 +153,14 @@ class School {
         return winner
     }
 
-    func determineLosingHands() -> [Player]? {
+    ///bulletProof: Looky Looky rules, a player holding a trotter or a prial does not lose a life to a winning prial
+    func determineLosingHands(bulletProof : Bool = false) -> [Player]? {
         if isPrialOut(){
             let topPlayer = highestScoringPlayer()
             //"Prial out, everyone (else) out!" cries the top player
-            return players.filter{$0.name != topPlayer?.name}
-            
+            return players
+                .filter{$0.name != topPlayer?.name}
+                .filter{!(bulletProof && $0.score.type >= .trotter)}
         }
         return Dictionary(grouping: players, by:  {$0.score.score})
             .min(by: {$0.key < $1.key})
