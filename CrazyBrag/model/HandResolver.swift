@@ -9,7 +9,7 @@ import Foundation
 
 ///Scores a three card hand.
 ///The good joker is wild: it is played as whichever card makes the best hand, so hand and scoreSortedHand
-///hold that card in place of the joker. The bad joker is never part of a pair, flush, run or prial.
+///hold that card in place of the joker. Likewise a two when deuces are wild, which may change its suit. The bad joker is never part of a pair, flush, run or prial.
 struct HandResolver {
     let hand : [PlayingCard]
     let scoreSortedHand : [PlayingCard]
@@ -19,7 +19,7 @@ struct HandResolver {
     }
 
     init(hand : [PlayingCard]){
-        self.init(natural: PlayingCard.playGoodJoker(hand: hand){
+        self.init(natural: PlayingCard.playWildCards(hand: hand){
             HandResolver(natural: $0).createScore()
         })
     }

@@ -59,6 +59,7 @@ class Model {
     
     func setUpGame(numberOfAIPlayers : Int){
         deck.hasJokers = lookyLooky
+        HandRules.deucesWild = lookyLooky
         deck.createDeck()
         deck.shuffle()
         school.setUpPlayers(numberOfAIPlayers: numberOfAIPlayers)

@@ -143,6 +143,12 @@ enum Rank : Int, CaseIterable {
     }
 }
 
+///Rules that change how hands are scored, set by the Model at the start of each game
+struct HandRules {
+    ///Looky Looky: a two can be played as the two of any suit, it is always a two
+    static var deucesWild = false
+}
+
 struct PlayingCard : Equatable{
     let suit : Suit
     let rank : Rank
@@ -160,24 +166,51 @@ struct PlayingCard : Equatable{
         return rank.isJoker
     }
 
-    ///The good joker is wild, it can stand in for any card of the standard pack that is not already in the hand.
-    ///Returns the hand with the good joker replaced by the card that gives the best score,
-    ///a hand without the good joker is returned unchanged.
-    static func playGoodJoker(hand : [PlayingCard], score : ([PlayingCard]) -> BragHandScore) -> [PlayingCard] {
-        guard let index = hand.firstIndex(of: goodJoker) else {
+    ///The cards this card may be played as when a hand is scored:
+    ///the good joker is wild, it can stand in for any card of the standard pack,
+    ///with deuces wild a two can be the two of any suit, any other card is just itself.
+    private var playableAs : [PlayingCard] {
+        if self == PlayingCard.goodJoker {
+            return PlayingCard.standardPack
+        }
+        if HandRules.deucesWild && rank == .two {
+            return Suit.standard.map{PlayingCard(suit: $0, rank: .two)}
+        }
+        return [self]
+    }
+
+    ///Plays the wild cards in a hand (the good joker, and the twos when deuces are wild) as the cards that
+    ///give the best score. The good joker cannot be played as a card already in the hand,
+    ///but two wild twos can both be played as the same two.
+    ///A hand without wild cards is returned unchanged.
+    static func playWildCards(hand : [PlayingCard], score : ([PlayingCard]) -> BragHandScore) -> [PlayingCard] {
+        let choices = hand.map{$0.playableAs}
+        let isWildTwo = hand.map{HandRules.deucesWild && $0.rank == .two}
+        if choices.allSatisfy({$0.count == 1}) {
             return hand
         }
         var bestHand = hand
         var bestScore : BragHandScore? = nil
-        for card in standardPack where !hand.contains(card) {
-            var candidate = hand
-            candidate[index] = card
-            let candidateScore = score(candidate)
-            if bestScore == nil || candidateScore > bestScore! {
-                bestScore = candidateScore
-                bestHand = candidate
+        func play(_ played : [PlayingCard]) {
+            if played.count == hand.count {
+                let playedScore = score(played)
+                if bestScore == nil || playedScore > bestScore! {
+                    bestScore = playedScore
+                    bestHand = played
+                }
+                return
+            }
+            let index = played.count
+            for card in choices[index] {
+                let isDuplicate = played.indices.contains{
+                    played[$0] == card && !(isWildTwo[$0] && isWildTwo[index])
+                }
+                if !isDuplicate {
+                    play(played + [card])
+                }
             }
         }
+        play([])
         return bestHand
     }
 

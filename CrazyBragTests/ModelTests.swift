@@ -62,7 +62,8 @@ class ModelTests: XCTestCase, GameListener {
     }
 
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        //Setting up a Looky Looky game switches this on for every hand that is scored
+        HandRules.deucesWild = false
     }
 
     func testEverybodyOut1() throws {
@@ -190,9 +191,11 @@ class ModelTests: XCTestCase, GameListener {
         model.lookyLooky = true
         model.setUpGame(numberOfAIPlayers: 4)
         XCTAssertEqual(model.deck.count, 54)
+        XCTAssertTrue(HandRules.deucesWild)
         model.lookyLooky = false
         model.setUpGame(numberOfAIPlayers: 4)
         XCTAssertEqual(model.deck.count, 52)
+        XCTAssertFalse(HandRules.deucesWild)
     }
 
 }

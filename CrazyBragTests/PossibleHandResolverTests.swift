@@ -38,6 +38,18 @@ final class PossibleHandResolverTests: XCTestCase {
         XCTAssertEqual(score, queens)
     }
 
+    ///Deuces are wild: a two showing takes the suit of the card next to it
+    func testDeucesWild1() throws {
+        defer { HandRules.deucesWild = false }
+        let twoAndKing = [PlayingCard(suit: .hearts, rank: .two), PlayingCard(suit: .spades, rank: .king)]
+        let twoAndAce = [PlayingCard(suit: .hearts, rank: .two), PlayingCard(suit: .spades, rank: .ace)]
+        XCTAssertEqual(PossibleHandResolver(hand: twoAndKing).createScore().type, .high)
+        XCTAssertEqual(PossibleHandResolver(hand: twoAndAce).createScore().type, .run)
+        HandRules.deucesWild = true
+        XCTAssertEqual(PossibleHandResolver(hand: twoAndKing).createScore().type, .flush)
+        XCTAssertEqual(PossibleHandResolver(hand: twoAndAce).createScore().type, .trotter)
+    }
+
     func testTrotter1() throws {
         let resolver = PossibleHandResolver(hand: [PlayingCard(suit: .clubs, rank: .nine),
                                                    PlayingCard(suit: .clubs, rank: .seven)])

@@ -9,12 +9,13 @@ import Foundation
 
 ///Handles the case when
 ///2 cards up, 1 card down
-///The good joker is wild, it is played as the card that gives the best possible hand
+///The good joker is wild, it is played as the card that gives the best possible hand,
+///as is a two when deuces are wild
 struct PossibleHandResolver {
     let hand : [PlayingCard]
     let scoreSortedHand : [PlayingCard]
     init(hand : [PlayingCard]){
-        self.init(natural: PlayingCard.playGoodJoker(hand: hand){
+        self.init(natural: PlayingCard.playWildCards(hand: hand){
             PossibleHandResolver(natural: $0).createScore()
         })
     }

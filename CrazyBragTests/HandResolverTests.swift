@@ -9,6 +9,10 @@ import XCTest
 @testable import CrazyBrag
 
 class HandResolverTests: XCTestCase {
+
+    override func tearDownWithError() throws {
+        HandRules.deucesWild = false
+    }
     
     func testScoringPrial1(){
         XCTAssertGreaterThan(
@@ -131,6 +135,65 @@ class HandResolverTests: XCTestCase {
                                            PlayingCard(suit: .diamonds, rank: .four)])
         XCTAssertEqual(resolver.pairRank, .nine)
         XCTAssertFalse(resolver.hand.contains(PlayingCard.goodJoker))
+    }
+
+    //MARK: - Deuces are wild: a two can be any suit
+
+    ///A two takes the suit of the other two cards to make a flush
+    func testDeucesWildFlush1(){
+        XCTAssertEqual(score("2h", "9s", "ks").type, .high)
+        HandRules.deucesWild = true
+        let flush = score("2h", "9s", "ks")
+        XCTAssertEqual(flush.type, .flush)
+        XCTAssertEqual(flush, score("2s", "9s", "ks"))
+        //the other two cards still have to match
+        XCTAssertEqual(score("2h", "9s", "kd").type, .high)
+    }
+
+    ///A run with a two in it becomes a trotter when the other two cards are suited
+    func testDeucesWildTrotter1(){
+        XCTAssertEqual(score("as", "2h", "3s").type, .run)
+        HandRules.deucesWild = true
+        XCTAssertEqual(score("as", "2h", "3s"), HandResolver(hand: A23Trotter).createScore())
+        XCTAssertEqual(score("4s", "2h", "3s").type, .trotter)
+        XCTAssertEqual(score("4s", "2h", "3d").type, .run)
+    }
+
+    ///Two twos can both take the suit of the third card, so a pair of twos is a flush. Three twos are still a prial
+    func testDeucesWildPair1(){
+        XCTAssertEqual(score("2h", "2d", "ks").type, .pair)
+        HandRules.deucesWild = true
+        let flush = score("2h", "2d", "ks")
+        XCTAssertEqual(flush.type, .flush)
+        XCTAssertEqual(flush, score("2h", "2s", "ks"))
+        //K 2 2 is a low flush
+        XCTAssertGreaterThan(score("3s", "4s", "ks"), flush)
+        XCTAssertGreaterThan(flush, score("ah", "ad", "ks"))
+        XCTAssertEqual(score("2h", "2s", "2c").type, .prial)
+    }
+
+    ///The good joker still cannot be played as a card already in the hand
+    func testDeucesWildGoodJoker2(){
+        HandRules.deucesWild = true
+        XCTAssertEqual(score("gj", "ah", "9h"), score("kh", "ah", "9h"))
+    }
+
+    ///A two is always a two
+    func testDeucesWildRank1(){
+        HandRules.deucesWild = true
+        XCTAssertEqual(score("2h", "kd", "ks").type, .pair)
+        XCTAssertEqual(score("2h", "5d", "6s").type, .high)
+        XCTAssertEqual(score("2h", "9s", "ks"), score("2c", "9s", "ks"))
+    }
+
+    ///With the good joker
+    func testDeucesWildGoodJoker1(){
+        HandRules.deucesWild = true
+        XCTAssertEqual(score("gj", "2h", "3c"), HandResolver(hand: A23Trotter).createScore())
+        XCTAssertEqual(score("gj", "2h", "ac"), HandResolver(hand: A23Trotter).createScore())
+        XCTAssertEqual(score("gj", "2h", "ks"), score("as", "2s", "ks"))
+        XCTAssertEqual(score("gj", "2h", "2d").type, .prial)
+        XCTAssertEqual(score("bj", "2h", "ks").type, .high)
     }
 
     func testScoringTrotter1(){
