@@ -11,6 +11,27 @@ import GameplayKit
 
 #if DEBUG
 let DEBUG_AUTO_PLAY = false
+
+///Lets a tool on the Mac drive the game in the simulator, as touches cannot be sent from the command line.
+///Write commands, one per line, to remote.txt in the app's Documents folder
+///(xcrun simctl get_app_container <device> com.mpdbailey.crazybrag data), the scenes poll for them:
+///  deal         start a game from the start screen
+///  tap 10H      touch a card, named as its image (rank then suit letter)
+///  continue     press the continue button
+///  close        dismiss the stats dialog
+///  quit         press the quit button
+struct DebugRemote {
+    private static let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("remote.txt")
+    private static var lastPoll : TimeInterval = 0
+
+    static func poll(_ currentTime : TimeInterval) -> [String] {
+        guard abs(currentTime - lastPoll) > 0.2 else { return [] }
+        lastPoll = currentTime
+        guard let text = try? String(contentsOf: url, encoding: .utf8) else { return [] }
+        try? FileManager.default.removeItem(at: url)
+        return text.split(separator: "\n").map{ $0.trimmingCharacters(in: .whitespaces) }.filter{ !$0.isEmpty }
+    }
+}
 #endif
 
 class GameViewController: UIViewController {

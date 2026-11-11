@@ -65,6 +65,7 @@ Model–View–Presenter, with the presenter running a state machine that paces 
 
 - `DEBUG_AUTO_PLAY` in `view/GameViewController.swift` (DEBUG builds only): when `true`, the human seat plays random moves so a game runs unattended.
 - FPS/node count overlays are on in DEBUG builds only.
+- `DebugRemote` (DEBUG builds only, in `view/GameViewController.swift`) lets you drive the game in a simulator, since `simctl` cannot send touches. Write one command per line to `remote.txt` in the app's Documents folder (`xcrun simctl get_app_container <device> com.mpdbailey.crazybrag data`); the scenes poll for it and delete it. Commands: `deal`, `tap 10H` (card image name), `continue` (only acts while the Continue button is showing), `close` (stats dialog), `quit`. Use `xcrun simctl io <device> screenshot` to see the result.
 
 ## Tests
 

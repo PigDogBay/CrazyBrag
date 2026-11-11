@@ -46,7 +46,32 @@ class GameScene: SKScene, GameView, DialogView {
     
     override func update(_ currentTime: TimeInterval) {
         presenter.update(currentTime)
+#if DEBUG
+        for command in DebugRemote.poll(currentTime) {
+            run(debugCommand: command)
+        }
+#endif
     }
+
+#if DEBUG
+    private func run(debugCommand command : String){
+        if command.hasPrefix("tap ") {
+            let name = String(command.dropFirst(4))
+            if let node = cardNodes.first(where: {$0.playingCard.imageName == name}) {
+                presenter.handleTouch(for: node.playingCard)
+            }
+        } else if command == "continue" {
+            //Only when the continue button is showing, otherwise the game would skip a step
+            if childNode(withName: "continue") != nil {
+                presenter.continueGame()
+            }
+        } else if command == "close" {
+            children.filter{ $0.name?.hasPrefix("dialog") ?? false }.forEach{ $0.removeFromParent() }
+        } else if command == "quit" {
+            presenter.quit()
+        }
+    }
+#endif
 
 
     //MARK: - GameView

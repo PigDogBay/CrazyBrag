@@ -47,6 +47,12 @@ class StartScene: SKScene, StartView {
     deinit{
         print("StartScene DEINIT")
     }
+    override func update(_ currentTime: TimeInterval) {
+        if DebugRemote.poll(currentTime).contains("deal") {
+            startGame()
+        }
+    }
+
     private func autoPlay(){
         if DEBUG_AUTO_PLAY{
             let startAction = SKAction.run {[unowned self] in
