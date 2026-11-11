@@ -51,8 +51,7 @@ class OneDownAI : AI {
     /**
      Looky Looky rules, which action to take next, if any:
      - Stash a hand that is going nowhere straightaway: no two cards work together and the cards showing don't help
-     - Looky if the hand is promising but the cards showing don't complete it (this covers holding a pair
-       and hoping for the prial), or if the two cards showing are promising themselves
+     - Always looky at the face down card
      - Stash the hand if all of the middle is going to be taken anyway, there is nothing to lose
      - Change a middle card: out of spite if good cards are being left for the next player,
        or swap a useless card for a new one that might hit a promising hand
@@ -71,8 +70,8 @@ class OneDownAI : AI {
         if available.contains(.stashHand) && !promising && best.score.type < .pair {
             return .stashHand
         }
-        if available.contains(.looky) && !knowsDownCard(middle: middle)
-            && best.score.type < .run && (promising || promisingMiddle) {
+        if available.contains(.looky) && !knowsDownCard(middle: middle) {
+            //Always look, it costs nothing and the move can then be made knowing all of the middle
             return .looky
         }
         let turn = decideTurn(middle: middle)

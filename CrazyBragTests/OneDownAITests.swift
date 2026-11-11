@@ -261,7 +261,9 @@ final class OneDownAITests: XCTestCase {
 
     ///Not if a pair can be made with a card that is showing
     func testActionStash2() throws {
-        checkAIAction(playerCards: ["kh","7d","3s"], middleCards: ["5h","kc","9d"], expected: nil)
+        checkAIAction(playerCards: ["kh","7d","3s"], middleCards: ["5h","kc","9d"], expected: .looky)
+        checkAIAction(playerCards: ["kh","7d","3s"], middleCards: ["5h","kc","9d"], available: [.stashHand, .changeMiddle],
+                      looked: true, expected: nil)
     }
 
     ///Going to take the middle anyway, so nothing to lose by trying a new hand first
@@ -285,9 +287,9 @@ final class OneDownAITests: XCTestCase {
         checkAIAction(playerCards: ["kh","7d","3s"], middleCards: ["5h","9c","9d"], available: [.looky, .changeMiddle], expected: .looky)
     }
 
-    ///A run can already be made, no need to look
+    ///A run can already be made, look anyway
     func testActionLooky4() throws {
-        checkAIAction(playerCards: ["kh","qd","3s"], middleCards: ["5h","jc","7d"], expected: nil)
+        checkAIAction(playerCards: ["kh","qd","3s"], middleCards: ["5h","jc","7d"], expected: .looky)
     }
 
     ///Looked and the down card is no help, change the higher of the cards showing
