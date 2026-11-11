@@ -52,13 +52,17 @@ class CardSpriteNode : SKSpriteNode {
     static let plainBackImageName = "CardBack"
     ///With the marked deck each card has its own back, marked so that a sharp eyed player can read it,
     ///see tools/cards/cards.py for the key to the marks. Otherwise all the cards share the plain back.
-    let backTexture : SKTexture
+    private(set) var backTexture : SKTexture
+
+    private static func createBackTexture(card : PlayingCard) -> SKTexture {
+        let backImageName = Settings().markedDeck ? card.markedBackImageName : CardSpriteNode.plainBackImageName
+        return SKTexture(imageNamed: backImageName)
+    }
 
     init(card : PlayingCard, cardSize : CGSize){
         self.playingCard = card
         self.frontTexture = SKTexture(imageNamed: playingCard.imageName)
-        let backImageName = Settings().markedDeck ? card.markedBackImageName : CardSpriteNode.plainBackImageName
-        self.backTexture = SKTexture(imageNamed: backImageName)
+        self.backTexture = CardSpriteNode.createBackTexture(card: card)
         super.init(texture: backTexture, color: .white, size: cardSize)
         self.name = card.nodeName
     }
@@ -67,6 +71,15 @@ class CardSpriteNode : SKSpriteNode {
         fatalError("init(coder:) has not been implemented")
     }
     
+    ///The deck setting has changed, use the new back
+    func reloadBack(){
+        let isFaceDown = texture === backTexture
+        backTexture = CardSpriteNode.createBackTexture(card: playingCard)
+        if isFaceDown {
+            texture = backTexture
+        }
+    }
+
     func faceDown(){
         self.texture = backTexture
     }

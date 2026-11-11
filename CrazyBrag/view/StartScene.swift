@@ -38,6 +38,7 @@ class StartScene: SKScene, StartView {
         addStartButton()
         presenter.next()
         addRulesButton()
+        addSettingsButton()
 #if DEBUG
         autoPlay()
 #endif
@@ -52,13 +53,18 @@ class StartScene: SKScene, StartView {
             let info = childNode(withName: "instructions") as? InformationNode
             switch command {
             case "deal": startGame()
-            case "help": if info == nil { showInstructions() }
+            case "help": showInstructions()
+            case "settings": showSettings()
+            case "settings close": (childNode(withName: "settings") as? SettingsNode)?.close()
             case "help deadwood": info?.selectDeadwood()
             case "help looky": info?.selectLookyLooky()
             case "help next": info?.next()
             case "help previous": info?.previous()
             case "help close": info?.close()
-            default: break
+            default:
+                if command.hasPrefix("settings "), let option = SettingsNode.Option(rawValue: String(command.dropFirst(9))) {
+                    (childNode(withName: "settings") as? SettingsNode)?.select(option)
+                }
             }
         }
     }
@@ -148,9 +154,7 @@ class StartScene: SKScene, StartView {
     
     private func addRulesButton(){
         let button = ButtonNode(label: "HELP", fontSize: presenter.startLayout.buttonFontSize){ [weak self] in
-            if self?.childNode(withName: "instructions") == nil {
-                self?.showInstructions()
-            }
+            self?.showInstructions()
         }
         button.position = presenter.startLayout.rulesButtonPos
         button.zPosition = Layer.ui.rawValue
@@ -166,7 +170,37 @@ class StartScene: SKScene, StartView {
         addChild(button)
     }
     
+    private func addSettingsButton(){
+        let button = ButtonNode(label: "GAME", fontSize: presenter.startLayout.buttonFontSize){ [weak self] in
+            self?.showSettings()
+        }
+        button.position = presenter.startLayout.settingsButtonPos
+        button.zPosition = Layer.ui.rawValue
+        addChild(button)
+    }
+
+    ///Only one panel at a time, the rules or the settings
+    private var isPanelShowing : Bool {
+        return childNode(withName: "instructions") != nil || childNode(withName: "settings") != nil
+    }
+
+    private func showSettings(){
+        if isPanelShowing {
+            return
+        }
+        let settingsNode = SettingsNode()
+        settingsNode.name = "settings"
+        settingsNode.zPosition = 1000
+        settingsNode.onDeckChanged = { [weak self] in
+            self?.cardNodes.forEach{$0.reloadBack()}
+        }
+        addChild(settingsNode)
+    }
+
     private func showInstructions(){
+        if isPanelShowing {
+            return
+        }
         let infoNode = InformationNode()
         infoNode.name = "instructions"
         infoNode.zPosition = 1000
