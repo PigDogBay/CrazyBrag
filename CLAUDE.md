@@ -68,7 +68,7 @@ Model–View–Presenter, with the presenter running a state machine that paces 
 
 ## Web version (`web/`)
 
-A port of the game to plain JavaScript (ES modules, no framework, no build step) for the browser, to be hosted on itch.io. So far only the model: `web/js/model/` mirrors `CrazyBrag/model/` file for file (`model.js`, `school.js`, `oneDownAI.js`, `handResolver.js`, …), with the tests in `web/tests/` ported from `CrazyBragTests`. The presenter and a canvas view are still to come.
+A port of the game to plain JavaScript (ES modules, no framework, no build step) for the browser, to be hosted on itch.io. So far the model and the presenter: `web/js/model/` mirrors `CrazyBrag/model/` file for file (`model.js`, `school.js`, `oneDownAI.js`, `handResolver.js`, …), with the tests in `web/tests/` ported from `CrazyBragTests`. `web/js/presenter/` holds `gamePresenter.js` (GamePresenter, and the list of methods a game view must implement), `playStates.js` (all the `*State.swift` classes), `startPresenter.js` and `layout.js` (`IPadLayout`, `IPhoneLayout`, `StartLayout`, `Layer`); `web/js/settings.js` is `Settings` on the browser's local storage. The canvas view is still to come.
 
 ```sh
 cd web && npm test          # node --test, needs Node 20 or later, no packages to install
@@ -77,6 +77,8 @@ cd web && npm run tournament   # action takers against non-takers, as OneDownAIT
 
 - There is one `PlayingCard` object per card (`PlayingCard.of(suit, rank)`, `PlayingCard.unflatten("kh")`), so cards are compared with `===`. Suits, ranks and hand types are numbers (`Suit.hearts`, `Rank.king`, `BragHandTypes.prial`), turns and actions are small frozen objects made by `Turn.swap/all`, `ActionChoice`, `TurnActionResult` in `defines.js`.
 - `maxBy` / `minBy` in `defines.js` keep the first of equal elements, as Swift's `max(by:)` / `min(by:)` do; the computer player's choices depend on that.
+- Layout positions are the same numbers as the iOS layouts, so the origin is the bottom left and y goes up; the view is to flip them for the canvas. The table layout also decides the number of computer players (`numberOfAIPlayers`).
+- The presenter has no tests in the iOS game; here `web/tests/presenter.test.js` drives it with `FakeView` (`web/tests/fakeView.js`), which records every call, and a clock the test moves on. `presenter.autoPlayEnabled` (the web's `DEBUG_AUTO_PLAY`) makes the human seat play random moves and press continue.
 - The game listener is any object with some of the `GameListener` methods; the model sets its next state before calling the listener.
 - **Keep the two models the same.** `testPortParity` (in `OneDownAITests.swift`) and `web/tests/parity.test.js` work out the same two sums, over the score of every possible hand and over the computer player's actions and moves in 20,000 made up deals, and each checks them against the same constants. A change to the rules or to `OneDownAI` must be made in both models, then both constants updated to the new (equal) values.
 
