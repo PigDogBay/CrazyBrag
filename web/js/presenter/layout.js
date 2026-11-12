@@ -198,3 +198,45 @@ export class StartLayout {
         return point(this.cardX + index * this.stepOffset, this.cardY);
     }
 }
+
+/** The rules, settings and stats panels */
+export class InformationLayout {
+    constructor(isPhone) {
+        this.lineSpacing = 10.0;
+        if (isPhone) {
+            const frame = this.frame = new Rect(216, 15, 500.0, 400.0);
+            this.titleFontSize = 32.0;
+            this.bodyFontSize = 20.0;
+            this.controlFontSize = 32.0;
+            this.pageFontSize = 18.0;
+            this.closeFontSize = 24.0;
+            this.titlePosition = point(frame.midX, 360.0);
+            this.bodyPosition = point(frame.midX, 225.0);
+            this.previousPosition = point(406.0, 40.0);
+            this.nextPosition = point(526, 40.0);
+            this.pagePosition = point(466, 45.0);
+            this.closePosition = point(698, 388);
+            this.optionSize = Object.freeze({ width: 300.0, height: 64.0 });
+            this.optionFontSize = 30.0;
+            this.option1Position = point(frame.midX, 255.0);
+            this.option2Position = point(frame.midX, 155.0);
+        } else {
+            const frame = this.frame = new Rect(212, 134, 600.0, 500.0);
+            this.titleFontSize = 48.0;
+            this.bodyFontSize = 26.0;
+            this.controlFontSize = 48.0;
+            this.pageFontSize = 24.0;
+            this.closeFontSize = 28.0;
+            this.titlePosition = point(frame.midX, frame.maxY * 0.85);
+            this.bodyPosition = point(frame.midX, frame.midY);
+            this.previousPosition = point(frame.midX - 70.0, frame.y + 25.0);
+            this.nextPosition = point(frame.midX + 70.0, frame.y + 25.0);
+            this.pagePosition = point(frame.midX, frame.y + 32.0);
+            this.closePosition = point(frame.maxX - 30.0, frame.maxY - 35.0);
+            this.optionSize = Object.freeze({ width: 380.0, height: 84.0 });
+            this.optionFontSize = 40.0;
+            this.option1Position = point(frame.midX, frame.midY + 45.0);
+            this.option2Position = point(frame.midX, frame.midY - 85.0);
+        }
+    }
+}
