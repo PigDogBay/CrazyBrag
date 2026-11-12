@@ -5,6 +5,7 @@
   "description": "Crazy Brag for the browser, a port of the iOS game",
   "scripts": {
     "test": "node --test",
-    "tournament": "node tests/tournament.js"
+    "tournament": "node tests/tournament.js",
+    "serve": "python3 -m http.server 8765"
   }
 }
